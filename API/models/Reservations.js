@@ -3,10 +3,11 @@ const db = require('../config/database')
 const Reservation = db.sequelize.define('reservation',{
     id:{
         type:db.Sequelize.INTEGER,
-        primaryKey:true
+        primaryKey:true,
+        autoIncrement: true
     },
     userId:{
-        type:db.Sequelize.STRING,
+        type:db.Sequelize.INTEGER,
         allowNull: false
     },
     hour:{
@@ -14,6 +15,11 @@ const Reservation = db.sequelize.define('reservation',{
         allowNull: false
     },
     date:{
+        type:db.Sequelize.STRING,
+        allowNull: false
+        
+    },
+    description:{
         type:db.Sequelize.STRING,
         allowNull: false
         
@@ -35,4 +41,4 @@ Reservation.associate = function (models) {
    }
 module.exports = Reservation
 //executar uma unica vez
-Reservation.sync({force:true})
+//Reservation.sync({force:true})

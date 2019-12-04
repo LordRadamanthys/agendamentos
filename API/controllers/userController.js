@@ -9,25 +9,29 @@ module.exports = {
 
     async getAllUsers(req, res) {
         try {
-            User.findAll({ order: [['id', 'DESC']] }).then(function (users) {
-                console.log(users)
-                console.log("teste")
-                res.send(users)
-            })
+            var user = await User.scope('withoutPassword').findAll({ order: [['id', 'DESC']] })
+            res.json(user)
         } catch (error) {
             res.send(error)
-            res.send("error")
         }
+    },
 
-        return res.json(user)
+    async getUser(req, res) {
+        if (!req.body.name) res.status(400).send({ erro: 'nome não pode ser vazio' })
+        try {
+            var user = await User.scope('withoutPassword').findAll({ where: { name: req.body.name } })
+            res.json(user)
+        } catch (error) {
+            res.send(error)
+        }
     },
 
     async newUser(req, res) {
         if (!req.body.name) res.status(400).send('nome não pode ser vazio')
-        validateEmailAndPassword(req,res)
+        validateEmailAndPassword(req, res)
         var aux = await User.findOne({ where: { email: req.body.email } })
         if (aux) return res.status(400).send('Usuario ja existe')
- 
+
         try {
             var user = await User.create({
                 id: 0,
@@ -38,7 +42,6 @@ module.exports = {
             })
 
             const token = generateToken({ id: user.id })
-            //console.log(token)
             res.send({ user, token })
 
         } catch (error) {
@@ -49,12 +52,11 @@ module.exports = {
 
     async authenticate(req, res) {
 
-        validateEmailAndPassword(req,res)
+        validateEmailAndPassword(req, res)
         try {
             var user = await User.findOne({ where: { email: req.body.email } })
             if (!user) return res.status(400).send("usuario não existe")
             if (!await bcryptjs.compare(req.body.password, user.password)) {
-                console.log("error")
                 return res.status(400).send({ 'error': 'invalid password' })
             }
             const token = generateToken({ id: user.id })
@@ -63,8 +65,6 @@ module.exports = {
             res.send(error)
             res.send("error")
         }
-
-        return res.json(user)
     }
 }
 
@@ -74,7 +74,7 @@ function generateToken(params = {}) {
     })
 }
 
-function validateEmailAndPassword(req,res){
+function validateEmailAndPassword(req, res) {
     if (!req.body.email) return res.status(400).send("email obrigatorio")
     if (!req.body.password) return res.status(400).send("senha obrigatorio")
 }

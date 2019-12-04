@@ -2,6 +2,7 @@ const db = require('../config/database')
 const bcryptjs = require('bcryptjs')
 
 const User = db.sequelize.define('users', {
+    
     id: {
         type: db.Sequelize.INTEGER,
         primaryKey: true,
@@ -18,6 +19,7 @@ const User = db.sequelize.define('users', {
     password: {
         type: db.Sequelize.STRING,
         allowNull: false
+        
 
     },
     admin: {
@@ -39,7 +41,13 @@ const User = db.sequelize.define('users', {
         type: db.Sequelize.DATE,
         defaultValue: Date.now,
     }
-}, {
+},{
+    //remove password do retorno
+    scopes: {
+        withoutPassword: {
+            attributes: { exclude: ['password'] },
+          }
+      },
     hooks: {
         beforeValidate: async function (user, fn) {
             user.password = await bcryptjs.hash(user.password, 10)
