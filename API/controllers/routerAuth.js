@@ -12,6 +12,8 @@ routes.get('/getUser/', UserController.getUser)
 routes.get('/getAllReservations/', ReservationController.getAllReservations)
 routes.get('/getUserReservations/', ReservationController.getUserReservations)
 routes.post('/newReservation/', ReservationController.newReservation)
+routes.get('/getBlockDates/', ReservationController.getBlockDates)
+routes.post('/updateReservation/', ReservationController.updateReservation)
 
 
 

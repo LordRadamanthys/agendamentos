@@ -1,44 +1,54 @@
 const db = require('../config/database')
-
-const Reservation = db.sequelize.define('reservation',{
-    id:{
-        type:db.Sequelize.INTEGER,
-        primaryKey:true,
+const Users = require('./User')
+const Reservation = db.sequelize.define('reservation', {
+    id: {
+        type: db.Sequelize.INTEGER,
+        primaryKey: true,
         autoIncrement: true
     },
-    userId:{
-        type:db.Sequelize.INTEGER,
+    userId: {
+        type: db.Sequelize.INTEGER,
         allowNull: false
     },
-    hour:{
-        type:db.Sequelize.STRING,
+    hour: {
+        type: db.Sequelize.STRING,
         allowNull: false
     },
-    date:{
-        type:db.Sequelize.STRING,
+    date: {
+        type: db.Sequelize.STRING,
         allowNull: false
-        
+
     },
-    description:{
-        type:db.Sequelize.STRING,
+    status: {
+        type: db.Sequelize.ENUM,
+        allowNull: false,
+        values: ['marcado', 'feito', 'desmarcado']
+    },
+    description: {
+        type: db.Sequelize.STRING,
         allowNull: false
-        
+    },
+    reasonToUncheck: {
+        type: db.Sequelize.TEXT,
+        allowNull: true
     },
 
     createdAt: {
         type: db.Sequelize.DATE,
         defaultValue: Date.now,
     }
+}, {
+    //remove password do retorno
+    scopes: {
+        withoutPassword: {
+            attributes: { exclude: ['password'] },
+        }
+    }
 })
 
-Reservation.associate = function (models) {
-    // associations can be defined here
-    Reservation.belongsTo(models.Users, {
-       as: 'user',
-       foreignKey: 'userId',
-       targetKey: 'id'
-    });
-   }
+
+Reservation.belongsTo(Users)
+
 module.exports = Reservation
 //executar uma unica vez
-//Reservation.sync({force:true})
+ //Reservation.sync({force:true})
