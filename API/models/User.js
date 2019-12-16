@@ -27,6 +27,7 @@ const User = db.sequelize.define('users', {
         allowNull: false,
         defaultValue: false
     },
+    
     passwordResetToken: {
         type: db.Sequelize.STRING,
         select: false

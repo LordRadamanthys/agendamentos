@@ -18,3 +18,14 @@ saida:
   "status": "feito",
   "updatedAt": "2019-12-05T23:37:32.754Z"
 }
+
+
+atualização de reserva
+{
+ "id"
+ "admin": true,
+ "hour",
+ "date",
+ "description",
+ "status":
+}
