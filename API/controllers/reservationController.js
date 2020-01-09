@@ -1,6 +1,7 @@
 const Reservations = require('../models/Reservations')
 const User = require('../models/User')
 const Sequelize = require('sequelize')
+const util = require('../functions/Utils')
 
 
 module.exports = {
@@ -8,6 +9,8 @@ module.exports = {
     async getAllReservations(req, res) {
         try {
             var reservations = await Reservations.findAll({ order: [['id', 'DESC']], include: [User.scope('withoutPassword')] })
+            if(Object.keys(reservations).length <1) res.status(200).send({erro:"lista vazia"})
+            
             res.status(200).send(reservations)
         } catch (error) {
             res.status(400).send({ erro: error.message })
@@ -51,14 +54,16 @@ module.exports = {
     },
 
     async updateReservation(req, res) {
-        const {id,admin, hour, date, description, status} = req.body
         
-        if(admin == false || !admin) return res.status(401).send({error:"você não tem permissão"})
+        const {id, hour, date, description, status} = req.body
+    
+        if(! await util.isAdmin(req)) return res.status(401).send({error:"você não tem permissão"})
         if(!id) return res.status(400).send({error:"id is required"})
         if(!hour) return res.status(400).send({error:"hour is required"})
         if(!date) return res.status(400).send({error:"date is required"})
         if(!description) return res.status(400).send({error:"description is required"})
         if(!status) return res.status(400).send({error:"status is required"})
+
         await Reservations.update({
             hour: hour,
             date: date,
