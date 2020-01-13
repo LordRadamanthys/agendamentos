@@ -5,6 +5,7 @@ const authMiddleware = require('../middleware/auth')
 const routes = express.Router()
 
 routes.post('/cadUser/',UserController.newUser)
+routes.post('/teste/',UserController.teste)
 routes.post('/authenticate/',UserController.authenticate)
 
 module.exports = routes

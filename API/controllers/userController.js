@@ -3,6 +3,7 @@ const Sequelize = require('sequelize')
 const jwt = require('jsonwebtoken')
 const bcryptjs = require('bcryptjs')
 const authConfig = require('../config/hash')
+const util = require('../functions/Utils')
 
 
 module.exports = {
@@ -52,6 +53,10 @@ module.exports = {
         } catch (error) {
             res.status(400).send({ error: error.message })
         }
+    },
+
+    async teste(){
+        util.firebase()
     },
 
     async authenticate(req, res) {

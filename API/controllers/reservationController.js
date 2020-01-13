@@ -8,7 +8,11 @@ module.exports = {
 
     async getAllReservations(req, res) {
         try {
-            var reservations = await Reservations.findAll({ order: [['id', 'DESC']], include: [User.scope('withoutPassword')] })
+            var reservations = await Reservations.findAll({ 
+                order: [
+                    ['id', 'DESC']
+                ], include: [User.scope('withoutPassword')] 
+            })
             if(Object.keys(reservations).length <1) res.status(200).send({erro:"lista vazia"})
             
             res.status(200).send(reservations)
