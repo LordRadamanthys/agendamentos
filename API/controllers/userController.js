@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcryptjs = require('bcryptjs')
 const authConfig = require('../config/hash')
 const util = require('../functions/Utils')
+const firebase = require('../config/firebase/sendFireBaseMessage')
 
 
 module.exports = {
@@ -55,8 +56,11 @@ module.exports = {
         }
     },
 
-    async teste(){
-        util.firebase()
+    async pushNotification(req,res){
+        const {title, message} = req.body
+        const response = await firebase.sendMessage(title, message)
+        if(response.failureCount > 0) return res.send({error:"erro ao mandar mensagem"})
+        res.json(response)
     },
 
     async authenticate(req, res) {
