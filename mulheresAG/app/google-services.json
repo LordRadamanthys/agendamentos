@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "307805140722",
+    "firebase_url": "https://pushnotification-228b3.firebaseio.com",
+    "project_id": "pushnotification-228b3",
+    "storage_bucket": "pushnotification-228b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307805140722:android:07d441bcdefd267c15826b",
+        "android_client_info": {
+          "package_name": "com.example.firebasenotification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307805140722-f2r2rhj1adqemnqba97joebe9i61jvjm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaA8jP4bzBdFVgNPolaoLjbZXt_SsWvcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307805140722-f2r2rhj1adqemnqba97joebe9i61jvjm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307805140722:android:5cfef044fcfdaa9a15826b",
+        "android_client_info": {
+          "package_name": "com.example.mulheresag"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307805140722-f2r2rhj1adqemnqba97joebe9i61jvjm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaA8jP4bzBdFVgNPolaoLjbZXt_SsWvcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307805140722-f2r2rhj1adqemnqba97joebe9i61jvjm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
