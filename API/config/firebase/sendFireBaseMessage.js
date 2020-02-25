@@ -3,7 +3,7 @@ var admin = require("firebase-admin");
 
 var serviceAccount = require("../firebase/pushnotification.json");
 
-var registrationToken = "dcKmXJspe5g:APA91bEdhbwqiUD47zSsjevh7KAYna9ggPazK9lgDSyJrpzY4bqLB4KBD-J_LeHA4TikBDI0zPgAWydy-1uyqAZWFcXphSNmZr-05ba4MBl8WnzuSnf3WQWxkbtan5Y_csV8SsHV7sw3"
+var registrationToken = "csIbPDmL1I4:APA91bHoarDLdUbTDjt5DzROzQZ_mIXK_Vb1ZBnhdZp1t8ygiCcHhXF2ZnfInWzG0fGpfykIrym4xzpvEBO4N5UClFOJ9Wh1rHS6MkC2AE0x3LXvEl-VS9p1gBtyKbB6CayqAVBvcsv2"
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -22,7 +22,7 @@ var option = {
 }
 
 module.exports ={
-    async sendMessage(title, message){
+    async sendMessage(title, message, arrayAdmins){
         payload = {
             data:{
                 title,
@@ -30,8 +30,11 @@ module.exports ={
                 id:"1"
             }
         }
-
-         var response = await admin.messaging().sendToDevice(registrationToken,payload,option)
+arrayAdmins.map(async (user)=>{
+    var response = await admin.messaging().sendToDevice(user.device,payload,option)
+    console.log(response)
+})
+         
             console.log(response)
             return  response
         

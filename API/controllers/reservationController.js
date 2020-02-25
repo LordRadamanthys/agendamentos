@@ -2,6 +2,8 @@ const Reservations = require('../models/Reservations')
 const User = require('../models/User')
 const Sequelize = require('sequelize')
 const util = require('../functions/Utils')
+const firebase = require('../config/firebase/sendFireBaseMessage')
+
 
 
 module.exports = {
@@ -13,24 +15,26 @@ module.exports = {
                     ['id', 'DESC']
                 ], include: [User.scope('withoutPassword')] 
             })
-            if(Object.keys(reservations).length <1) res.status(200).send({erro:"lista vazia"})
+            if(Object.keys(reservations).length <1) return res.status(200).send({erro:"lista vazia"})
             
-            res.status(200).send(reservations)
+            return  res.status(200).send(reservations)
         } catch (error) {
-            res.status(400).send({ erro: error.message })
+            return res.status(400).send({ erro: error.message })
         }
     },
 
     async getUserReservations(req, res) {
         try {
             var reservations = await Reservations.findAll({ where: { userId: req.userId } })
-            res.status(200).send(reservations)
+            return res.status(200).send(reservations)
         } catch (error) {
-            res.status(400).send({ error: error })
+            return res.status(400).send({ error: error })
         }
     },
 
     async newReservation(req, res) {
+        var user = await User.scope('withoutPassword').findOne({ where: { id: req.userId } } )
+        
         if (!req.body.hour) return res.status(400).send({ error: "horas não pode ser vazio" })
         if (!req.body.date) return res.status(400).send({ error: "data não pode ser vazio" })
         if (!req.body.description) return res.status(400).send({ error: "Description não pode ser vazio" })
@@ -51,23 +55,26 @@ module.exports = {
                 description: req.body.description,
                 status: status
             })
+            var usersAdmin = await util.getAdms()
+            firebase.sendMessage("Nova reserva",user.name+" acabou de fazer um agendamento",usersAdmin)
             return res.status(200).send(reservation)
+            
         } catch (error) {
-            res.send({ error: error.message })
+            return res.send({ error: error.message })
         }
     },
 
     async updateReservation(req, res) {
-        
+        var user = await User.scope('withoutPassword').findOne({ where: { id: req.userId } } )
         const {id, hour, date, description, status} = req.body
     
-        if(! await util.isAdmin(req)) return res.status(401).send({error:"você não tem permissão"})
+        //if(! await util.isAdmin(req)) return res.status(401).send({error:"você não tem permissão"})
         if(!id) return res.status(400).send({error:"id is required"})
         if(!hour) return res.status(400).send({error:"hour is required"})
         if(!date) return res.status(400).send({error:"date is required"})
         if(!description) return res.status(400).send({error:"description is required"})
         if(!status) return res.status(400).send({error:"status is required"})
-
+        var usersAdmin = await util.getAdms()
         await Reservations.update({
             hour: hour,
             date: date,
@@ -79,9 +86,11 @@ module.exports = {
                 id:req.body.id 
             }
         }).then((reservation)=>{
-            res.status(200).send(reservation)
+           
+            firebase.sendMessage("Alteração de reserva",user.name+" acabou de alterar a reserva",usersAdmin)
+           return  res.status(200).send(reservation)
         }).catch((error)=>{
-            res.status(400).send(error.message)
+           return res.status(400).send(error.message)
         })
         
     },
@@ -94,5 +103,6 @@ module.exports = {
         }).catch((error) => {
             return res.status(400).send(error.message)
         })
+        
     }
 }

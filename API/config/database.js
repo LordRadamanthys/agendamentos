@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('db_agenda','root','admin',{
+const sequelize = new Sequelize('db_agenda','root','root',{
     host:'localhost',
     dialect:'mysql'
 })

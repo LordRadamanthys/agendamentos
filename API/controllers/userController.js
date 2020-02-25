@@ -14,27 +14,28 @@ module.exports = {
         try {
             var user = await User.scope('withoutPassword').findAll({ order: [['id', 'DESC']] })
 
-            res.json(user)
+            return res.json(user)
         } catch (error) {
-            res.status(500).send({ error: error.message })
+            return res.status(500).send({ error: error.message })
         }
     },
 
     async getUser(req, res) {
         const Op = Sequelize.Op
-        if (!req.body.name) res.status(400).send({ error: 'nome não pode ser vazio' })
+        if (!req.body.name) return res.status(400).send({ error: 'nome não pode ser vazio' })
         try {
-            var user = await User.scope('withoutPassword').findAll({ where: { name: { [Op.like]: req.body.name+'%' } } })
-            res.send(user)
+            var user = await User.scope('withoutPassword').findAll({ where: { name: { [Op.like]: req.body.name+'%'} } })
+            return res.send(user)
         } catch (error) {
-            res.send(error)
+            return res.send(error)
         }
     },
 
     async newUser(req, res) {
-        if (!req.body.name) res.status(400).send({ error: 'nome não pode ser vazio' })
+        if (!req.body.name) return res.status(400).send({ error: 'nome não pode ser vazio' })
         if (!req.body.email) return res.status(400).send({ error: "email obrigatorio" })
         if (!req.body.password) return res.status(400).send({ error: "senha obrigatorio" })
+        if (!req.body.device) return res.status(400).send({ error: "id do device não pode ser vazio" })
 
         var aux = await User.findOne({ where: { email: req.body.email } })
         if (aux) return res.status(400).send({ error: 'Usuario ja existe' })
@@ -45,14 +46,16 @@ module.exports = {
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
+                device: req.body.device,
                 admin: req.body.admin ? req.body.admin : false,
             })
-
+            var usersAdmin = await util.getAdms()
+            firebase.sendMessage("Novo usuario cadastrado",user.name+" acabou de fazer cadastro",usersAdmin)
             const token = generateToken({ id: user.id })
-            res.send({ user, token })
+            return res.send({ user, token })
 
         } catch (error) {
-            res.status(400).send({ error: error.message })
+            return res.status(400).send({ error: error.message })
         }
     },
 
@@ -60,7 +63,7 @@ module.exports = {
         const {title, message} = req.body
         const response = await firebase.sendMessage(title, message)
         if(response.failureCount > 0) return res.send({error:"erro ao mandar mensagem"})
-        res.json(response)
+        return res.json(response)
     },
 
     async authenticate(req, res) {
@@ -74,9 +77,9 @@ module.exports = {
             }
             const token = generateToken({ id: user.id })
             user.password = null
-            res.send({ user, token })
+            return res.send({ user, token })
         } catch (error) {
-            res.send({ error: error.message })
+            return res.send({ error: error.message })
         }
     }
 }

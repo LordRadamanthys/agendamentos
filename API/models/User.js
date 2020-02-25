@@ -22,6 +22,11 @@ const User = db.sequelize.define('users', {
         
 
     },
+    device: {
+        type: db.Sequelize.STRING,
+        allowNull: false
+        
+    },
     admin: {
         type: db.Sequelize.BOOLEAN,
         allowNull: false,
