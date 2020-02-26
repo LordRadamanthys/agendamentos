@@ -58,6 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:text="Entrar"
+        android:background="@drawable/buttom_default"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="@+id/textView_cadastro"
         app:layout_constraintStart_toStartOf="@+id/textView_cadastro"
         app:layout_constraintTop_toBottomOf="@+id/textView_cadastro" />

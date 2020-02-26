@@ -9,8 +9,7 @@ import com.example.mulheresag.model.ReservationModel
 import kotlinx.android.synthetic.main.list_adapter_home.view.*
 
 class AdapterHome(
-    listReservation: MutableList<ReservationModel>,
-    homeActivity: HomeActivity
+    listReservation: MutableList<ReservationModel>
 ) : RecyclerView.Adapter<AdapterHome.MyViewHolder>() {
     private var listReservation = listReservation
 

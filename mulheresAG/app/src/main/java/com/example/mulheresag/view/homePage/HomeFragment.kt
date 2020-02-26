@@ -1,35 +1,39 @@
 package com.example.mulheresag.view.homePage
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mulheresag.R
 import com.example.mulheresag.model.ReservationModel
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class HomeActivity : AppCompatActivity() {
+
+/**
+ * A simple [Fragment] subclass.
+ */
+class HomeFragment : Fragment() {
     var listReservation = mutableListOf<ReservationModel>()
-    lateinit var recyclerHome: RecyclerView
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        supportActionBar?.hide()
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-        setContentView(R.layout.activity_home)
+    lateinit var recyclerViewHome: RecyclerView
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
+
+        var inflate = inflater.inflate(R.layout.fragment_home, container, false)
 
         loadLits()
 
 
-        recyclerHome = recycleHome
-        recyclerHome.adapter = AdapterHome(listReservation, this)
 
+        recyclerViewHome = inflate.recycleHomeFragment
+        recyclerViewHome.adapter = AdapterHome(listReservation)
+        // Inflate the layout for this fragment
 
+        return inflate
     }
 
     private fun loadLits() {
@@ -74,4 +78,5 @@ class HomeActivity : AppCompatActivity() {
             )
         )
     }
+
 }

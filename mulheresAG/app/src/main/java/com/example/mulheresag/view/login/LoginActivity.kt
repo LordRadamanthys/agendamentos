@@ -10,8 +10,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.example.mulheresag.MyFirebaseMessagingService
 import com.example.mulheresag.R
+import com.example.mulheresag.view.DefaultActivity
 import com.example.mulheresag.view.cadastro.CadastroActivity
-import com.example.mulheresag.view.homePage.HomeActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         button_entrar.setOnClickListener(View.OnClickListener {
-            val home = Intent(this,HomeActivity::class.java)
+            val home = Intent(this,DefaultActivity::class.java)
             startActivity(home)
 
         })
