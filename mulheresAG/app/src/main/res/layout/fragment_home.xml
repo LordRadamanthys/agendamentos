@@ -11,14 +11,16 @@
         android:id="@+id/textView_tituloHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="32dp"
         android:text="Olá fulano"
+        android:textAlignment="center"
         android:textColor="#fff"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,15 +28,15 @@
         android:id="@+id/textView_mensagemHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:text="Esses são seu proximos agendamentos"
         android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView_tituloHome"
         app:layout_constraintTop_toBottomOf="@+id/textView_tituloHome" />
 
     <androidx.recyclerview.widget.RecyclerView

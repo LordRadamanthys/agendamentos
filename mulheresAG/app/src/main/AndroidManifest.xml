@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.DefaultActivity"></activity>
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".view.DefaultActivity" />
         <activity android:name=".view.homePage.HomeActivity" />
         <activity android:name=".view.cadastro.CadastroActivity" />
         <activity android:name=".view.login.LoginActivity">

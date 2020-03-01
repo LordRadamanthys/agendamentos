@@ -3,12 +3,15 @@ package com.example.mulheresag.view.agendamento
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.mulheresag.ChatActivity
 import com.example.mulheresag.R
+import kotlinx.android.synthetic.main.fragment_agendamentos.*
 import kotlinx.android.synthetic.main.fragment_agendamentos.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,9 +26,14 @@ class AgendamentosFragment : Fragment() {
     ): View? {
 
         inflate = inflater.inflate(R.layout.fragment_agendamentos, container, false)
-
         timerPicker()
         datePicker()
+
+        var buttonReservar = inflate.button_reservar
+        buttonReservar.setOnClickListener {
+            val intent = Intent(activity,ChatActivity::class.java)
+            startActivity(intent)
+        }
 
 
         return inflate

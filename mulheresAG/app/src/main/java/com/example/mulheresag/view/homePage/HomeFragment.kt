@@ -25,6 +25,7 @@ class HomeFragment : Fragment() {
 
         var inflate = inflater.inflate(R.layout.fragment_home, container, false)
 
+
         loadLits()
 
 
