@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_color_home"
+        tools:context=".view.cadastro.CadastroActivity">
+
+        <TextView
+            android:id="@+id/textView_titulo_cadastro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginEnd="32dp"
+            android:text="Preencha o formulario de cadastro"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editText_nomeCad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="50dp"
+            android:ems="10"
+            android:hint="Digite seu nome"
+            android:inputType="textPersonName"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_titulo_cadastro" />
+
+        <EditText
+            android:id="@+id/editText_emailCad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Digite seu melhor E-mail"
+            android:inputType="textPersonName"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/editText_nomeCad"
+            app:layout_constraintStart_toStartOf="@+id/editText_nomeCad"
+            app:layout_constraintTop_toBottomOf="@+id/editText_nomeCad" />
+
+        <EditText
+            android:id="@+id/editText_senhaCad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Digite uma senha forte"
+            android:inputType="textPersonName"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/editText_emailCad"
+            app:layout_constraintStart_toStartOf="@+id/editText_emailCad"
+            app:layout_constraintTop_toBottomOf="@+id/editText_emailCad" />
+
+        <Switch
+            android:id="@+id/switch_admin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="32dp"
+            android:text="Usuario é administrador  "
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/editText_senhaCad"
+            app:layout_constraintStart_toStartOf="@+id/editText_senhaCad"
+            app:layout_constraintTop_toBottomOf="@+id/editText_senhaCad" />
+
+        <Button
+            android:id="@+id/button_cadastrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="100dp"
+            android:background="@drawable/button_white"
+            android:text="Cadastrar"
+            android:textColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switch_admin" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
