@@ -10,6 +10,11 @@ const Reservation = db.sequelize.define('reservation', {
         type: db.Sequelize.INTEGER,
         allowNull: false
     },
+    serviceId: {
+        type: db.Sequelize.INTEGER,
+        allowNull: false
+    },
+    
     hour: {
         type: db.Sequelize.STRING,
         allowNull: false
@@ -51,4 +56,4 @@ Reservation.belongsTo(Users)
 
 module.exports = Reservation
 //executar uma unica vez
- //Reservation.sync({force:true})
+//Reservation.sync({force:true})

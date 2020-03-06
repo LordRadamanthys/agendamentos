@@ -1,5 +1,6 @@
 const express = require('express')
 const UserController = require('./userController')
+const ServicesController = require('./serviceController')
 const ReservationController = require('./reservationController')
 const authMiddleware = require('../middleware/auth')
 
@@ -14,6 +15,8 @@ routes.get('/getUserReservations/', ReservationController.getUserReservations)
 routes.post('/newReservation/', ReservationController.newReservation)
 routes.get('/getBlockDates/', ReservationController.getBlockDates)
 routes.post('/updateReservation/', ReservationController.updateReservation)
+
+routes.post('/service',ServicesController.newService)
 
 
 
