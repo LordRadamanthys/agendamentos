@@ -38,7 +38,7 @@ module.exports = {
         //var service = await Service.findOne({ where: { id: req.body.serviceId } } )
         
         if (!req.body.hour) return res.status(400).send({ error: "horas não pode ser vazio" })
-        if (!req.body.serviceId) return res.status(400).send({ error: "serviço não pode ser vazio" })
+        if (!req.body.servicesId) return res.status(400).send({ error: "serviço não pode ser vazio" })
         if (!req.body.date) return res.status(400).send({ error: "data não pode ser vazio" })
         if (!req.body.description) return res.status(400).send({ error: "Description não pode ser vazio" })
         var isReseved = await Reservations.findOne({ where: { date: req.body.date, hour: req.body.hour, status: 'marcado' } })
@@ -54,7 +54,7 @@ module.exports = {
 
                 userId: req.userId,
                 hour: req.body.hour,
-                serviceId: req.body.serviceId,
+                serviceId: req.body.servicesId,
                 date: req.body.date,
                 description: req.body.description,
                 status: status

@@ -8,36 +8,36 @@ var registrationToken = "csIbPDmL1I4:APA91bHoarDLdUbTDjt5DzROzQZ_mIXK_Vb1ZBnhdZp
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://pushnotification-228b3.firebaseio.com"
-  });
+});
 
 var payload = {
-    data:{
-        MyKey1:"EU CONSEGUI ESSA MERDA!!!!!!!!!!!"
+    data: {
+        MyKey1: "EU CONSEGUI ESSA MERDA!!!!!!!!!!!"
     }
 }
 
 var option = {
-    priority:"high",
-    timeToLive:60*60*24
+    priority: "high",
+    timeToLive: 60 * 60 * 24
 }
 
-module.exports ={
-    async sendMessage(title, message, arrayAdmins){
+module.exports = {
+    async sendMessage(title, message, arrayAdmins) {
         payload = {
-            data:{
+            data: {
                 title,
-                text:message,
-                id:"1"
+                text: message,
+                id: "1"
             }
         }
-arrayAdmins.map(async (user)=>{
-    var response = await admin.messaging().sendToDevice(user.device,payload,option)
-    console.log(response)
-})
-         
+        arrayAdmins.map(async (user) => {
+            var response = await admin.messaging().sendToDevice(user.device, payload, option)
             console.log(response)
-            return  response
-        
+        })
+
+        console.log(response)
+        return response
+
     }
 }
 

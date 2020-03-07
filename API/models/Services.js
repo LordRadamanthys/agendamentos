@@ -35,7 +35,7 @@ const Services = db.sequelize.define('services', {
 })
 
 
-Services.belongsTo(Reservation)
+//Services.belongsTo(Reservation)
 
 module.exports = Services
 //executar uma unica vez

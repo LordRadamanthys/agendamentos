@@ -21,10 +21,11 @@ module.exports = {
     },
 
     async getUser(req, res) {
-        const Op = Sequelize.Op
-        if (!req.body.name) return res.status(400).send({ error: 'nome não pode ser vazio' })
+        // const Op = Sequelize.Op
+        if (!req.body.id) return res.status(400).send({ error: 'nome não pode ser vazio' })
         try {
-            var user = await User.scope('withoutPassword').findAll({ where: { name: { [Op.like]: req.body.name+'%'} } })
+            var user = await User.scope('withoutPassword').findAll({ where: { id: req.body.id } })
+            // var user = await User.scope('withoutPassword').findAll({ where: { name: { [Op.like]: req.body.name+'%'} } })
             return res.send(user)
         } catch (error) {
             return res.send(error)
@@ -50,7 +51,7 @@ module.exports = {
                 admin: req.body.admin ? req.body.admin : false,
             })
             var usersAdmin = await util.getAdms()
-            firebase.sendMessage("Novo usuario cadastrado",user.name+" acabou de fazer cadastro",usersAdmin)
+            firebase.sendMessage("Novo usuario cadastrado", user.name + " acabou de fazer cadastro", usersAdmin)
             const token = generateToken({ id: user.id })
             return res.send({ user, token })
 
@@ -59,10 +60,10 @@ module.exports = {
         }
     },
 
-    async pushNotification(req,res){
-        const {title, message} = req.body
+    async pushNotification(req, res) {
+        const { title, message } = req.body
         const response = await firebase.sendMessage(title, message)
-        if(response.failureCount > 0) return res.send({error:"erro ao mandar mensagem"})
+        if (response.failureCount > 0) return res.send({ error: "erro ao mandar mensagem" })
         return res.json(response)
     },
 

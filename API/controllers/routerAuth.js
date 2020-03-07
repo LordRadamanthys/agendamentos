@@ -16,7 +16,10 @@ routes.post('/newReservation/', ReservationController.newReservation)
 routes.get('/getBlockDates/', ReservationController.getBlockDates)
 routes.post('/updateReservation/', ReservationController.updateReservation)
 
-routes.post('/service',ServicesController.newService)
+routes.post('/service',ServicesController.newService)//criar serviço
+routes.get('/services',ServicesController.getServices)//pegar todos os serviços
+routes.get('/service',ServicesController.getService)//pegar um serviço
+routes.delete('/service',ServicesController.deleteService)//apagar serviço
 
 
 

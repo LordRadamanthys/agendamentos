@@ -8,10 +8,12 @@ const Reservation = db.sequelize.define('reservation', {
     },
     userId: {
         type: db.Sequelize.INTEGER,
+      
         allowNull: false
     },
     serviceId: {
         type: db.Sequelize.INTEGER,
+       
         allowNull: false
     },
     
@@ -52,7 +54,7 @@ const Reservation = db.sequelize.define('reservation', {
 })
 
 
-Reservation.belongsTo(Users)
+//Reservation.belongsTo(Users)
 
 module.exports = Reservation
 //executar uma unica vez
