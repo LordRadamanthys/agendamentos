@@ -1,6 +1,6 @@
-const Reservations = require('../models/Reservations')
 const User = require('../models/User')
-const Service = require('../models/Services')
+const Reservations = require('../models/Reservations')
+const Shopping = require('../models/Shopping')
 const Sequelize = require('sequelize')
 const util = require('../functions/Utils')
 const firebase = require('../config/firebase/sendFireBaseMessage')
@@ -16,6 +16,7 @@ module.exports = {
                     ['id', 'DESC']
                 ], include: [User.scope('withoutPassword')] 
             })
+            
             if(Object.keys(reservations).length <1) return res.status(200).send({erro:"lista vazia"})
             
             return  res.status(200).send(reservations)
@@ -38,8 +39,8 @@ module.exports = {
         //var service = await Service.findOne({ where: { id: req.body.serviceId } } )
         
         if (!req.body.hour) return res.status(400).send({ error: "horas não pode ser vazio" })
-        if (!req.body.servicesId) return res.status(400).send({ error: "serviço não pode ser vazio" })
         if (!req.body.date) return res.status(400).send({ error: "data não pode ser vazio" })
+        if (!req.body.listServices) return res.status(400).send({ error: "serviços não pode ser vazio" })
         if (!req.body.description) return res.status(400).send({ error: "Description não pode ser vazio" })
         var isReseved = await Reservations.findOne({ where: { date: req.body.date, hour: req.body.hour, status: 'marcado' } })
         if (isReseved) return res.status(400).send({ error: "horario já reservado" })
@@ -54,13 +55,23 @@ module.exports = {
 
                 userId: req.userId,
                 hour: req.body.hour,
-                serviceId: req.body.servicesId,
                 date: req.body.date,
+                fullPrice: req.body.fullPrice,
                 description: req.body.description,
                 status: status
             })
-            var usersAdmin = await util.getAdms()
-            firebase.sendMessage("Nova reserva",user.name+" acabou de fazer um agendamento",usersAdmin)
+            var list = req.body.listServices
+
+            for(i in list){
+                var item = list[i];
+                console.log(item.serviceId)
+                await Shopping.create({
+                    serviceId:item.serviceId,
+                    reservationId:reservation.id
+                })
+            }
+           // var usersAdmin = await util.getAdms()
+            //firebase.sendMessage("Nova reserva",user.name+" acabou de fazer um agendamento",usersAdmin)
             return res.status(200).send(reservation)
             
         } catch (error) {

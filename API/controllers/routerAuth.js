@@ -2,6 +2,7 @@ const express = require('express')
 const UserController = require('./userController')
 const ServicesController = require('./serviceController')
 const ReservationController = require('./reservationController')
+const ShoppingController = require('./shoppingController')
 const authMiddleware = require('../middleware/auth')
 
 const routes = express.Router()
@@ -20,8 +21,10 @@ routes.post('/service',ServicesController.newService)//criar serviço
 routes.get('/services',ServicesController.getServices)//pegar todos os serviços
 routes.get('/service',ServicesController.getService)//pegar um serviço
 routes.delete('/service',ServicesController.deleteService)//apagar serviço
+routes.put('/service',ServicesController.updateService)//editar serviço
 
-
+routes.get('/shoppings',ShoppingController.getShoppings)
+routes.get('/shoppingReservation',ShoppingController.getShoppingReservation)
 
 
 module.exports = routes
