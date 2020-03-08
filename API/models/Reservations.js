@@ -8,15 +8,13 @@ const Reservation = db.sequelize.define('reservation', {
     },
     userId: {
         type: db.Sequelize.INTEGER,
-      
-        allowNull: false
+        allowNull: false,
+        references: {         // User belongsTo Company 1:1
+            model: 'users',
+            key: 'id'
+          }
     },
-    serviceId: {
-        type: db.Sequelize.INTEGER,
-       
-        allowNull: false
-    },
-    
+
     hour: {
         type: db.Sequelize.STRING,
         allowNull: false
@@ -26,6 +24,13 @@ const Reservation = db.sequelize.define('reservation', {
         allowNull: false
 
     },
+
+    fullPrice: {
+        type: db.Sequelize.DOUBLE,
+        allowNull: false
+
+    },
+
     status: {
         type: db.Sequelize.ENUM,
         allowNull: false,
@@ -43,6 +48,10 @@ const Reservation = db.sequelize.define('reservation', {
     createdAt: {
         type: db.Sequelize.DATE,
         defaultValue: Date.now,
+    },
+    updatedAt: {
+        type: db.Sequelize.DATE,
+        defaultValue: Date.now,
     }
 }, {
     //remove password do retorno
@@ -54,8 +63,9 @@ const Reservation = db.sequelize.define('reservation', {
 })
 
 
-//Reservation.belongsTo(Users)
+
+Reservation.belongsTo(Users)
 
 module.exports = Reservation
 //executar uma unica vez
-//Reservation.sync({force:true})
+// Reservation.sync({force:true})

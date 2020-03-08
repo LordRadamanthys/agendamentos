@@ -1,6 +1,6 @@
 const db = require('../config/database')
 const Users = require('./User')
-const Reservation = require('./Reservations')
+const Shopping = require('./Shopping')
 
 const Services = db.sequelize.define('services', {
     id: {
@@ -31,12 +31,15 @@ const Services = db.sequelize.define('services', {
     createdAt: {
         type: db.Sequelize.DATE,
         defaultValue: Date.now,
+    },
+    updatedAt: {
+        type: db.Sequelize.DATE,
+        defaultValue: Date.now,
     }
 })
 
 
-//Services.belongsTo(Reservation)
-
+// Services.belongsTo(Shopping);
 module.exports = Services
 //executar uma unica vez
-//Services.sync({ force: true })
+//  Services.sync({ force: true })

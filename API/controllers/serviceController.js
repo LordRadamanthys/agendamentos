@@ -1,5 +1,6 @@
 const Reservations = require('../models/Reservations')
 const User = require('../models/User')
+const Shopping = require('../models/Shopping')
 const Service = require('../models/Services')
 const Sequelize = require('sequelize')
 const util = require('../functions/Utils')
@@ -34,7 +35,7 @@ module.exports = {
 
     await Service.findAll().then((response) => {
       return res.status(200).json(response)
-    }).cath((error) => {
+    }).catch((error) => {
       return res.status(400).json(error)
     })
 
@@ -44,13 +45,38 @@ module.exports = {
     await Service.findOne({ where: { id: req.body.id } }).then((response) => {
       if (response == null) return res.status(200).json({ message: "serviço não encontrado" })
       return res.status(200).json(response)
-    }).cath((error) => {
+    }).catch((error) => {
       return res.status(400).json(error)
     })
   },
 
+  async updateService(req, res) {
+    var { title, value, status, description } = req.body
+    if (!title) return res.json({ erro: "titulo não pode ser vazio" })
+    if (!value) return res.json({ erro: "valor não pode ser vazio" })
+
+    var service
+    try {
+      service = await Service.update({
+        title,
+        value,
+        status,
+        description
+      }, {
+        where: {
+          id: req.body.id
+        }
+      })
+      return res.status(200).json(service)
+    } catch (error) {
+      return res.status(400).json(error)
+    }
+  },
+
   async deleteService(req, res) {
     var response = await Service.destroy({ where: { id: req.body.id } }).then((response) => {
+      if (response == 0) return res.status(400).send({ message: "Este serviço não existe" })
+
       return res.status(200).send({ message: "Serviço excluido com sucesso" })
     }).catch((error) => {
       return res.status(400).send({ error: "Erro ao excluir serviço" })
