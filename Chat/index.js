@@ -2,6 +2,7 @@
 const express = require('express')
 const http = require('http')
 const app = express()
+var userNicknameb
 const server = http.createServer(app)
 const io = require('socket.io').listen(server)
 
@@ -16,7 +17,7 @@ io.on('connection', (socket) => {
     socket.on('join', function (userNickname) {
 
         console.log(userNickname + " : has joined the chat ");
-
+        userNicknameb = userNickname
         socket.broadcast.emit('userjoinedthechat', userNickname + " : has   joined the chat ");
     })
 
@@ -35,14 +36,14 @@ io.on('connection', (socket) => {
         }
 
         // send the message to all users including the sender  using io.emit  
-
-        io.emit('message', message)
+        console.log(message)
+        return io.emit('message', message)
 
     })
 
     socket.on('disconnect', function () {
 
-        console.log(userNickname + ' has left ')
+        console.log(userNicknameb + ' has left ')
 
         socket.broadcast.emit("userdisconnect", ' user has left')
 
