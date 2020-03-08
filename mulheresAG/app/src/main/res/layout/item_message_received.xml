@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_rectangle_received"
         android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -17,7 +17,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="32dp"
             android:text="Faça seu agendamento"
             android:textAlignment="center"
             android:textColor="#fff"
@@ -57,20 +57,6 @@
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="32dp"
-            android:text="Descrição"
-            android:textColor="#fff"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/editText_dataReserva" />
-
         <EditText
             android:id="@+id/editText_dataReserva"
             android:layout_width="0dp"
@@ -107,37 +93,19 @@
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <EditText
-            android:id="@+id/editText_descricaoReserva"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:layout_constraintVertical_bias="0.0" />
-
         <Button
             android:id="@+id/button_reservar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="161dp"
+            android:layout_marginEnd="162dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/button_white"
             android:text="Reservar"
             android:textColor="#fff"
-            app:layout_constraintEnd_toEndOf="@+id/editText_descricaoReserva"
-            app:layout_constraintStart_toStartOf="@+id/editText_descricaoReserva"
-            app:layout_constraintTop_toBottomOf="@+id/editText_descricaoReserva" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_dataReserva" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

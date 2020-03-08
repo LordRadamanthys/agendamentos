@@ -20,10 +20,7 @@ class AgendamentosFragment : Fragment() {
     lateinit var inflate: View
     private val cal = Calendar.getInstance()
     @SuppressLint("NewApi")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         inflate = inflater.inflate(R.layout.fragment_agendamentos, container, false)
         timerPicker()
@@ -31,7 +28,7 @@ class AgendamentosFragment : Fragment() {
 
         var buttonReservar = inflate.button_reservar
         buttonReservar.setOnClickListener {
-            val intent = Intent(activity,ChatActivity::class.java)
+            val intent = Intent(activity, ChatActivity::class.java)
             startActivity(intent)
         }
 

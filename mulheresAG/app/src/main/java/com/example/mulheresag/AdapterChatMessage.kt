@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.item_message_send.view.*
 class AdapterChatMessage(
     list: MutableList<ChatDataModel>) :
     RecyclerView.Adapter<AdapterChatMessage.MyViewHolder>() {
+
+
     private var list = list
 
 

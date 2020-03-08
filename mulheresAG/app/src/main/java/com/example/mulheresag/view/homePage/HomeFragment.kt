@@ -17,10 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 class HomeFragment : Fragment() {
     var listReservation = mutableListOf<ReservationModel>()
     lateinit var recyclerViewHome: RecyclerView
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
 
         var inflate = inflater.inflate(R.layout.fragment_home, container, false)
