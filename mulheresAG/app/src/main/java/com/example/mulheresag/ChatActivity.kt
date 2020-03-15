@@ -35,10 +35,12 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
         setupPermissions()
 
+
         recyclerViewChatMessage = reyclerview_message_list
+
 //        loadList()
 
-        Nickname = "leopoldo"
+        Nickname = "Vlad"
 
         try {
             socket = IO.socket("http://192.168.15.14:3000")
@@ -54,7 +56,7 @@ class ChatActivity : AppCompatActivity() {
             runOnUiThread(Runnable {
                 kotlin.run {
                     var data: String = args[0] as String
-                    Toast.makeText(applicationContext, data, Toast.LENGTH_LONG).show()
+                    //Toast.makeText(applicationContext, data, Toast.LENGTH_LONG).show()
                 }
             })
         })
@@ -64,8 +66,6 @@ class ChatActivity : AppCompatActivity() {
             if (!edittext_chatbox.text.toString().isEmpty()) {
 
                 socket.emit("messagedetection", Nickname, edittext_chatbox.text.toString());
-
-                Toast.makeText(applicationContext, edittext_chatbox.text, Toast.LENGTH_LONG).show()
                 edittext_chatbox.setText(" ");
             }
         }
@@ -89,6 +89,7 @@ class ChatActivity : AppCompatActivity() {
                     list.add(chatDataModel)
                     // notify the adapter to update the recycler view
                     var adapterChatMessage = AdapterChatMessage(list)
+                    // recyclerViewChatMessage.smoothScrollToPosition(list.size-1)
                     adapterChatMessage.notifyDataSetChanged()
                     recyclerViewChatMessage.adapter = adapterChatMessage
 
@@ -132,28 +133,34 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun setupPermissions() {
-        val permission = ContextCompat.checkSelfPermission(this,
-            Manifest.permission.INTERNET)
-        if (permission!= PackageManager.PERMISSION_GRANTED) {
+        val permission = ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.INTERNET
+        )
+        if (permission != PackageManager.PERMISSION_GRANTED) {
             Log.i(TAG, "Permission to record denied")
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECORD_AUDIO)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.RECORD_AUDIO
+                )
+            ) {
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage("Permission to access the microphone is required for this app to record audio.")
-                        .setTitle("Permission required")
+                    .setTitle("Permission required")
 
-                            builder.setPositiveButton("OK"
-                            ) { dialog, id ->
-                        Log.i(TAG, "Clicked")
-                        makeRequest()
-                    }
+                builder.setPositiveButton(
+                    "OK"
+                ) { dialog, id ->
+                    Log.i(TAG, "Clicked")
+                    makeRequest()
+                }
 
-                    val dialog = builder.create()
+                val dialog = builder.create()
                 dialog.show()
             } else {
                 makeRequest()
             }
-        }else{
+        } else {
             Log.i(TAG, "Permission to granted")
         }
 
