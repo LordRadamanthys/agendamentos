@@ -1,24 +1,23 @@
 package com.example.mulheresag.infra
 
-import com.example.mulheresag.infra.RestClient.restClient.initClient
 import com.google.gson.GsonBuilder
 import com.google.gson.internal.bind.DateTypeAdapter
-import okhttp3.OkHttpClient
+import com.squareup.okhttp.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.reflect.GenericDeclaration
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class RestClient {
-companion object {
-    lateinit var instance: RestClient
-    lateinit var retrofit: Retrofit
-}
+    companion object {
+        lateinit var instance: RestClient
+        lateinit var retrofit: Retrofit
+    }
+
     init {
         var gsonBuilder = GsonBuilder()
         retrofit = Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("http://192.168.15.14:3333/")
             .addConverterFactory(
                 GsonConverterFactory.create(
                     GsonBuilder().registerTypeAdapter(
@@ -26,32 +25,23 @@ companion object {
                         DateTypeAdapter()
                     ).create()
                 )
-            ).client(initClient())
-            .build()
+            ).build()
     }
-object restClient{
-    fun getInstance():RestClient{
-        if(instance==null){
-            instance= RestClient()
+
+    object restClient {
+        fun getInstance(): RestClient {
+
+            instance = RestClient()
+            return instance
+
         }
-        return instance
 
     }
-    fun initClient():OkHttpClient{
-        return OkHttpClient.Builder()
-            .connectTimeout(3,TimeUnit.MINUTES)
-            .readTimeout(3,TimeUnit.MINUTES)
-            .writeTimeout(3,TimeUnit.MINUTES)
-            .build()
-    }
-}
 
 
-
-    fun <T> createService(serviceClass:Class<T> ):T{
+    fun <T> createService(serviceClass: Class<T>): T {
         return retrofit.create(serviceClass)
     }
-
 
 
 }

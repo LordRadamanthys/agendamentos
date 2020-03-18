@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.mulheresag.MyFirebaseMessagingService
 import com.example.mulheresag.R
+import com.example.mulheresag.data.remote.model.LoginModel
 import com.example.mulheresag.data.remote.model.UserModel
 import com.example.mulheresag.domain.user.UserDomain
 import com.example.mulheresag.view.DefaultActivity
@@ -35,7 +36,7 @@ lateinit var presenter:LoginContract.Presenter
 
     private fun loadActionsButton() {
         button_entrar.setOnClickListener(View.OnClickListener {
-            presenter.login(editText_email.toString().trim(),editText_senha.toString().trim())
+            presenter.login(editText_email.text.toString(),editText_senha.text.toString())
         })
 
         textView_cadastro.setOnClickListener {
@@ -66,8 +67,12 @@ lateinit var presenter:LoginContract.Presenter
 
 
 
-    override fun navigateToHome(user: UserModel) {
+    override fun navigateToHome(user: LoginModel) {
         val home = Intent(this, DefaultActivity::class.java)
         startActivity(home)
+    }
+
+    override fun showError(error: String) {
+        Toast.makeText(baseContext,error,Toast.LENGTH_LONG).show()
     }
 }

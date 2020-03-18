@@ -13,16 +13,17 @@ import retrofit2.Response
 
 class AuthRepository:Repository(), UserContract.IRepository {
 
-    override fun login(username: String, password: String, onResult: BaseCallBack<UserModel>) {
+    override fun login(username: String, password: String, onResult: BaseCallBack<LoginModel>) {
         super.data.restApi(AuthAPI::class.java)
             .login("password",username,password)
             .enqueue(object : Callback<LoginModel> {
                 override fun onFailure(call: Call<LoginModel>, t: Throwable) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                   onResult.onUnsuccessful(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<LoginModel>, response: Response<LoginModel>) {
                     if(!response.isSuccessful) return onResult.onUnsuccessful("errou")
+                    response.body()?.let { onResult.onSuccessful(it) }
                 }
 
             })

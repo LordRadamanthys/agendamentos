@@ -6,19 +6,17 @@ import android.app.Application
 class App : Application() {
     companion object {
         lateinit var instance: App
-        lateinit var restClient: RestClient
+         var restClient=RestClient.restClient.getInstance()
     }
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        restClient = RestClient.instance
+        restClient = RestClient.restClient.getInstance()
     }
 
     object app {
-        fun getInstance(): App {
-            return instance
-        }
+
 
         fun getRestClient():RestClient{
             return restClient
