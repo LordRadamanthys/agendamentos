@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
 import com.example.mulheresag.MyFirebaseMessagingService
 import com.example.mulheresag.R
+import com.example.mulheresag.data.remote.model.UserModel
+import com.example.mulheresag.domain.user.UserDomain
 import com.example.mulheresag.view.DefaultActivity
 import com.example.mulheresag.view.cadastro.CadastroActivity
 import com.google.android.gms.tasks.OnCompleteListener
@@ -17,30 +17,31 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 
-class LoginActivity : AppCompatActivity() {
-
+class LoginActivity : AppCompatActivity(), LoginContract.View {
+lateinit var presenter:LoginContract.Presenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
 
+        presenter = LoginPresenter(this)
 
 
-        button_entrar.setOnClickListener(View.OnClickListener {
-            val home = Intent(this,DefaultActivity::class.java)
-            startActivity(home)
-
-        })
-
-        textView_cadastro.setOnClickListener {
-            val cadastro = Intent(this,CadastroActivity::class.java)
-            startActivity(cadastro)
-        }
-
+        loadActionsButton()
 
         genareteTokenFirebaseDevice()
 
         MyFirebaseMessagingService()
+    }
+
+    private fun loadActionsButton() {
+        button_entrar.setOnClickListener(View.OnClickListener {
+            presenter.login(editText_email.toString().trim(),editText_senha.toString().trim())
+        })
+
+        textView_cadastro.setOnClickListener {
+            val cadastro = Intent(this, CadastroActivity::class.java)
+            startActivity(cadastro)
+        }
     }
 
     private fun genareteTokenFirebaseDevice() {
@@ -61,5 +62,12 @@ class LoginActivity : AppCompatActivity() {
                     Log.e("teste", token)
                     Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
                 })
+    }
+
+
+
+    override fun navigateToHome(user: UserModel) {
+        val home = Intent(this, DefaultActivity::class.java)
+        startActivity(home)
     }
 }

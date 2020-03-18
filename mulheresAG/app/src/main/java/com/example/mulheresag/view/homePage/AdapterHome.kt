@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mulheresag.R
-import com.example.mulheresag.model.ReservationModel
+import com.example.mulheresag.data.remote.model.ReservationModel
 import kotlinx.android.synthetic.main.list_adapter_home.view.*
 
 class AdapterHome(

@@ -1,4 +1,4 @@
-package com.example.mulheresag.model
+package com.example.mulheresag.data.remote.model
 
 class ChatDataModel(
     name: String, message: String, type: Int

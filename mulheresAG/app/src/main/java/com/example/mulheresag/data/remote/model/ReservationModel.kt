@@ -1,4 +1,4 @@
-package com.example.mulheresag.model
+package com.example.mulheresag.data.remote.model
 
 class ReservationModel {
      var hour: String = ""

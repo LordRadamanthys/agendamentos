@@ -3,9 +3,8 @@ package com.example.mulheresag
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mulheresag.model.ChatDataModel
+import com.example.mulheresag.data.remote.model.ChatDataModel
 import kotlinx.android.synthetic.main.item_message_received.view.*
 import kotlinx.android.synthetic.main.item_message_send.view.*
 

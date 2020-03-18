@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mulheresag.R
-import com.example.mulheresag.model.ReservationModel
+import com.example.mulheresag.data.remote.model.ReservationModel
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
