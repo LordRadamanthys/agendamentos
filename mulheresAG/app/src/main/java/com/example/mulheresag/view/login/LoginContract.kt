@@ -6,7 +6,7 @@ import com.example.mulheresag.domain.user.UserDomain
 
 class LoginContract{
     interface View{
-        fun navigateToHome(user: LoginModel)
+        fun navigateToHome(user: UserModel)
         fun showError(error: String)
     }
 

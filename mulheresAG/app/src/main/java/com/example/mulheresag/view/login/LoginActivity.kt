@@ -11,6 +11,8 @@ import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.LoginModel
 import com.example.mulheresag.data.remote.model.UserModel
 import com.example.mulheresag.domain.user.UserDomain
+import com.example.mulheresag.infra.App
+import com.example.mulheresag.infra.BaseCallBack
 import com.example.mulheresag.view.DefaultActivity
 import com.example.mulheresag.view.cadastro.CadastroActivity
 import com.google.android.gms.tasks.OnCompleteListener
@@ -36,7 +38,10 @@ lateinit var presenter:LoginContract.Presenter
 
     private fun loadActionsButton() {
         button_entrar.setOnClickListener(View.OnClickListener {
-            presenter.login(editText_email.text.toString(),editText_senha.text.toString())
+//            presenter.login(editText_email.text.toString(),editText_senha.text.toString())
+            val home = Intent(this, DefaultActivity::class.java)
+            startActivity(home)
+
         })
 
         textView_cadastro.setOnClickListener {
@@ -57,17 +62,17 @@ lateinit var presenter:LoginContract.Presenter
 
                     // Get new Instance ID token
                     val token = task.result?.token
+                    App.tokenFirebase = token.toString()
 
                     // Log and toast
 
                     Log.e("teste", token)
-                    Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, App.tokenFirebase, Toast.LENGTH_SHORT).show()
                 })
     }
 
 
-
-    override fun navigateToHome(user: LoginModel) {
+    override fun navigateToHome(user: UserModel) {
         val home = Intent(this, DefaultActivity::class.java)
         startActivity(home)
     }

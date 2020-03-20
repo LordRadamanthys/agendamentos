@@ -14,187 +14,198 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 /**
  * A simple [Fragment] subclass.
  */
-class HomeFragment : Fragment() {
-    var listReservation = mutableListOf<ReservationModel>()
+class HomeFragment : Fragment(), HomeContract.View {
+    lateinit var listReservation: MutableList<ReservationModel>
     lateinit var recyclerViewHome: RecyclerView
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    lateinit var inflate: View
+    lateinit var presenter: HomeContract.Presenter
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
 
-        var inflate = inflater.inflate(R.layout.fragment_home, container, false)
+        inflate = inflater.inflate(R.layout.fragment_home, container, false)
+        presenter = HomePresenter(this)
+
+        presenter.getListReservations()
+//        loadLits()
 
 
-        loadLits()
-
-
-
-        recyclerViewHome = inflate.recycleHomeFragment
-        recyclerViewHome.adapter = AdapterHome(listReservation)
+//        recyclerViewHome = inflate.recycleHomeFragment
+//        recyclerViewHome.adapter = AdapterHome(listReservation)
         // Inflate the layout for this fragment
 
         return inflate
     }
 
-    private fun loadLits() {
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
-        this.listReservation.add(
-            ReservationModel(
-                "12:12",
-                "12/12/2020",
-                "teste teste et ets et ste ",
-                "marcado"
-            )
-        )
+//    private fun loadLits() {
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//        this.listReservation.add(
+//            ReservationModel(
+//                "12:12",
+//                "12/12/2020",
+//                "teste teste et ets et ste ",
+//                "marcado"
+//            )
+//        )
+//    }
+
+    override fun setList(list: ArrayList<ReservationModel>) {
+        recyclerViewHome = inflate.recycleHomeFragment
+        recyclerViewHome.adapter = AdapterHome(list)
     }
 
 }
