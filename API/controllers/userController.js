@@ -50,10 +50,12 @@ module.exports = {
                 device: req.body.device,
                 admin: req.body.admin ? req.body.admin : false,
             })
+
             var usersAdmin = await util.getAdms()
             firebase.sendMessage("Novo usuario cadastrado", user.name + " acabou de fazer cadastro", usersAdmin)
             const token = generateToken({ id: user.id })
-            return res.send({ user, token })
+            const newUser = await util.makeNewUserJson(user, token)
+            return res.send(newUser)
 
         } catch (error) {
             return res.status(400).send({ error: error.message })
@@ -78,9 +80,10 @@ module.exports = {
             }
             const token = generateToken({ id: user.id })
             user.password = null
-            return res.send({ user, token })
+            const newUser = await util.makeNewUserJson(user, token)
+            return res.send(newUser)
         } catch (error) {
-            return res.send({ error: error.message })
+            return res.send(newUser)
         }
     }
 }

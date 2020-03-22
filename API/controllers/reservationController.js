@@ -28,7 +28,7 @@ module.exports = {
     async getUserReservations(req, res) {
         try {
             var reservations = await Reservations.findAll({ where: { userId: req.userId } })
-            return res.status(200).send(reservations)
+            return res.status(200).json(reservations)
         } catch (error) {
             return res.status(400).send({ error: error })
         }

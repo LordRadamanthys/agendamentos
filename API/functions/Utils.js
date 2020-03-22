@@ -12,4 +12,16 @@ module.exports = {
         return user
     },
 
+    async makeNewUserJson(user, token){
+        return  newUser = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            passowrd: user.password,
+            device: user.device,
+            admin: user.admin,
+            token
+        }
+    }
+
 }
