@@ -9,7 +9,9 @@ const io = require('socket.io').listen(server)
 app.get('/', (req, res) => {
 
     res.send('Chat Server is running on port 3000')
-});
+})
+
+
 io.on('connection', (socket) => {
 
     console.log('user connected')
@@ -18,7 +20,8 @@ io.on('connection', (socket) => {
 
         console.log(userNickname + " : has joined the chat ");
         userNicknameb = userNickname
-        socket.broadcast.emit('userjoinedthechat', userNickname + " : has   joined the chat ");
+
+        socket.emit('userjoinedthechat', userNickname + " : has   joined the chat ");
     })
 
 
@@ -36,7 +39,7 @@ io.on('connection', (socket) => {
         }
 
         // send the message to all users including the sender  using io.emit  
-        console.log(message)
+        //console.log(message)
         return io.emit('message', message)
 
     })
