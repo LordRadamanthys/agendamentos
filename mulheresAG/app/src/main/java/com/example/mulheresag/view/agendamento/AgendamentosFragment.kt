@@ -11,25 +11,51 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.mulheresag.ChatActivity
 import com.example.mulheresag.R
-import kotlinx.android.synthetic.main.fragment_agendamentos.*
+import com.example.mulheresag.data.remote.model.CreateReservationModel
+import com.example.mulheresag.data.remote.model.ReservationModel
+import com.example.mulheresag.data.remote.model.ServiceModel
 import kotlinx.android.synthetic.main.fragment_agendamentos.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
-class AgendamentosFragment : Fragment() {
+class AgendamentosFragment : Fragment(), AgendamentosContract.View {
     lateinit var inflate: View
     private val cal = Calendar.getInstance()
+    lateinit var presenter:AgendamentosContract.Presenter
     @SuppressLint("NewApi")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+        presenter = AgendamentosPresenter(this)
         inflate = inflater.inflate(R.layout.fragment_agendamentos, container, false)
         timerPicker()
         datePicker()
 
+        var reservas:ReservationModel = ReservationModel()
+        var service= ServiceModel()
+        var service2= ServiceModel()
+        service.id=1
+        service2.id=2
+
+        var lista : ArrayList<ServiceModel> = ArrayList()
+        lista.add(service)
+        lista.add(service2)
+        reservas.date="22/03/2020"
+        reservas.hour= "9"
+        reservas.description="teste pelo app"
+        reservas.fullPrice=5.5
+        reservas.services=lista
         var buttonReservar = inflate.button_reservar
+
+        var model = CreateReservationModel()
+        model.reservationModel=reservas
+
         buttonReservar.setOnClickListener {
-            val intent = Intent(activity, ChatActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(activity, ChatActivity::class.java)
+//            startActivity(intent)
+            presenter.createReservation(reservas)
+
+
         }
 
 
@@ -82,6 +108,10 @@ class AgendamentosFragment : Fragment() {
             ).show()
 
         }
+    }
+
+    override fun showAlert(text: String, key: Boolean) {
+
     }
 
 }
