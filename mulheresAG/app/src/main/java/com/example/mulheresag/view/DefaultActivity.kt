@@ -5,6 +5,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.mulheresag.ConversationsFragment
 import com.example.mulheresag.R
 import com.example.mulheresag.view.agendamento.AgendamentosFragment
 import com.example.mulheresag.view.homePage.HomeFragment
@@ -35,7 +36,7 @@ class DefaultActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_chat -> {
-                    openFragment(HomeFragment())
+                    openFragment(ConversationsFragment())
 //                    Toast.makeText(baseContext, "token", Toast.LENGTH_SHORT).show()
                     return@OnNavigationItemSelectedListener true
                 }

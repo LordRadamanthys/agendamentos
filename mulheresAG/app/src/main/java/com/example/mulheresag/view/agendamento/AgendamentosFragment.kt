@@ -40,10 +40,10 @@ class AgendamentosFragment : Fragment(), AgendamentosContract.View {
         var lista : ArrayList<ServiceModel> = ArrayList()
         lista.add(service)
         lista.add(service2)
-        reservas.date="22/03/2020"
-        reservas.hour= "22"
-        reservas.description="teste pelo app"
-        reservas.fullPrice=5.5
+        reservas.date="22/09/2020"
+        reservas.hour= "22:22"
+        reservas.description="teste pelo app pandemia"
+        reservas.fullPrice=50.00
         reservas.services=lista
         var buttonReservar = inflate.button_reservar
 
@@ -51,9 +51,9 @@ class AgendamentosFragment : Fragment(), AgendamentosContract.View {
         model.reservationModel=reservas
 
         buttonReservar.setOnClickListener {
-            val intent = Intent(activity, ChatActivity::class.java)
-            startActivity(intent)
-          //  presenter.createReservation(reservas)
+//            val intent = Intent(activity, ChatActivity::class.java)
+//            startActivity(intent)
+            presenter.createReservation(reservas)
 
 
         }
