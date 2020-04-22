@@ -6,7 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.ReservationModel
+import com.example.mulheresag.data.remote.model.ServiceModel
 import kotlinx.android.synthetic.main.list_adapter_home.view.*
+import java.text.NumberFormat
+import java.util.*
+
 
 class AdapterHome(
     listReservation: MutableList<ReservationModel>
@@ -19,6 +23,8 @@ class AdapterHome(
         val horas = itemView.textView_horas_adapterHome
         val descricao = itemView.textView_descricao_adapterHome
         val status = itemView.textView_status_adapterHome
+        val preco = itemView.textView_preco_adapterHome
+        val titulo = itemView.textView_titulo_adapterHome
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -34,9 +40,31 @@ class AdapterHome(
         var model = listReservation.get(position)
 
         holder.data.text = model.date
-        holder.horas.text = model.hour
+        holder.horas.text = model.hour+" horas"
         holder.status.text = model.status
         holder.descricao.text = model.description
+        holder.preco.text = formatCurrency(model.fullPrice)
+        holder.titulo.text = formatTitle(model.services)
 
     }
+
+    private fun formatTitle(services: ArrayList<ServiceModel>?): CharSequence? {
+        var text =""
+        if (services != null) {
+            services.forEach { t: ServiceModel? ->
+                if (t != null) {
+                  text+= t.title+"/ "
+                }
+            }
+        }
+        return text
+    }
+
+    private fun formatCurrency(value: Double): String {
+        val format: NumberFormat = NumberFormat.getCurrencyInstance()
+        //format.setMaximumFractionDigits(0)
+        format.setCurrency(Currency.getInstance("BRL"))
+        return format.format(value)
+    }
+
 }

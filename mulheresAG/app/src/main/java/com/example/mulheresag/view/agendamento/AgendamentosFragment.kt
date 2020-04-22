@@ -41,7 +41,7 @@ class AgendamentosFragment : Fragment(), AgendamentosContract.View {
         lista.add(service)
         lista.add(service2)
         reservas.date="22/03/2020"
-        reservas.hour= "9"
+        reservas.hour= "22"
         reservas.description="teste pelo app"
         reservas.fullPrice=5.5
         reservas.services=lista

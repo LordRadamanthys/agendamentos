@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mulheresag.MyFirebaseMessagingService
 import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.ReservationModel
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -24,9 +25,10 @@ class HomeFragment : Fragment(), HomeContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+//MyFirebaseMessagingService()
 
         inflate = inflater.inflate(R.layout.fragment_home, container, false)
+
         presenter = HomePresenter(this)
 
         presenter.getListReservations()

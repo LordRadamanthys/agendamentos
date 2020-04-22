@@ -7,7 +7,7 @@ class App : Application() {
     companion object {
         lateinit var instance: App
         lateinit var tokenFirebase: String
-         var userToken: String = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg0ODQxOTYwLCJleHAiOjE1ODQ5MjgzNjB9.a9Vqa-ljTFDgsmJF6ggGdOvkkFIpATd05d_YX_A4hDA"
+         var userToken: String = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg3NTI1MTc3LCJleHAiOjE1ODc2MTE1Nzd9.m8fC_5jqCKThy-7eXPmTeHVDPzNkB6g-gyB-t4DqtCI"
          var restClient=RestClient.restClient.getInstance()
     }
 
