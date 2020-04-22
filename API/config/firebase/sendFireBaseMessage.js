@@ -26,17 +26,17 @@ module.exports = {
         payload = {
             data: {
                 title,
-                text: message,
+                message: message,
                 id: "1"
             }
         }
         arrayAdmins.map(async (user) => {
             var response = await admin.messaging().sendToDevice(user.device, payload, option)
-            console.log(response)
+            console.log(user.device)
         })
 
-        console.log(response)
-        return response
+        //console.log(response)
+        //return response
 
     }
 }
