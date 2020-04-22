@@ -38,7 +38,7 @@ class ChatActivity : AppCompatActivity() {
 
 //        loadList()
 
-        Nickname = "Vlad"
+        Nickname = "vlad"
 
         try {
             socket = IO.socket("http://192.168.15.14:3000")

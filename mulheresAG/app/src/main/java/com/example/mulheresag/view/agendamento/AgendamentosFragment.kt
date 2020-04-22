@@ -51,9 +51,9 @@ class AgendamentosFragment : Fragment(), AgendamentosContract.View {
         model.reservationModel=reservas
 
         buttonReservar.setOnClickListener {
-//            val intent = Intent(activity, ChatActivity::class.java)
-//            startActivity(intent)
-            presenter.createReservation(reservas)
+            val intent = Intent(activity, ChatActivity::class.java)
+            startActivity(intent)
+          //  presenter.createReservation(reservas)
 
 
         }
