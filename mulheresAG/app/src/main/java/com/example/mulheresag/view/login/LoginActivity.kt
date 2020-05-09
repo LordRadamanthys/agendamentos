@@ -5,20 +5,14 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import com.example.mulheresag.MyFirebaseMessagingService
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mulheresag.R
-import com.example.mulheresag.data.remote.model.LoginModel
 import com.example.mulheresag.data.remote.model.UserModel
-import com.example.mulheresag.domain.user.UserDomain
 import com.example.mulheresag.infra.App
-import com.example.mulheresag.infra.BaseCallBack
 import com.example.mulheresag.view.DefaultActivity
 import com.example.mulheresag.view.cadastro.CadastroActivity
 import com.google.android.gms.tasks.OnCompleteListener
@@ -27,7 +21,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
-lateinit var presenter:LoginContract.Presenter
+    lateinit var presenter: LoginContract.Presenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -40,7 +34,7 @@ lateinit var presenter:LoginContract.Presenter
 
         genareteTokenFirebaseDevice()
 
-       // MyFirebaseMessagingService()
+        // MyFirebaseMessagingService()
     }
 
     private fun createNotificationChannel() {
@@ -50,30 +44,22 @@ lateinit var presenter:LoginContract.Presenter
             val name = getString(R.string.app_name)
             val descriptionText = getString(R.string.app_name)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("com.example.mulheresag.view.login", name, importance).apply {
-                description = descriptionText
-            }
+            val channel =
+                NotificationChannel("com.example.mulheresag.view.login", name, importance).apply {
+                    description = descriptionText
+                }
             // Register the channel with the system
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
+
     private fun loadActionsButton() {
         button_entrar.setOnClickListener(View.OnClickListener {
-            presenter.login(editText_email.text.toString(),editText_senha.text.toString())
+            presenter.login(editText_email.text.toString(), editText_senha.text.toString())
             val home = Intent(this, DefaultActivity::class.java)
-            startActivity(home)
-//            var builder = NotificationCompat.Builder(this, "com.example.mulheresag.view.login")
-//                .setSmallIcon(R.drawable.chat)
-//                .setContentTitle("textTitle")
-//                .setContentText("textContent")
-//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//
-//            with(NotificationManagerCompat.from(this)) {
-//                // notificationId is a unique int for each notification that you must define
-//                notify(123, builder.build())
-//            }
+            //startActivity(home)
 
 
         })
@@ -88,21 +74,21 @@ lateinit var presenter:LoginContract.Presenter
         FirebaseMessaging.getInstance().isAutoInitEnabled = true
 
         FirebaseInstanceId.getInstance().instanceId
-                .addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        Log.w("teste", "getInstanceId failed", task.exception)
-                        return@OnCompleteListener
-                    }
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("teste", "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
 
-                    // Get new Instance ID token
-                    val token = task.result?.token
-                    App.tokenFirebase = token.toString()
+                // Get new Instance ID token
+                val token = task.result?.token
+                App.tokenFirebase = token.toString()
 
-                    // Log and toast
+                // Log and toast
 
-                    Log.e("teste", token)
-                    Toast.makeText(baseContext, App.tokenFirebase, Toast.LENGTH_SHORT).show()
-                })
+                Log.e("teste", token)
+                Toast.makeText(baseContext, App.tokenFirebase, Toast.LENGTH_SHORT).show()
+            })
     }
 
 
@@ -112,6 +98,6 @@ lateinit var presenter:LoginContract.Presenter
     }
 
     override fun showError(error: String) {
-        Toast.makeText(baseContext,error,Toast.LENGTH_LONG).show()
+        Toast.makeText(baseContext, error, Toast.LENGTH_LONG).show()
     }
 }

@@ -11,6 +11,7 @@ class UserModel {
     lateinit var token:String
     @SerializedName("device")
     lateinit var tokenDevice:String
+//    lateinit var error:ErrorModel
 
 
 }
