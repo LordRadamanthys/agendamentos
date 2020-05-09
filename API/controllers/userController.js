@@ -70,11 +70,11 @@ module.exports = {
     },
 
     async authenticate(req, res) {
-
+        console.log(req.body.email)
         validateEmailAndPassword(req, res)
         try {
             var user = await User.findOne({ where: { email: req.body.email } })
-            if (!user) return res.status(400).send({ error: "usuario não existe" })
+            if (!user) return res.status(400).json({erro:"usuario não existe"})
             if (!await bcryptjs.compare(req.body.password, user.password)) {
                 return res.status(400).send({ error: 'invalid password' })
             }
