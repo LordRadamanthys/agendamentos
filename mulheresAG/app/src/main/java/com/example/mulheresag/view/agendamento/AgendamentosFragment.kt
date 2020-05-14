@@ -1,65 +1,131 @@
 package com.example.mulheresag.view.agendamento
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import androidx.constraintlayout.solver.widgets.ConstraintHorizontalLayout
 import androidx.fragment.app.Fragment
-import com.example.mulheresag.ChatActivity
 import com.example.mulheresag.R
-import com.example.mulheresag.data.remote.model.CreateReservationModel
 import com.example.mulheresag.data.remote.model.ReservationModel
 import com.example.mulheresag.data.remote.model.ServiceModel
+import com.example.mulheresag.view.DialogExamples
+import kotlinx.android.synthetic.main.fragment_agendamentos.*
 import kotlinx.android.synthetic.main.fragment_agendamentos.view.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AgendamentosFragment : Fragment(), AgendamentosContract.View {
-    lateinit var inflate: View
+    private lateinit var inflate: View
+    private lateinit var listServices: ArrayList<ServiceModel>
+    private lateinit var selectedListServices: ArrayList<ServiceModel>
+    private lateinit var editTextServices: EditText
+    private lateinit var listNameServices: ArrayList<String>
     private val cal = Calendar.getInstance()
-    lateinit var presenter:AgendamentosContract.Presenter
-    @SuppressLint("NewApi")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private lateinit var presenter: AgendamentosContract.Presenter
+    private lateinit var selectedList: ArrayList<Boolean>
+    private var servicesSelected = ""
+    private lateinit var buttonReservar: Button
+    private var totalValueServices = 0.0
+    private lateinit var progressBar :View
 
-        presenter = AgendamentosPresenter(this)
+    @SuppressLint("NewApi")
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+
         inflate = inflater.inflate(R.layout.fragment_agendamentos, container, false)
+
+        initAtributes()
         timerPicker()
         datePicker()
+        presenter.getAllServoces()
 
-        var reservas:ReservationModel = ReservationModel()
-        var service= ServiceModel()
-        var service2= ServiceModel()
-        service.id=1
-        service2.id=2
+        editTextServices.setOnClickListener {
 
-        var lista : ArrayList<ServiceModel> = ArrayList()
-        lista.add(service)
-        lista.add(service2)
-        reservas.date="22/09/2020"
-        reservas.hour= "22:22"
-        reservas.description="teste pelo app pandemia"
-        reservas.fullPrice=50.00
-        reservas.services=lista
-        var buttonReservar = inflate.button_reservar
-
-        var model = CreateReservationModel()
-        model.reservationModel=reservas
-
-        buttonReservar.setOnClickListener {
-//            val intent = Intent(activity, ChatActivity::class.java)
-//            startActivity(intent)
-            presenter.createReservation(reservas)
-
-
+            alertChooseServices()
         }
 
 
+
+
+        buttonReservar.setOnClickListener {
+            val reservas: ReservationModel = makeModel()
+            presenter.createReservation(reservas)
+
+        }
+
         return inflate
+    }
+
+    private fun alertChooseServices() {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Selecione os serviços")
+
+
+        builder.setMultiChoiceItems(
+            this.listNameServices.toList().toTypedArray(),
+            selectedList.toList().toBooleanArray()
+        ) { dialog, which, isChecked ->
+            selectedList.set(which, isChecked)
+
+
+            if (isChecked) {
+                selectedListServices.add(listServices.get(which))
+            } else {
+                selectedListServices.remove(listServices.get(which))
+            }
+            servicesSelected = ""
+            if (selectedListServices.size < 1) {
+                totalValueServices = 0.0
+            } else {
+                totalValueServices = 0.0
+                selectedListServices.forEachIndexed { index, b ->
+                    servicesSelected += "${b.title}  -  ${b.value}\n"
+                    totalValueServices += b.value
+                }
+            }
+        }
+
+        builder.setPositiveButton("adicionar") { dialog, which ->
+            editTextServices.setText("${servicesSelected} \n\n\t ${totalValueServices}")
+
+            dialog.dismiss()
+        }
+
+        builder.show()
+    }
+
+    private fun initAtributes() {
+        presenter = AgendamentosPresenter(this)
+
+        progressBar = inflate.progressBarAgendamentosConstraint
+        editTextServices = inflate.editTextServicos
+        listNameServices = arrayListOf()
+        selectedList = arrayListOf()
+        selectedListServices = arrayListOf()
+        buttonReservar = inflate.button_reservar
+
+    }
+
+    private fun makeModel(): ReservationModel {
+        var reservas = ReservationModel()
+
+        reservas.date = editText_dataReserva.text.toString().trim()
+        reservas.hour = editText_horasReserva.text.toString().trim()
+        reservas.description = editTextDescricao.text.toString().trim()
+        reservas.fullPrice = totalValueServices
+        reservas.services = selectedListServices
+        return reservas
     }
 
     private fun datePicker() {
@@ -110,8 +176,32 @@ class AgendamentosFragment : Fragment(), AgendamentosContract.View {
         }
     }
 
-    override fun showAlert(text: String, key: Boolean) {
-
+    private fun clearAll() {
+        editText_dataReserva.text.clear()
+        editText_horasReserva.text.clear()
+        editTextDescricao.text.clear()
+        totalValueServices = 0.0
+//        selectedListServices
     }
 
+    override fun showAlert(text: String, key: Boolean) {
+        context?.let { DialogExamples.showDialogConfirm(text, key, it) }
+        clearAll()
+    }
+
+    override fun loadServicesList(listServices: ArrayList<ServiceModel>) {
+        this.listServices = listServices
+        this.listServices.forEachIndexed { index, serviceModel ->
+            listNameServices.add(serviceModel.title)
+            selectedList.add(false)
+        }
+    }
+
+    override fun showProgressBar(key: Boolean) {
+        progressBar.visibility = if (key) View.VISIBLE else View.INVISIBLE
+        buttonReservar.visibility = if (!key) View.VISIBLE else View.INVISIBLE
+    }
 }
+
+
+

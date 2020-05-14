@@ -7,9 +7,11 @@ class App : Application() {
     companion object {
         lateinit var instance: App
         lateinit var tokenFirebase: String
-         var userToken: String = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg4OTkzNTQ3LCJleHAiOjE1ODkwNzk5NDd9.mR5wLU_SAuCydWS2w754SiuTJxrbfhQrb3JT_M9lIyc"
+         var userToken: String = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTg5MTQxNDkwLCJleHAiOjE1ODkyMjc4OTB9.Jw2EUfxDG8eFykzkDXz7dguqcJoaZ4AS0u6LOSL1ZVs"
          var restClient=RestClient.restClient.getInstance()
+
     }
+
 
     override fun onCreate() {
         super.onCreate()

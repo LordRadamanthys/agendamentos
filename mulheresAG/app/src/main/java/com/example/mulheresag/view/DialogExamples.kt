@@ -1,6 +1,7 @@
 package com.example.mulheresag.view
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.view.Window
@@ -8,6 +9,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import com.example.mulheresag.R
+import java.util.ArrayList
 
 class DialogExamples {
     companion object {
@@ -25,6 +27,9 @@ class DialogExamples {
                 dialog.dismiss()
             }
         }
+
+
+
 
         fun showDialogChooser(activity:Activity, message: String, listener:DialogListener) {
             var dialog: Dialog = createDialog(
@@ -57,6 +62,7 @@ class DialogExamples {
             dialog.show()
             return dialog
         }
+
          interface DialogListener{
             fun setChooser(chooser:Boolean)
         }

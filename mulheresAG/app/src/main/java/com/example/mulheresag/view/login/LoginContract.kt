@@ -8,6 +8,7 @@ class LoginContract{
     interface View{
         fun navigateToHome(user: UserModel)
         fun showError(error: String)
+        fun showProgressBar(key: Boolean)
     }
 
     interface Presenter{

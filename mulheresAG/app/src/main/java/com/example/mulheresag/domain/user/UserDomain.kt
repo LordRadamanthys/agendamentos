@@ -1,6 +1,7 @@
 package com.example.mulheresag.domain.user
 
 import com.example.mulheresag.data.remote.model.UserModel
+import com.example.mulheresag.infra.App
 import com.example.mulheresag.infra.BaseCallBack
 import java.lang.Exception
 
@@ -18,13 +19,20 @@ class UserDomain(email: String, password: String) {
         this.email = email
         this.password = password
     }
+    fun setUserToken(newToken:String){
+        token = "Bearer $newToken"
+    }
+
 
     fun login(listener: BaseCallBack<UserModel>) {
 
         if (email.length < 4 || password.length < 1) throw Exception("email ou senha não podem ser vazios")
 
         repository.login(email, password, object : BaseCallBack<UserModel> {
+
             override fun onSuccessful(value: UserModel) {
+                setUserToken(value.token)
+                App.userToken =  token
                 listener.onSuccessful(value)
             }
 

@@ -100,4 +100,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     override fun showError(error: String) {
         Toast.makeText(baseContext, error, Toast.LENGTH_LONG).show()
     }
+
+    override fun showProgressBar(key: Boolean) {
+        progressBarLogin.visibility = if(key) View.VISIBLE else View.INVISIBLE
+        button_entrar.visibility = if(!key) View.VISIBLE else View.INVISIBLE
+    }
 }

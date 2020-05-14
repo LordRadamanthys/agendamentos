@@ -3,12 +3,14 @@ package com.example.mulheresag.view.homePage
 import com.example.mulheresag.data.remote.model.ReservationModel
 
 class HomeContract {
-    interface View{
-        fun setList(list:ArrayList<ReservationModel>)
+    interface View {
+        fun setList(list: ArrayList<ReservationModel>)
+        fun showError(text: String)
+        fun showProgressBar(key: Boolean)
     }
 
 
-    interface Presenter{
+    interface Presenter {
         fun getListReservations()
     }
 }
