@@ -19,4 +19,7 @@ open interface UserAPI {
     @GET("getUser")
     fun getUser(@Body id: Int,
                    @Header("Authorization") token:String): Call<UserModel>
+
+    @GET("allUsers")
+    fun getAllUser(@Header("Authorization") token:String): Call<ArrayList<UserModel>>
 }

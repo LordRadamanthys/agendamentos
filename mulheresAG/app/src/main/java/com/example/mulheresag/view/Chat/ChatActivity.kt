@@ -1,4 +1,4 @@
-package com.example.mulheresag
+package com.example.mulheresag.view.Chat
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.ChatDataModel
 import com.github.nkzawa.emitter.Emitter
 import com.github.nkzawa.socketio.client.IO
@@ -86,7 +87,8 @@ class ChatActivity : AppCompatActivity() {
 
                     list.add(chatDataModel)
                     // notify the adapter to update the recycler view
-                    var adapterChatMessage = AdapterChatMessage(list)
+                    var adapterChatMessage =
+                        AdapterChatMessage(list)
                     // recyclerViewChatMessage.smoothScrollToPosition(list.size-1)
                     adapterChatMessage.notifyDataSetChanged()
                     recyclerViewChatMessage.adapter = adapterChatMessage

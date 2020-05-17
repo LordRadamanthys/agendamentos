@@ -12,5 +12,7 @@ class UserContract {
         fun createUser(user: UserModel, onResult: BaseCallBack<UserModel>)
 
         fun getUser(id: Int, onResult: BaseCallBack<UserModel>)
+
+        fun getAllUser(onResult: BaseCallBack<ArrayList<UserModel>>)
     }
 }

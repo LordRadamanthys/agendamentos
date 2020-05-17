@@ -6,6 +6,7 @@ import com.example.mulheresag.infra.BaseCallBack
 import java.lang.Exception
 
 class UserDomain(email: String, password: String) {
+
     lateinit var repository: UserContract.IRepository
     lateinit var name: String
     lateinit var email: String
@@ -42,7 +43,20 @@ class UserDomain(email: String, password: String) {
 
         })
 
+    }
 
+    fun getAllusers(listenner:BaseCallBack<ArrayList<UserModel>>){
+        repository.getAllUser(object :BaseCallBack<ArrayList<UserModel>>{
+            override fun onSuccessful(value: ArrayList<UserModel>) {
+                listenner.onSuccessful(value)
+            }
+
+            override fun onUnsuccessful(error: String) {
+                listenner.onUnsuccessful(error)
+            }
+
+
+        })
     }
 
 }

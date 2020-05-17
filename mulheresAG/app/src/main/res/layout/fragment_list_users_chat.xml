@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_color_home"
-    tools:context=".ListUsersChatFragment">
+    tools:context=".view.Chat.ListUsersChatFragment">
 
     <TextView
         android:id="@+id/textView_tituloListUsersChat"

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".view.Chat.ChatActivity"></activity>
         <activity android:name=".view.DefaultActivity" />
         <activity android:name=".view.homePage.HomeActivity" />
         <activity android:name=".view.cadastro.CadastroActivity" />
@@ -27,7 +27,7 @@
         </activity>
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".infra.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

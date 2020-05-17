@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 class UserModel {
+    var id=-1
     lateinit var name:String
     lateinit var email:String
     lateinit var password:String

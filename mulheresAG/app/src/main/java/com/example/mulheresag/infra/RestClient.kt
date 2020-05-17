@@ -17,7 +17,7 @@ class RestClient {
     init {
         var gsonBuilder = GsonBuilder()
         retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.15.14:3333/")
+            .baseUrl("http://192.168.1.37:3333/")
             .addConverterFactory(
                 GsonConverterFactory.create(
                     GsonBuilder().registerTypeAdapter(

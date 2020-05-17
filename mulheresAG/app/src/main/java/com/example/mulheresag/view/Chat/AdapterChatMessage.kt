@@ -1,9 +1,10 @@
-package com.example.mulheresag
+package com.example.mulheresag.view.Chat
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.ChatDataModel
 import kotlinx.android.synthetic.main.item_message_received.view.*
 import kotlinx.android.synthetic.main.item_message_send.view.*
@@ -53,7 +54,9 @@ class AdapterChatMessage(
 //        return viewHolder
 //        var itemList = LayoutInflater.from(parent.context).inflate(R.layout.item_message_received,parent,false)
 
-        return MyViewHolder(itemList)
+        return MyViewHolder(
+            itemList
+        )
     }
 
     override fun getItemCount(): Int {

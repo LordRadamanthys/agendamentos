@@ -5,8 +5,7 @@ import com.example.mulheresag.data.repository.ReservationRepository
 import com.example.mulheresag.domain.reservation.ReservationDomain
 import com.example.mulheresag.infra.BaseCallBack
 
-class HomePresenter(view: HomeContract.View) : HomeContract.Presenter {
-    var view: HomeContract.View = view
+class HomePresenter(var view: HomeContract.View) : HomeContract.Presenter {
 
 
     override fun getListReservations() {

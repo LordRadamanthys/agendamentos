@@ -70,5 +70,23 @@ class UserRepository : Repository(), UserContract.IRepository {
             })
     }
 
+    override fun getAllUser( onResult: BaseCallBack<ArrayList<UserModel>>) {
+        super.data.restApi(UserAPI::class.java)
+            .getAllUser(App.userToken)
+            .enqueue(object :Callback<ArrayList<UserModel>>{
+                override fun onFailure(call: Call<ArrayList<UserModel>>, t: Throwable) {
+                    onResult.onUnsuccessful(t.toString())
+                }
+
+                override fun onResponse(
+                    call: Call<ArrayList<UserModel>>,
+                    response: Response<ArrayList<UserModel>>
+                ) {
+                    response.body()?.let { onResult.onSuccessful(it) }
+                }
+
+            })
+    }
+
 
 }
