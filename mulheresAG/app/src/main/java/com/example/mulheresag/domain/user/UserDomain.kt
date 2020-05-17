@@ -34,6 +34,8 @@ class UserDomain(email: String, password: String) {
             override fun onSuccessful(value: UserModel) {
                 setUserToken(value.token)
                 App.userToken =  token
+                App.userName=  value.name
+                App.isAdmin = value.admin
                 listener.onSuccessful(value)
             }
 

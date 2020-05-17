@@ -12,12 +12,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.ChatDataModel
+import com.example.mulheresag.infra.App
 import com.github.nkzawa.emitter.Emitter
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.json.JSONException
 import org.json.JSONObject
+import java.lang.Exception
 import java.net.URISyntaxException
 
 
@@ -37,18 +39,19 @@ class ChatActivity : AppCompatActivity() {
 
         recyclerViewChatMessage = reyclerview_message_list
 
-//        loadList()
-
-        Nickname = "vlad"
+        Nickname = App.userName
 
         try {
-            socket = IO.socket("http://192.168.15.14:3000")
+            socket = IO.socket(App.ip+"3000")
             socket.connect()
             socket.emit("join", Nickname)
 
         } catch (e: URISyntaxException) {
+            Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
             e.printStackTrace();
-
+        }catch (e: Exception) {
+            Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
+            e.printStackTrace();
         }
 
         socket.on("userjoinedthechat", Emitter.Listener { args ->
@@ -113,23 +116,6 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         socket.disconnect();
-    }
-
-    private fun loadList() {
-        list.add(ChatDataModel("mateus", "mateus teste", 1))
-        list.add(ChatDataModel("marcos", "marcos teste", 2))
-        list.add(ChatDataModel("mateus", "mateus teste", 1))
-        list.add(ChatDataModel("marcos", "marcos teste", 2))
-        list.add(ChatDataModel("mateus", "message teste", 1))
-        list.add(ChatDataModel("mateus", "message teste", 2))
-        list.add(ChatDataModel("mateus", "message teste", 1))
-        list.add(ChatDataModel("mateus", "message teste", 2))
-        list.add(ChatDataModel("mateus", "message teste", 1))
-        list.add(ChatDataModel("mateus", "message teste", 2))
-        list.add(ChatDataModel("mateus", "message teste", 1))
-        list.add(ChatDataModel("mateus", "message teste", 2))
-        list.add(ChatDataModel("mateus", "message teste", 1))
-        list.add(ChatDataModel("mateus", "message teste", 1))
     }
 
     private fun setupPermissions() {

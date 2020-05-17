@@ -14,17 +14,19 @@ class CadastroPresenter(view: CadastroContract.View) : CadastroContract.Presente
     }
 
 
-
     override fun createUser(user: UserModel) {
+        view.showProgressBar(true)
         var domain = UserDomain(user.email, user.password)
         domain.repository = UserRepository()
         domain.repository.createUser(user, object : BaseCallBack<UserModel> {
             override fun onSuccessful(value: UserModel) {
-                view.showAlert(true,"foi")
+                view.showProgressBar(false)
+                view.showAlert(true, "Cadastro efetudo")
             }
 
             override fun onUnsuccessful(error: String) {
-
+                view.showProgressBar(false)
+                view.showAlert(true, error)
             }
 
         })

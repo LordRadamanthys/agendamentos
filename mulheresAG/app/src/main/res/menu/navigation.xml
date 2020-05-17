@@ -20,5 +20,20 @@
         android:title="Chat"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/navigation_servicos"
+        android:enabled="true"
+        android:icon="@drawable/services"
+        android:title="Serviços"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/navigation_sair"
+        android:enabled="true"
+        android:icon="@drawable/power"
+        android:title="Exit"
+        app:showAsAction="ifRoom" />
+
 
 </menu>
