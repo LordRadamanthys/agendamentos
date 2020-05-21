@@ -1,6 +1,7 @@
 package com.example.mulheresag.view
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
@@ -21,7 +22,7 @@ class DefaultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_default)
-
+        bottom_navigation.menu.findItem(R.id.navigation_servicos).isVisible = App.isAdmin
         bottomNavigation()
     }
 
