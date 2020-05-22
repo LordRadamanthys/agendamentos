@@ -19,7 +19,7 @@ routes.post('/updateReservation/', ReservationController.updateReservation)
 
 routes.post('/service',ServicesController.newService)//criar serviço
 routes.get('/services',ServicesController.getServices)//pegar todos os serviços
-routes.get('/service',ServicesController.getService)//pegar um serviço
+routes.get('/service/:id',ServicesController.getService)//pegar um serviço
 routes.delete('/service',ServicesController.deleteService)//apagar serviço
 routes.put('/service',ServicesController.updateService)//editar serviço
 

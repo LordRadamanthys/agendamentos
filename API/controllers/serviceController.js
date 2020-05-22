@@ -42,7 +42,7 @@ module.exports = {
   },
 
   async getService(req, res) {
-    await Service.findOne({ where: { id: req.body.id } }).then((response) => {
+    await Service.findOne({ where: { id: req.params.id } }).then((response) => {
       if (response == null) return res.status(200).json({ message: "serviço não encontrado" })
       return res.status(200).json(response)
     }).catch((error) => {
@@ -67,7 +67,7 @@ module.exports = {
           id: req.body.id
         }
       })
-      return res.status(200).json(service)
+      return res.status(200).json("Registro atualizado")
     } catch (error) {
       return res.status(400).json(error)
     }
