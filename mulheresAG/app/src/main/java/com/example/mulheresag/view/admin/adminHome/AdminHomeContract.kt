@@ -1,4 +1,4 @@
-package com.example.mulheresag.view.admin
+package com.example.mulheresag.view.admin.adminHome
 
 import com.example.mulheresag.data.remote.model.UserModel
 

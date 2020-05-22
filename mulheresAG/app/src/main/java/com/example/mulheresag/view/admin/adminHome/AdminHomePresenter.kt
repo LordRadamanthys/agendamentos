@@ -1,11 +1,13 @@
-package com.example.mulheresag.view.admin
+package com.example.mulheresag.view.admin.adminHome
 
 import com.example.mulheresag.data.remote.model.UserModel
 import com.example.mulheresag.data.repository.UserRepository
 import com.example.mulheresag.domain.user.UserDomain
 import com.example.mulheresag.infra.BaseCallBack
+import com.example.mulheresag.view.admin.adminHome.AdminHomeContract
 
-class AdminHomePresenter(var view: AdminHomeContract.View):AdminHomeContract.Presenter {
+class AdminHomePresenter(var view: AdminHomeContract.View):
+    AdminHomeContract.Presenter {
 
 
     override fun getAllUsers() {

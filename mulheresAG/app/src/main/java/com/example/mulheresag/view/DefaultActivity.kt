@@ -1,16 +1,13 @@
 package com.example.mulheresag.view
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.mulheresag.view.Chat.ListUsersChatFragment
 import com.example.mulheresag.R
 import com.example.mulheresag.infra.App
-import com.example.mulheresag.view.DialogExamples.Companion.DialogListener
-import com.example.mulheresag.view.admin.AdminHomeFragment
+import com.example.mulheresag.view.admin.adminHome.AdminHomeFragment
+import com.example.mulheresag.view.admin.services.ServicesFragment
 import com.example.mulheresag.view.agendamento.AgendamentosFragment
 import com.example.mulheresag.view.homePage.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -52,7 +49,7 @@ class DefaultActivity : AppCompatActivity() {
 
                 R.id.navigation_servicos -> {
 
-                    openFragment(ListUsersChatFragment())
+                    openFragment(ServicesFragment())
 //                    Toast.makeText(baseContext, "token", Toast.LENGTH_SHORT).show()
                     return@OnNavigationItemSelectedListener true
                 }

@@ -1,4 +1,4 @@
-package com.example.mulheresag.view.admin
+package com.example.mulheresag.view.admin.adminHome
 
 import android.view.LayoutInflater
 import android.view.View

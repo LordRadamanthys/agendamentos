@@ -102,7 +102,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun showProgressBar(key: Boolean) {
-        progressBarLogin.visibility = if(key) View.VISIBLE else View.INVISIBLE
-        button_entrar.visibility = if(!key) View.VISIBLE else View.INVISIBLE
+        progressBarLogin.visibility = if (key) View.VISIBLE else View.INVISIBLE
+        button_entrar.visibility = if (!key) View.VISIBLE else View.INVISIBLE
     }
 }

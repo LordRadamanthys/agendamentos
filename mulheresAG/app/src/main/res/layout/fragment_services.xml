@@ -5,16 +5,16 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_color_home"
-    tools:context=".view.admin.adminHome.AdminHomeFragment">
+    tools:context=".view.admin.services.ServicesFragment">
 
     <TextView
-        android:id="@+id/textView_tituloAdminHome"
+        android:id="@+id/textView_tituloServices"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:text="Olá fulano"
+        android:text="Lista de Serviços"
         android:textAlignment="center"
         android:textColor="#fff"
         android:textSize="20sp"
@@ -24,23 +24,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView_mensagemAdminHome"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:text="Lista de Clientes"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView_tituloAdminHome"
-        app:layout_constraintTop_toBottomOf="@+id/textView_tituloAdminHome" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleAdminHomeFragment"
+        android:id="@+id/recycleServicesFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -51,19 +37,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_mensagemAdminHome"
+        app:layout_constraintTop_toBottomOf="@+id/textView_tituloServices"
         app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/fragment_list_users_chat" />
+        tools:listitem="@layout/list_adapter_services" />
 
     <ProgressBar
-        android:id="@+id/progressBarAdminHome"
+        android:id="@+id/progressBarServices"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/recycleAdminHomeFragment"
+        app:layout_constraintBottom_toBottomOf="@+id/recycleServicesFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recycleAdminHomeFragment" />
+        app:layout_constraintTop_toTopOf="@+id/recycleServicesFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

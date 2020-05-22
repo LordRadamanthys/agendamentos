@@ -1,4 +1,4 @@
-package com.example.mulheresag.view.admin
+package com.example.mulheresag.view.admin.adminHome
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,11 +38,13 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
         recyclerViewAdminHome = inflate.recycleAdminHomeFragment
         progressBarAdminHome = inflate.progressBarAdminHome
 
-        presenter = AdminHomePresenter(this)
+        presenter =
+            AdminHomePresenter(this)
     }
 
     override fun listUsers(list: ArrayList<UserModel>) {
-        adapter = AdapterAdminHome(list)
+        adapter =
+            AdapterAdminHome(list)
         recyclerViewAdminHome.adapter = adapter
         clickItem()
     }
