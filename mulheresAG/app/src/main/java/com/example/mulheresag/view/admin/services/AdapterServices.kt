@@ -44,6 +44,6 @@ class AdapterServices(var listServices: ArrayList<ServiceModel>) :
         holder.valor.text = "${model.value}"
         holder.description.text = model.description
         holder.status.text = if (model.status) "Ativo" else "Desativado"
-        holder.status.setTextColor(Color.GREEN)
+        if (model.status) holder.status.setTextColor(Color.GREEN) else holder.status.setTextColor(Color.RED)
     }
 }

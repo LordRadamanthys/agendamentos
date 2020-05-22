@@ -13,4 +13,10 @@
         <item name="android:windowBackground">@drawable/dialog_style</item>
         <item name="android:textColor">@color/colorDefaultBlue</item>
     </style>
+
+    <style name="StyleEditText">
+        <item name="colorControlActivated">#FFF</item>
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlHighlight">#FFF</item>
+    </style>
 </resources>

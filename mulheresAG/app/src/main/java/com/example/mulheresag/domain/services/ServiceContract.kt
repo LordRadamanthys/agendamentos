@@ -7,7 +7,10 @@ class ServiceContract {
     interface IRepository {
 
         fun getAllServices(onResult: BaseCallBack<ArrayList<ServiceModel>>)
+        fun getService(id:Int, onResult: BaseCallBack<ServiceModel>)
 
         fun createService(service: ServiceModel, onResult: BaseCallBack<ServiceModel>)
+
+        fun updateService(service: ServiceModel, onResult: BaseCallBack<String>)
     }
 }

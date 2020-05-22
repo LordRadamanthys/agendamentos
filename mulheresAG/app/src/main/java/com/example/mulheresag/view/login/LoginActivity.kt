@@ -95,6 +95,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     override fun navigateToHome(user: UserModel) {
         val home = Intent(this, DefaultActivity::class.java)
         startActivity(home)
+        finish()
     }
 
     override fun showError(error: String) {

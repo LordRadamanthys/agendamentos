@@ -37,6 +37,7 @@
             android:layout_marginEnd="32dp"
             android:ems="10"
             android:hint="Digite seu nome"
+            android:theme="@style/StyleEditText"
             android:inputType="textPersonName"
             android:textColor="#fff"
             android:textColorHint="#fff"
@@ -53,7 +54,8 @@
             android:layout_marginTop="32dp"
             android:ems="10"
             android:hint="Digite seu melhor E-mail"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
+            android:theme="@style/StyleEditText"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:textSize="18sp"
@@ -68,7 +70,8 @@
             android:layout_marginTop="32dp"
             android:ems="10"
             android:hint="Digite uma senha forte"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
+            android:theme="@style/StyleEditText"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:textSize="18sp"
@@ -84,9 +87,9 @@
             android:layout_marginEnd="32dp"
             android:text="Usuario é administrador  "
             android:textColor="#fff"
-            android:visibility="invisible"
             android:textColorHint="#fff"
             android:textSize="18sp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/editText_senhaCad"
             app:layout_constraintStart_toStartOf="@+id/editText_senhaCad"
             app:layout_constraintTop_toBottomOf="@+id/editText_senhaCad" />
@@ -118,17 +121,17 @@
             app:srcCompat="@drawable/useradd" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ProgressBarCadastro"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
+            android:background="#E13C7DDE"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="invisible"
-            android:background="#E13C7DDE"
-            android:id="@+id/ProgressBarCadastro">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ProgressBar
                 android:id="@+id/progressBar"

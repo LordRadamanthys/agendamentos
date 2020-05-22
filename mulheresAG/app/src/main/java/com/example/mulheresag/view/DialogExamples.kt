@@ -32,16 +32,35 @@ class DialogExamples {
             }
         }
 
+
+        fun showDialogConfirmClose(message: String, status: Boolean, context: Context,activity: Activity, closeActivity: Boolean) {
+            var dialog: Dialog = createDialog(
+                context,
+                if (status) R.layout.activity_dialog_confirm else R.layout.activity_dialog_error
+            )
+            var text: TextView =
+                dialog.findViewById(if (status) R.id.textView_titulo_dialogConfirm else R.id.textView_titulo_dialogError)
+            text.setText(message)
+            var buttonConfirm: Button =
+                dialog.findViewById(if (status) R.id.button_dialog_confirm else R.id.button_dialog_error)
+            buttonConfirm.setOnClickListener {
+                dialog.dismiss()
+                if (closeActivity) activity.finish()
+
+            }
+        }
+
+
         fun showDialogExit(activity: Activity) {
             var dialog: Dialog = createDialog(
                 activity,
                 R.layout.activity_dialog_choose
             )
-            var btnYes:Button = dialog.findViewById(R.id.button_dialog_sim_choose)
-            var btnNo :Button = dialog.findViewById(R.id.button_dialog_nao_choose)
+            var btnYes: Button = dialog.findViewById(R.id.button_dialog_sim_choose)
+            var btnNo: Button = dialog.findViewById(R.id.button_dialog_nao_choose)
 
             btnYes.setOnClickListener(View.OnClickListener {
-                var intent = Intent(activity,LoginActivity::class.java)
+                var intent = Intent(activity, LoginActivity::class.java)
                 dialog.dismiss()
                 activity.startActivity(intent)
                 activity.finish()

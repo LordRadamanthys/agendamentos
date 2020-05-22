@@ -29,6 +29,24 @@ class ServicesRepository :Repository(),ServiceContract.IRepository{
             })
     }
 
+    override fun getService(id: Int, onResult: BaseCallBack<ServiceModel>) {
+        super.data.restApi(ServicesAPI::class.java)
+            .getService(id,App.userToken)
+            .enqueue(object :Callback<ServiceModel>{
+                override fun onFailure(call: Call<ServiceModel>, t: Throwable) {
+                    onResult.onUnsuccessful(t.message.toString())
+                }
+
+                override fun onResponse(
+                    call: Call<ServiceModel>,
+                    response: Response<ServiceModel>
+                ) {
+                    response.body()?.let { onResult.onSuccessful(it) }
+                }
+
+            })
+    }
+
     override fun createService(service: ServiceModel, onResult: BaseCallBack<ServiceModel>) {
         super.data.restApi(ServicesAPI::class.java)
             .createService(service,App.userToken)
@@ -41,6 +59,22 @@ class ServicesRepository :Repository(),ServiceContract.IRepository{
                     call: Call<ServiceModel>,
                     response: Response<ServiceModel>
                 ) {
+                    response.body()?.let { onResult.onSuccessful(it) }
+                }
+
+            })
+    }
+
+    override fun updateService(service: ServiceModel, onResult: BaseCallBack<String>) {
+        super.data.restApi(ServicesAPI::class.java)
+            .updateService(service,App.userToken)
+            .enqueue(object :Callback<String>{
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    onResult.onUnsuccessful(t.message.toString())
+                }
+
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
                     response.body()?.let { onResult.onSuccessful(it) }
                 }
 
