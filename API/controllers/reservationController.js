@@ -28,8 +28,9 @@ module.exports = {
     },
 
     async getUserReservations(req, res) {
+        var id = !req.headers.id || req.headers.id < 0 ? req.userId : req.headers.id
         try {
-            var reservations = await Reservations.findAll({ where: { userId: req.userId } })
+            var reservations = await Reservations.findAll({ where: { userId: id } })
             var reservationsAndServices = []
             for (var i = 0; i < Object.keys(reservations).length; i++) {
                 var newList = {
