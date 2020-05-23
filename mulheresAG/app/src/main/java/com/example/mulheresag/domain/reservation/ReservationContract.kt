@@ -8,7 +8,7 @@ import com.example.mulheresag.infra.BaseCallBack
 class ReservationContract {
     interface IRepository {
 
-        fun getReservation(onResult: BaseCallBack<ArrayList< ReservationModel>>)
+        fun getReservation(id:Int,onResult: BaseCallBack<ArrayList< ReservationModel>>)
 
         fun createReservation(model:ReservationModel, onResult: BaseCallBack<ReservationModel>)
 //        fun getReservation(onResult: BaseCallBack<ArrayList< ReservationModel>>)

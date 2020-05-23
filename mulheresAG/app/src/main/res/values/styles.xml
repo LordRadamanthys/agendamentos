@@ -19,4 +19,10 @@
         <item name="colorControlNormal">#FFFFFF</item>
         <item name="colorControlHighlight">#FFF</item>
     </style>
+
+    <style name="StyleClockAndDate" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">#1C46C1</item>
+        <item name="colorPrimaryDark">#101BF1</item>
+        <item name="colorAccent">@color/colorDefaultBlue</item>
+    </style>
 </resources>

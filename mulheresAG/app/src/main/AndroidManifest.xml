@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.admin.services.Details.ServiceDetailsActivity"></activity>
+        <activity android:name=".view.admin.adminHome.reservations.DetailsReservationActivity"></activity>
+        <activity android:name=".view.admin.services.Details.ServiceDetailsActivity" />
         <activity android:name=".view.Chat.ChatActivity" />
         <activity android:name=".view.DefaultActivity" />
         <activity android:name=".view.homePage.HomeActivity" />

@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_default.*
 
 class DefaultActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_default)
@@ -24,6 +25,11 @@ class DefaultActivity : AppCompatActivity() {
     }
 
     private fun bottomNavigation() {
+        if (App.isAdmin) {
+            openFragment(AdminHomeFragment())
+        } else {
+            openFragment(HomeFragment())
+        }
         bottom_navigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
             when (item.itemId) {

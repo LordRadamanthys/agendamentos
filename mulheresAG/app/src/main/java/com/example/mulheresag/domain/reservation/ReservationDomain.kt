@@ -7,8 +7,8 @@ import com.example.mulheresag.infra.BaseCallBack
 class ReservationDomain {
     lateinit var repository: ReservationContract.IRepository
 
-    fun getListReservations(listener: BaseCallBack<ArrayList<ReservationModel>>) {
-        repository.getReservation(object : BaseCallBack<ArrayList<ReservationModel>> {
+    fun getListReservations(id: Int, listener: BaseCallBack<ArrayList<ReservationModel>>) {
+        repository.getReservation(id, object : BaseCallBack<ArrayList<ReservationModel>> {
             override fun onSuccessful(value: ArrayList<ReservationModel>) {
                 listener.onSuccessful(value)
             }

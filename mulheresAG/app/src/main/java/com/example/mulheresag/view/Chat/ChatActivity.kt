@@ -42,7 +42,7 @@ class ChatActivity : AppCompatActivity() {
         Nickname = App.userName
 
         try {
-            socket = IO.socket(App.ip+"3000")
+            socket = IO.socket("http://192.168.15.12:3000")
             socket.connect()
             socket.emit("join", Nickname)
 
@@ -68,7 +68,7 @@ class ChatActivity : AppCompatActivity() {
             if (!edittext_chatbox.text.toString().isEmpty()) {
 
                 socket.emit("messagedetection", Nickname, edittext_chatbox.text.toString());
-                edittext_chatbox.setText(" ");
+                edittext_chatbox.text.clear();
             }
         }
 

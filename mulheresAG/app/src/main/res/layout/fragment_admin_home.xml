@@ -7,6 +7,7 @@
     android:background="@drawable/background_color_home"
     tools:context=".view.admin.adminHome.AdminHomeFragment">
 
+
     <TextView
         android:id="@+id/textView_tituloAdminHome"
         android:layout_width="0dp"

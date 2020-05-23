@@ -68,7 +68,7 @@ class AgendamentosFragment : Fragment(), AgendamentosContract.View {
     }
 
     private fun alertChooseServices() {
-        val builder = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(context,R.style.StyleClockAndDate)
         builder.setTitle("Selecione os serviços")
 
 
@@ -142,7 +142,7 @@ class AgendamentosFragment : Fragment(), AgendamentosContract.View {
             }
         inflate.editText_dataReserva.setOnClickListener {
             DatePickerDialog(
-                inflate.context, dateSetListener,
+                inflate.context,R.style.StyleClockAndDate, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)
@@ -167,6 +167,7 @@ class AgendamentosFragment : Fragment(), AgendamentosContract.View {
             }
             TimePickerDialog(
                 inflate.context,
+                R.style.StyleClockAndDate,
                 timeSetListener,
                 cal.get(Calendar.HOUR_OF_DAY),
                 cal.get(Calendar.MINUTE),

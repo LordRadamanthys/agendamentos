@@ -15,9 +15,9 @@ import retrofit2.Response
 
 class ReservationRepository : Repository(), ReservationContract.IRepository {
 
-    override fun getReservation(onResult: BaseCallBack<ArrayList<ReservationModel>>) {
+    override fun getReservation(id:Int,onResult: BaseCallBack<ArrayList<ReservationModel>>) {
         super.data.restApi(ReservationAPI::class.java)
-            .getReservation(App.userToken)
+            .getReservation(id,App.userToken)
             .enqueue(object : Callback<ArrayList<ReservationModel>> {
                 override fun onFailure(call: Call<ArrayList<ReservationModel>>, t: Throwable) {
                     onResult.onUnsuccessful(t.message.toString())

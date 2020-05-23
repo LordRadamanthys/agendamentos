@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                 // Log and toast
 
                 Log.e("teste", token)
-                Toast.makeText(baseContext, App.tokenFirebase, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(baseContext, App.tokenFirebase, Toast.LENGTH_SHORT).show()
             })
     }
 

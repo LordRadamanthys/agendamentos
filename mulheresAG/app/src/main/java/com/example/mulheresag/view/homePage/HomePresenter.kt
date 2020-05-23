@@ -8,12 +8,12 @@ import com.example.mulheresag.infra.BaseCallBack
 class HomePresenter(var view: HomeContract.View) : HomeContract.Presenter {
 
 
-    override fun getListReservations() {
+    override fun getListReservations(id:Int) {
         view.showProgressBar(true)
         var domain = ReservationDomain()
         domain.repository = ReservationRepository()
 
-        domain.getListReservations(object : BaseCallBack<ArrayList<ReservationModel>> {
+        domain.getListReservations(id,object : BaseCallBack<ArrayList<ReservationModel>> {
             override fun onSuccessful(value: ArrayList<ReservationModel>) {
                 view.showProgressBar(false)
                 value.reverse()

@@ -11,6 +11,6 @@ class HomeContract {
 
 
     interface Presenter {
-        fun getListReservations()
+        fun getListReservations(id: Int = -1)
     }
 }

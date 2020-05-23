@@ -8,7 +8,7 @@ import retrofit2.http.*
 interface ReservationAPI {
 
     @GET("getUserReservations")
-    fun getReservation(@Header("Authorization") token: String): Call<ArrayList<ReservationModel>>
+    fun getReservation(@Header("id") id:Int, @Header("Authorization") token: String): Call<ArrayList<ReservationModel>>
 
     @POST("newReservation")
     fun createReservation(@Header("Authorization") toke:String, @Body model: ReservationModel):Call<ReservationModel>
