@@ -45,7 +45,7 @@ routes.get("/uploads/:id", (req, res) => {
         'gif',
     ]
 
-    var teste
+    var filePath
     types.map(value => {
         if (fs.existsSync(path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`))) {
             teste= path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`)
@@ -53,8 +53,8 @@ routes.get("/uploads/:id", (req, res) => {
         // var filePath = path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`)
         // if (filePath) return filePath
     })
-    console.log(teste)
-    res.sendFile(teste)
+    console.log(filePath)
+    res.sendFile(filePath)
     // var filePath = path.resolve(__dirname, '..', `uploads/${req.param.id}`)
     // return res.sendFile(`${filePath}${req.param.id}`)
 })
