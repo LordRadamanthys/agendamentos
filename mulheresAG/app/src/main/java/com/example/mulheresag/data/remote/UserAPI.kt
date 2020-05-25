@@ -2,6 +2,7 @@ package com.example.mulheresag.data.remote
 
 import com.example.mulheresag.data.remote.model.LoginModel
 import com.example.mulheresag.data.remote.model.UserModel
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -22,4 +23,8 @@ open interface UserAPI {
 
     @GET("allUsers")
     fun getAllUser(@Header("Authorization") token:String): Call<ArrayList<UserModel>>
+
+    @Multipart
+    @POST("uploads")
+    fun uploadPhoto(@Header("Authorization") token:String, @Part file: MultipartBody.Part):Call<String>
 }

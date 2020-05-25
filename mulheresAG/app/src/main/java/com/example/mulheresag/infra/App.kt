@@ -7,7 +7,7 @@ import com.example.mulheresag.data.remote.model.UserModel
 class App : Application() {
     companion object {
         lateinit var instance: App
-        var ip= "http://192.168.15.6:"
+        var ip= "http://192.168.15.8:"
         var isAdmin = false
         var userName = ""
         lateinit var tokenFirebase: String

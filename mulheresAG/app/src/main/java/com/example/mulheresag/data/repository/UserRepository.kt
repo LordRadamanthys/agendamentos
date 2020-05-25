@@ -7,6 +7,7 @@ import com.example.mulheresag.infra.App
 import com.example.mulheresag.infra.BaseCallBack
 import com.example.mulheresag.infra.Repository
 import com.example.mulheresag.infra.formatResponseError
+import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -82,6 +83,21 @@ class UserRepository : Repository(), UserContract.IRepository {
                     call: Call<ArrayList<UserModel>>,
                     response: Response<ArrayList<UserModel>>
                 ) {
+                    response.body()?.let { onResult.onSuccessful(it) }
+                }
+
+            })
+    }
+
+    override fun uploadPhoto(file: MultipartBody.Part,token:String, onResult: BaseCallBack<String>) {
+        super.data.restApi(UserAPI::class.java)
+            .uploadPhoto(token,file)
+            .enqueue(object :Callback<String>{
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    onResult.onUnsuccessful(t.toString())
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
                     response.body()?.let { onResult.onSuccessful(it) }
                 }
 
