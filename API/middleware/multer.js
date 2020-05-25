@@ -30,7 +30,7 @@ module.exports = {
         if (allowedMimes.includes(file.mimetype)) {
             cb(null, true)
         } else {
-            cb(new Error('File invalid'+file.mimetype))
+            cb(new Error('File invalid' + file.mimetype))
         }
     }
 }
