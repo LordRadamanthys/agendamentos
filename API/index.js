@@ -7,7 +7,7 @@ const routerAuth = require('./controllers/routerAuth')
 const app = Express()
 
 app.use(BodyParser.json())
-app.use(BodyParser.urlencoded({extend:false}))
+app.use(BodyParser.urlencoded({extend:true}))
 app.use(router)
 app.use(routerAuth)
 

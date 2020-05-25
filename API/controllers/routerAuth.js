@@ -4,6 +4,8 @@ const ServicesController = require('./serviceController')
 const ReservationController = require('./reservationController')
 const ShoppingController = require('./shoppingController')
 const authMiddleware = require('../middleware/auth')
+const multerConfig = require('../middleware/multer')
+const multer = require('multer')
 
 const routes = express.Router()
 
@@ -25,6 +27,11 @@ routes.put('/service',ServicesController.updateService)//editar serviço
 
 routes.get('/shoppings',ShoppingController.getShoppings)
 routes.get('/shoppingReservation',ShoppingController.getShoppingReservation)
+
+routes.post("/uploads",multer(multerConfig).single("file"),(req,res)=>{
+    console.log(req.file)
+    return res.json("foi")
+})
 
 
 module.exports = routes
