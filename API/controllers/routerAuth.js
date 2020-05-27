@@ -48,11 +48,12 @@ routes.get("/uploads/:id", (req, res) => {
     var filePath
     types.map(value => {
         if (fs.existsSync(path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`))) {
-            teste= path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`)
+            filePath= path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`)
         }
         // var filePath = path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`)
         // if (filePath) return filePath
     })
+    console.log(req.params.id)
     console.log(filePath)
     res.sendFile(filePath)
     // var filePath = path.resolve(__dirname, '..', `uploads/${req.param.id}`)
