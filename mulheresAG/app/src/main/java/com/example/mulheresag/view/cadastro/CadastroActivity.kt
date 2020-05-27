@@ -1,10 +1,8 @@
 package com.example.mulheresag.view.cadastro
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.media.ExifInterface
 import android.net.Uri
@@ -15,19 +13,17 @@ import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.ImageView
+import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
 import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.UserModel
 import com.example.mulheresag.infra.App
 import com.example.mulheresag.infra.ManagePermissions
-import com.example.mulheresag.infra.picassoAuth
+import com.example.mulheresag.infra.getListPermissions
 import com.example.mulheresag.view.DialogExamples
-import com.jakewharton.picasso.OkHttp3Downloader
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_cadastro.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -36,90 +32,68 @@ import java.io.File
 
 
 class CadastroActivity : AppCompatActivity(), CadastroContract.View {
-    lateinit var presenter: CadastroContract.Presenter
-    lateinit var progressBar: View
-    lateinit var imageUser: ImageView
-    lateinit var picturePath: String
-    lateinit var managePermissions: ManagePermissions
-    var REQUEST_SELECT_IMAGE_IN_ALBUM = 2121
-    private val PermissionsRequestCode = 123
+    private lateinit var presenter: CadastroContract.Presenter
+    private lateinit var progressBar: View
+    private lateinit var imageUser: ImageView
+    private lateinit var switchAdmin: Switch
+    private lateinit var picturePath: String
+    private lateinit var managePermissions: ManagePermissions
+    private val REQUEST_SELECT_IMAGE_IN_ALBUM = 2121
+    private val PERMISSION_REQUEST_CODE = 123
     private lateinit var multipartBody: MultipartBody.Part
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
-        val permissions = arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat
-                .requestPermissions(this, permissions, PermissionsRequestCode);
-        }
-        this.imageUser = imageViewCreateUser
 
-        progressBar = ProgressBarCadastro
-
-        presenter = CadastroPresenter(this)
-
+        var id = intent.extras?.get("id") as Int
+        permissions()
+        initComponents()
 
         if (App.isAdmin) {
             switch_admin.visibility = View.VISIBLE
         }
 
+        actionsButton()
+    }
+
+    private fun actionsButton() {
         imageUser.setOnClickListener {
-            //permissions()
+
             selectImageInAlbum()
         }
+
         button_cadastrar.setOnClickListener {
             var userModel = UserModel()
             userModel.name = editText_nomeCad.text.toString()
             userModel.email = editText_emailCad.text.toString()
             userModel.password = editText_senhaCad.text.toString()
             userModel.tokenDevice = App.tokenFirebase
+            userModel.admin = switchAdmin.isChecked
 
 
             presenter.createUser(userModel)
-
         }
+
+
+    }
+
+    private fun initComponents() {
+        this.imageUser = imageViewCreateUser
+        switchAdmin = switch_admin
+
+        progressBar = ProgressBarCadastro
+
+        presenter = CadastroPresenter(this)
     }
 
     private fun permissions() {
-        val permissions = arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        managePermissions = ManagePermissions(this, permissions, REQUEST_SELECT_IMAGE_IN_ALBUM)
+
+        managePermissions =
+            ManagePermissions(this, getListPermissions(), REQUEST_SELECT_IMAGE_IN_ALBUM)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             managePermissions.checkPermissions()
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            PermissionsRequestCode -> {
-                val isPermissionsGranted = managePermissions
-                    .processPermissionsResult(requestCode, permissions, grantResults)
-
-                if (isPermissionsGranted) {
-                    // Do the task now
-                    Toast.makeText(this, "pemissões aceitas", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, "pemissões negadas", Toast.LENGTH_LONG).show()
-                }
-                return
-            }
-        }
     }
 
 
@@ -195,21 +169,27 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
     }
 
-    fun setPicasso() {
+    fun setGlide() {
+        val url = "${App.ip}3333/uploads/7"
+        val glideUrl = GlideUrl(url) { mapOf(Pair("Authorization", "${App.userToken}")) }
 
-        var picasso =
-            Picasso.Builder(applicationContext).downloader(OkHttp3Downloader(picassoAuth())).build()
-        picasso.load("${App.ip}3333/uploads/1")
-            .into(imageUser, object : Callback {
-                override fun onSuccess() {
-                    println()
-                }
+        Glide.with(applicationContext)
+            .load(glideUrl)
+            .into(imageUser)
 
-                override fun onError() {
-                    println()
-                }
-
-            })
+//        var picasso =
+//            Picasso.Builder(applicationContext).downloader(OkHttp3Downloader(picassoAuth())).build()
+//        picasso.load("${App.ip}3333/uploads/1")
+//            .into(imageUser, object : Callback {
+//                override fun onSuccess() {
+//                    println()
+//                }
+//
+//                override fun onError() {
+//                    println()
+//                }
+//
+//            })
     }
 
     fun getMimeType(url: String): String? {
@@ -229,7 +209,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     ): Int {
         var rotate = 0
         try {
-            context.getContentResolver().notifyChange(imageUri, null)
+            context.contentResolver.notifyChange(imageUri, null)
             val imageFile = File(imagePath)
             val exif = ExifInterface(imageFile.absolutePath)
             val orientation: Int = exif.getAttributeInt(
@@ -248,5 +228,27 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
         }
         return rotate
     }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                val isPermissionsGranted = managePermissions
+                    .processPermissionsResult(requestCode, permissions, grantResults)
+
+                if (isPermissionsGranted) {
+                    // Do the task now
+                    Toast.makeText(this, "pemissões aceitas", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "pemissões negadas", Toast.LENGTH_LONG).show()
+                }
+                return
+            }
+        }
+    }
+
 
 }

@@ -14,14 +14,17 @@ open interface UserAPI {
                  @Field("password") passowrd: String): Call<UserModel>
 
 
-    @POST("cadUser")
+    @POST("user/create")
     fun createUser(@Body user: UserModel): Call<UserModel>
 
-    @GET("getUser")
+    @PUT("user")
+    fun updateUser(@Body user: UserModel, @Header("Authorization") token:String): Call<UserModel>
+
+    @GET("user")
     fun getUser(@Body id: Int,
                    @Header("Authorization") token:String): Call<UserModel>
 
-    @GET("allUsers")
+    @GET("users")
     fun getAllUser(@Header("Authorization") token:String): Call<ArrayList<UserModel>>
 
     @Multipart

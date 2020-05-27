@@ -1,5 +1,6 @@
 package com.example.mulheresag.infra
 
+import android.Manifest
 import okhttp3.OkHttpClient
 import org.json.JSONObject
 
@@ -8,8 +9,8 @@ fun formatResponseError(value: String?): JSONObject {
 }
 
 
-fun picassoAuth():OkHttpClient{
-    val okHttpClient = OkHttpClient.Builder()
+fun picassoAuth(): OkHttpClient {
+    return OkHttpClient.Builder()
         .authenticator { route, response ->
             val credential = App.userToken
             response.request().newBuilder()
@@ -17,5 +18,11 @@ fun picassoAuth():OkHttpClient{
                 .build()
         }
         .build()
-    return okHttpClient
+}
+
+fun getListPermissions(): Array<String> {
+    return arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
 }

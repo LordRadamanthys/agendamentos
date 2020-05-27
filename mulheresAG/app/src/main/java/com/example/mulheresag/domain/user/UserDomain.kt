@@ -64,11 +64,21 @@ class UserDomain(email: String, password: String) {
         })
     }
 
-    fun uploadPhoto(file: MultipartBody.Part, token:String, listener: BaseCallBack<String>){
-
-
-        repository.uploadPhoto(file,token,object :BaseCallBack<String>{
+    fun uploadPhoto(file: MultipartBody.Part, token: String, listener: BaseCallBack<String>) {
+        repository.uploadPhoto(file, token, object : BaseCallBack<String> {
             override fun onSuccessful(value: String) {
+                listener.onSuccessful(value)
+            }
+
+            override fun onUnsuccessful(error: String) {
+                listener.onUnsuccessful(error)
+            }
+        })
+    }
+
+    fun uploadUser(user: UserModel, listener: BaseCallBack<UserModel>) {
+        repository.updateUser(user, object : BaseCallBack<UserModel> {
+            override fun onSuccessful(value: UserModel) {
                 listener.onSuccessful(value)
             }
 
