@@ -2,14 +2,18 @@ package com.example.mulheresag.view.cadastro
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +23,11 @@ import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.UserModel
 import com.example.mulheresag.infra.App
 import com.example.mulheresag.infra.ManagePermissions
+import com.example.mulheresag.infra.picassoAuth
 import com.example.mulheresag.view.DialogExamples
+import com.jakewharton.picasso.OkHttp3Downloader
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_cadastro.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -130,32 +138,47 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
         if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == Activity.RESULT_OK && null != data) {
 
-            val selectedImage = data.data
-            val filePathColumn =
-                arrayOf(MediaStore.Images.Media.DATA)
+            getRealPathImageFromURI(data)
 
-            var cursor =
-                selectedImage?.let { contentResolver.query(it, filePathColumn, null, null, null) }
+            createRequestImage()
 
-            cursor!!.moveToFirst()
-
-            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
-            picturePath = cursor.getString(columnIndex)
-
-            cursor.close()
-
-            var file = File(picturePath)
-
-            var requestFile = RequestBody.create(
-                MediaType.parse("image/jpg"), file
-            )
-            multipartBody = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+            imageUser.rotation = getCameraPhotoOrientation(
+                applicationContext,
+                data.data!!, picturePath
+            ).toFloat()
 
         } else {
             Toast.makeText(this, "Ocorreu um erro ao pegar a imagem", Toast.LENGTH_LONG).show()
         }
 
+
         imageUser.setImageBitmap(BitmapFactory.decodeFile(picturePath))
+
+    }
+
+    private fun getRealPathImageFromURI(data: Intent) {
+        val selectedImage = data.data
+        val filePathColumn =
+            arrayOf(MediaStore.Images.Media.DATA)
+
+        val cursor =
+            selectedImage?.let { contentResolver.query(it, filePathColumn, null, null, null) }
+
+        cursor!!.moveToFirst()
+
+        val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+        picturePath = cursor.getString(columnIndex)
+
+        cursor.close()
+    }
+
+    private fun createRequestImage() {
+        val file = File(picturePath)
+
+        val requestFile = RequestBody.create(
+            MediaType.parse("image/${getMimeType(picturePath)}"), file
+        )
+        multipartBody = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
     }
 
     override fun showProgressBar(key: Boolean) {
@@ -169,6 +192,61 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
     override fun showAlert(key: Boolean, text: String) {
         DialogExamples.showDialogConfirm(text, key, this)
+
+    }
+
+    fun setPicasso() {
+
+        var picasso =
+            Picasso.Builder(applicationContext).downloader(OkHttp3Downloader(picassoAuth())).build()
+        picasso.load("${App.ip}3333/uploads/1")
+            .into(imageUser, object : Callback {
+                override fun onSuccess() {
+                    println()
+                }
+
+                override fun onError() {
+                    println()
+                }
+
+            })
+    }
+
+    fun getMimeType(url: String): String? {
+        var type: String? = null
+        val extension = MimeTypeMap.getFileExtensionFromUrl(url)
+        if (extension != null) {
+            type =
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+                    ?.replace("image/", "")
+        }
+        return type
+    }
+
+    fun getCameraPhotoOrientation(
+        context: Context, imageUri: Uri,
+        imagePath: String?
+    ): Int {
+        var rotate = 0
+        try {
+            context.getContentResolver().notifyChange(imageUri, null)
+            val imageFile = File(imagePath)
+            val exif = ExifInterface(imageFile.absolutePath)
+            val orientation: Int = exif.getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_NORMAL
+            )
+            when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
+                ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180
+                ExifInterface.ORIENTATION_ROTATE_90 -> rotate = 90
+            }
+            Log.i("RotateImage", "Exif orientation: $orientation")
+            Log.i("RotateImage", "Rotate value: $rotate")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return rotate
     }
 
 }

@@ -22,7 +22,7 @@ class CadastroPresenter(view: CadastroContract.View) : CadastroContract.Presente
         domain.repository.createUser(user, object : BaseCallBack<UserModel> {
             override fun onSuccessful(value: UserModel) {
                 view.setImage("Bearer "+value.token)
-                view.showProgressBar(false)
+                //view.showProgressBar(false)
                // view.showAlert(true, "Cadastro efetudo")
             }
 
