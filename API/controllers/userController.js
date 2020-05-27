@@ -62,6 +62,40 @@ module.exports = {
         }
     },
 
+
+    async updateUser(req, res) {
+        if (!req.body.name) return res.status(400).send({ error: 'nome não pode ser vazio' })
+        if (!req.body.email) return res.status(400).send({ error: "email obrigatorio" })
+        if (!req.body.password) return res.status(400).send({ error: "senha obrigatorio" })
+        if (!req.body.device) return res.status(400).send({ error: "id do device não pode ser vazio" })
+
+        // var aux = await User.findOne({ where: { email: req.body.email } })
+        // if (aux) return res.status(400).send({ error: 'Usuario ja existe' })
+        var id = req.body.id ? req.body.id : req.userId
+        try {
+            var user = await User.update({
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password,
+                device: req.body.device,
+                admin: req.body.admin ? req.body.admin : false,
+            }, {
+                where: {
+                    id: id
+                }
+            })
+
+            // var usersAdmin = await util.getAdms()
+            // firebase.sendMessage("Novo usuario cadastrado", user.name + " acabou de fazer cadastro", usersAdmin)
+            // const token = generateToken({ id: user.id })
+            // const newUser = await util.makeNewUserJson(user, token)
+            return res.send(user)
+
+        } catch (error) {
+            return res.status(400).send({ error: error.message })
+        }
+    },
+
     async pushNotification(req, res) {
         const { title, message } = req.body
         const response = await firebase.sendMessage(title, message)
@@ -74,7 +108,7 @@ module.exports = {
         validateEmailAndPassword(req, res)
         try {
             var user = await User.findOne({ where: { email: req.body.email } })
-            if (!user) return res.status(400).json({erro:"usuario não existe"})
+            if (!user) return res.status(400).json({ erro: "usuario não existe" })
             if (!await bcryptjs.compare(req.body.password, user.password)) {
                 return res.status(400).send({ error: 'invalid password' })
             }

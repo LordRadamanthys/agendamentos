@@ -12,14 +12,15 @@ const fs= require('fs')
 const routes = express.Router()
 
 routes.use(authMiddleware)
-routes.get('/allUsers/', UserController.getAllUsers)
-routes.get('/getUser/', UserController.getUser)
+routes.get('/users/', UserController.getAllUsers)
+routes.get('/user/', UserController.getUser)
+routes.put('/user/', UserController.updateUser)
 
-routes.get('/getAllReservations/', ReservationController.getAllReservations)
-routes.get('/getUserReservations/', ReservationController.getUserReservations)
-routes.post('/newReservation/', ReservationController.newReservation)
+routes.get('/reservations/', ReservationController.getAllReservations)
+routes.get('/reservation/', ReservationController.getUserReservations)
+routes.post('/reservation/', ReservationController.newReservation)
 routes.get('/getBlockDates/', ReservationController.getBlockDates)
-routes.post('/updateReservation/', ReservationController.updateReservation)
+routes.put('/reservation/', ReservationController.updateReservation)
 
 routes.post('/service', ServicesController.newService)//criar serviço
 routes.get('/services', ServicesController.getServices)//pegar todos os serviços
@@ -46,16 +47,21 @@ routes.get("/uploads/:id", (req, res) => {
     ]
 
     var filePath
-    types.map(value => {
-        if (fs.existsSync(path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`))) {
-            filePath= path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`)
-        }
-        // var filePath = path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`)
-        // if (filePath) return filePath
-    })
-    console.log(req.params.id)
-    console.log(filePath)
-    res.sendFile(filePath)
+    try {
+        types.map(value => {
+            if (fs.existsSync(path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`))) {
+                filePath= path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`)
+            }
+            // var filePath = path.resolve(__dirname, '..', `uploads/${req.params.id}.${value}`)
+            // if (filePath) return filePath
+        })
+        console.log(req.params.id)
+        console.log(filePath)
+        res.sendFile(filePath)
+    } catch (error) {
+        res.send(error.message)
+    }
+    
     // var filePath = path.resolve(__dirname, '..', `uploads/${req.param.id}`)
     // return res.sendFile(`${filePath}${req.param.id}`)
 })

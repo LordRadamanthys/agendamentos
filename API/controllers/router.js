@@ -6,7 +6,7 @@ const fs= require('fs')
 
 const routes = express.Router()
 
-routes.post('/cadUser/',UserController.newUser)
+routes.post('/user/create',UserController.newUser)
 routes.post('/pushNotification/',UserController.pushNotification)
 routes.post('/authenticate/',UserController.authenticate)
 
