@@ -11,6 +11,7 @@ class App : Application() {
         var ip = "http://192.168.15.9:"
         var isAdmin = false
         var userName = ""
+        var user = UserModel()
         lateinit var tokenFirebase: String
         var userToken: String =
             "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkwNTM5NTkyLCJleHAiOjE1OTA2MjU5OTJ9.kEAiK1cEHkw6ncyGO7Fge5VLcNn3PwIO65vbVGSk1FM"

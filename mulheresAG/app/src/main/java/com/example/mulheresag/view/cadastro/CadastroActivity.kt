@@ -46,7 +46,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
 
-        var id = intent.extras?.get("id") as Int
+        //var id = intent.extras?.get("id") as Int
         permissions()
         initComponents()
 
@@ -125,7 +125,6 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
             Toast.makeText(this, "Ocorreu um erro ao pegar a imagem", Toast.LENGTH_LONG).show()
         }
 
-
         imageUser.setImageBitmap(BitmapFactory.decodeFile(picturePath))
 
     }
@@ -170,8 +169,8 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     }
 
     fun setGlide() {
-        val url = "${App.ip}3333/uploads/7"
-        val glideUrl = GlideUrl(url) { mapOf(Pair("Authorization", "${App.userToken}")) }
+        val url = "${App.ip}3333/uploads/1"
+        val glideUrl = GlideUrl(url) { mapOf(Pair("Authorization", App.userToken)) }
 
         Glide.with(applicationContext)
             .load(glideUrl)

@@ -40,6 +40,7 @@ class UserDomain(email: String, password: String) {
                 setUserToken(value.token)
                 App.userToken = token
                 App.userName = value.name
+                App.user = value
                 App.isAdmin = value.admin
                 listener.onSuccessful(value)
             }
