@@ -1,7 +1,6 @@
 const User = require('../models/User')
 const db = require('../config/database')
 const Reservations = require('../models/Reservations')
-const Service = require('../models/Services')
 const Shopping = require('../models/Shopping')
 const Sequelize = require('sequelize')
 const util = require('../functions/Utils')
@@ -54,7 +53,6 @@ module.exports = {
 
     async newReservation(req, res) {
         var user = await User.scope('withoutPassword').findOne({ where: { id: req.userId } })
-        //var service = await Service.findOne({ where: { id: req.body.serviceId } })
 
         if (!req.body.hour) return res.status(400).send({ error: "horas não pode ser vazio" })
         if (!req.body.date) return res.status(400).send({ error: "data não pode ser vazio" })
@@ -106,7 +104,6 @@ module.exports = {
         var user = await User.scope('withoutPassword').findOne({ where: { id: req.userId } })
         const { id, hour, date, description, status } = req.body
 
-        //if(! await util.isAdmin(req)) return res.status(401).send({error:"você não tem permissão"})
         if (!id) return res.status(400).send({ error: "id is required" })
         if (!hour) return res.status(400).send({ error: "hour is required" })
         if (!date) return res.status(400).send({ error: "date is required" })

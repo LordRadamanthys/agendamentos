@@ -3,7 +3,6 @@ var admin = require("firebase-admin");
 
 var serviceAccount = require("../firebase/pushnotification.json");
 
-var registrationToken = "csIbPDmL1I4:APA91bHoarDLdUbTDjt5DzROzQZ_mIXK_Vb1ZBnhdZp1t8ygiCcHhXF2ZnfInWzG0fGpfykIrym4xzpvEBO4N5UClFOJ9Wh1rHS6MkC2AE0x3LXvEl-VS9p1gBtyKbB6CayqAVBvcsv2"
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -12,7 +11,7 @@ admin.initializeApp({
 
 var payload = {
     data: {
-        MyKey1: "EU CONSEGUI ESSA MERDA!!!!!!!!!!!"
+        MyKey1: "EU CONSEGUI !!!!!!!!!!!"
     }
 }
 

@@ -44,7 +44,8 @@ routes.get("/uploads/:id", (req, res) => {
         'jpg',
         'png',
         'gif',
-    ]
+    ] 
+    console.log(req.params.id)
 
     var filePath
     try {
@@ -59,6 +60,7 @@ routes.get("/uploads/:id", (req, res) => {
         console.log(filePath)
         res.sendFile(filePath)
     } catch (error) {
+        console.log(req.params.id)
         res.send(error.message)
     }
     

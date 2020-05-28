@@ -21,11 +21,9 @@ module.exports = {
     },
 
     async getUser(req, res) {
-        // const Op = Sequelize.Op
         if (!req.body.id) return res.status(400).send({ error: 'nome não pode ser vazio' })
         try {
             var user = await User.scope('withoutPassword').findAll({ where: { id: req.body.id } })
-            // var user = await User.scope('withoutPassword').findAll({ where: { name: { [Op.like]: req.body.name+'%'} } })
             return res.send(user)
         } catch (error) {
             return res.send(error)
