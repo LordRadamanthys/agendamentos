@@ -14,9 +14,11 @@ import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.ImageView
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.UserModel
@@ -36,20 +38,28 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     private lateinit var progressBar: View
     private lateinit var imageUser: ImageView
     private lateinit var switchAdmin: Switch
-    private lateinit var picturePath: String
+    private var picturePath: String = ""
     private lateinit var managePermissions: ManagePermissions
     private val REQUEST_SELECT_IMAGE_IN_ALBUM = 2121
     private val PERMISSION_REQUEST_CODE = 123
+    private lateinit var titleCadastro: TextView
     private lateinit var multipartBody: MultipartBody.Part
-
+    private var id = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
 
-        //var id = intent.extras?.get("id") as Int
         permissions()
         initComponents()
-
+        try {
+            id = intent.extras?.get("id") as Int
+            titleCadastro.text = "Atualizar Cadastro"
+            button_cadastrar.text = "Atualizar"
+            presenter.getUser(id)
+            setGlide(id)
+        } catch (e: Exception) {
+            id = -1
+        }
         if (App.isAdmin) {
             switch_admin.visibility = View.VISIBLE
         }
@@ -71,8 +81,12 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
             userModel.tokenDevice = App.tokenFirebase
             userModel.admin = switchAdmin.isChecked
 
-
-            presenter.createUser(userModel)
+            if (id < 0) {
+                presenter.createUser(userModel)
+            } else {
+                userModel.id = id
+                presenter.updateUser(userModel)
+            }
         }
 
 
@@ -80,6 +94,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
     private fun initComponents() {
         this.imageUser = imageViewCreateUser
+        titleCadastro = textView_titulo_cadastro
         switchAdmin = switch_admin
 
         progressBar = ProgressBarCadastro
@@ -99,8 +114,8 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
     fun selectImageInAlbum() {
         val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
+        intent.type = "image/jpeg"
+        intent.action = Intent.ACTION_PICK
         startActivityForResult(
             Intent.createChooser(intent, "Selecione uma imagem"),
             REQUEST_SELECT_IMAGE_IN_ALBUM
@@ -112,22 +127,37 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
         if (requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == Activity.RESULT_OK && null != data) {
 
-            getRealPathImageFromURI(data)
+            try {
+                getRealPathImageFromURI(data)
+                var image = BitmapFactory.decodeStream(data.data?.let {
+                    contentResolver.openInputStream(
+                        it
+                    )
+                },null,null)
 
-            createRequestImage()
+              //  verifySizeImage(image)
+                createRequestImage()
 
-            imageUser.rotation = getCameraPhotoOrientation(
-                applicationContext,
-                data.data!!, picturePath
-            ).toFloat()
-
-        } else {
-            Toast.makeText(this, "Ocorreu um erro ao pegar a imagem", Toast.LENGTH_LONG).show()
+                imageUser.rotation = getCameraPhotoOrientation(
+                    applicationContext,
+                    data.data!!, picturePath
+                ).toFloat()
+                imageUser.setImageBitmap(BitmapFactory.decodeFile(picturePath))
+            } catch (e: Exception) {
+                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+            }
         }
+//        } else {
+//            Toast.makeText(this, "Ocorreu um erro ao pegar a imagem", Toast.LENGTH_LONG).show()
+//        }
 
-        imageUser.setImageBitmap(BitmapFactory.decodeFile(picturePath))
 
     }
+
+    private fun verifySizeImage(size: Long) {
+        if (size > (7 * 1024 * 1024)) throw Exception("Tamanho maximo da imagem deve ser de 7mb")
+    }
+
 
     private fun getRealPathImageFromURI(data: Intent) {
         val selectedImage = data.data
@@ -136,7 +166,6 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
         val cursor =
             selectedImage?.let { contentResolver.query(it, filePathColumn, null, null, null) }
-
         cursor!!.moveToFirst()
 
         val columnIndex = cursor.getColumnIndex(filePathColumn[0])
@@ -147,6 +176,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
     private fun createRequestImage() {
         val file = File(picturePath)
+       verifySizeImage(file.length())
 
         val requestFile = RequestBody.create(
             MediaType.parse("image/${getMimeType(picturePath)}"), file
@@ -159,7 +189,18 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     }
 
     override fun setImage(toke: String) {
-        presenter.uploadImage(multipartBody, toke)
+        if (picturePath.isEmpty() || picturePath == null) {
+            showAlert(true, "Atualizado")
+        } else {
+            presenter.uploadImage(multipartBody, toke)
+        }
+    }
+
+    override fun setFields(user: UserModel) {
+        editText_nomeCad.setText(user.name)
+        editText_emailCad.setText(user.email)
+        editText_senhaCad.setText(user.password)
+        user.admin = switchAdmin.isChecked
     }
 
 
@@ -168,12 +209,16 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
     }
 
-    fun setGlide() {
-        val url = "${App.ip}3333/uploads/1"
+    fun setGlide(id: Int) {
+        val url = "${App.ip}3333/uploads/$id"
         val glideUrl = GlideUrl(url) { mapOf(Pair("Authorization", App.userToken)) }
 
         Glide.with(applicationContext)
             .load(glideUrl)
+            .fitCenter()
+            .skipMemoryCache(true)
+            .placeholder(R.drawable.useradd)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(imageUser)
 
 //        var picasso =

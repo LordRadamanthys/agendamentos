@@ -1,6 +1,5 @@
 package com.example.mulheresag.domain.reservation
 
-import com.example.mulheresag.data.remote.model.CreateReservationModel
 import com.example.mulheresag.data.remote.model.ReservationModel
 import com.example.mulheresag.data.remote.model.ServiceModel
 import com.example.mulheresag.infra.BaseCallBack

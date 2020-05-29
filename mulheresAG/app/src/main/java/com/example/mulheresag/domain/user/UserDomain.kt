@@ -1,14 +1,9 @@
 package com.example.mulheresag.domain.user
 
-import android.content.Intent
 import com.example.mulheresag.data.remote.model.UserModel
 import com.example.mulheresag.infra.App
 import com.example.mulheresag.infra.BaseCallBack
-import okhttp3.MediaType
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
-import java.lang.Exception
 
 class UserDomain(email: String, password: String) {
 
@@ -53,14 +48,26 @@ class UserDomain(email: String, password: String) {
 
     }
 
-    fun getAllusers(listenner: BaseCallBack<ArrayList<UserModel>>) {
+    fun getAllusers(listener: BaseCallBack<ArrayList<UserModel>>) {
         repository.getAllUser(object : BaseCallBack<ArrayList<UserModel>> {
             override fun onSuccessful(value: ArrayList<UserModel>) {
-                listenner.onSuccessful(value)
+                listener.onSuccessful(value)
             }
 
             override fun onUnsuccessful(error: String) {
-                listenner.onUnsuccessful(error)
+                listener.onUnsuccessful(error)
+            }
+        })
+    }
+
+    fun getUser(id: Int, listener: BaseCallBack<UserModel>){
+        repository.getUser(id,object : BaseCallBack<UserModel> {
+            override fun onSuccessful(value: UserModel) {
+                listener.onSuccessful(value)
+            }
+
+            override fun onUnsuccessful(error: String) {
+                listener.onUnsuccessful(error)
             }
         })
     }
@@ -77,9 +84,9 @@ class UserDomain(email: String, password: String) {
         })
     }
 
-    fun uploadUser(user: UserModel, listener: BaseCallBack<UserModel>) {
-        repository.updateUser(user, object : BaseCallBack<UserModel> {
-            override fun onSuccessful(value: UserModel) {
+    fun updateUser(user: UserModel, listener: BaseCallBack<String>) {
+        repository.updateUser(user, object : BaseCallBack<String> {
+            override fun onSuccessful(value: String) {
                 listener.onSuccessful(value)
             }
 

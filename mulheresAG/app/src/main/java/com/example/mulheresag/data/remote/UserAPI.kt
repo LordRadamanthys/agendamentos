@@ -18,10 +18,10 @@ open interface UserAPI {
     fun createUser(@Body user: UserModel): Call<UserModel>
 
     @PUT("user")
-    fun updateUser(@Body user: UserModel, @Header("Authorization") token:String): Call<UserModel>
+    fun updateUser(@Body user: UserModel, @Header("Authorization") token:String): Call<String>
 
-    @GET("user")
-    fun getUser(@Body id: Int,
+    @GET("user/{id}")
+    fun getUser(@Path("id") id:Int,
                    @Header("Authorization") token:String): Call<UserModel>
 
     @GET("users")

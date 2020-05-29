@@ -11,7 +11,7 @@ class UserContract {
         fun login(username: String, password: String, onResult: BaseCallBack<UserModel>)
 
         fun createUser(user: UserModel, onResult: BaseCallBack<UserModel>)
-        fun updateUser(user: UserModel, onResult: BaseCallBack<UserModel>)
+        fun updateUser(user: UserModel, onResult: BaseCallBack<String>)
 
         fun getUser(id: Int, onResult: BaseCallBack<UserModel>)
 

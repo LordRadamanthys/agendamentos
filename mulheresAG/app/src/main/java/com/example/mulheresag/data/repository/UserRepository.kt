@@ -56,15 +56,15 @@ class UserRepository : Repository(), UserContract.IRepository {
             })
     }
 
-    override fun updateUser(user: UserModel, onResult: BaseCallBack<UserModel>) {
+    override fun updateUser(user: UserModel, onResult: BaseCallBack<String>) {
         super.data.restApi(UserAPI::class.java)
             .updateUser(user,App.userToken)
-            .enqueue(object :Callback<UserModel>{
-                override fun onFailure(call: Call<UserModel>, t: Throwable) {
+            .enqueue(object :Callback<String>{
+                override fun onFailure(call: Call<String>, t: Throwable) {
                     onResult.onUnsuccessful(t.message.toString())
                 }
 
-                override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
                     response.body()?.let { onResult.onSuccessful(it) }
                 }
 

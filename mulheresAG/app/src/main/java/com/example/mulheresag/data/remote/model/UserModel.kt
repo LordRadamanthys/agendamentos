@@ -7,7 +7,7 @@ class UserModel {
     var id=-1
     lateinit var name:String
     lateinit var email:String
-    lateinit var password:String
+    var password:String =""
     var admin:Boolean = false
     lateinit var token:String
     @SerializedName("device")

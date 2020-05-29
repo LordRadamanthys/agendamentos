@@ -1,5 +1,6 @@
 package com.example.mulheresag.view.homePage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.ReservationModel
 import com.example.mulheresag.infra.App
+import com.example.mulheresag.view.cadastro.CadastroActivity
 import com.mikhaellopez.circularimageview.CircularImageView
 import kotlinx.android.synthetic.main.fragment_admin_home.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -27,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.textView_tituloHome
 class HomeFragment : Fragment(), HomeContract.View {
     lateinit var recyclerViewHome: RecyclerView
     lateinit var inflate: View
-    lateinit var textTitleScreen:TextView
+    lateinit var textTitleScreen: TextView
     lateinit var progressBarHome: ProgressBar
     private lateinit var imageUser: CircularImageView
     lateinit var presenter: HomeContract.Presenter
@@ -54,6 +57,13 @@ class HomeFragment : Fragment(), HomeContract.View {
 
         }
 
+
+
+        imageUser.setOnClickListener {
+            var intent = Intent(activity, CadastroActivity::class.java)
+            intent.putExtra("id", App.user.id)
+            startActivity(intent)
+        }
 
 
         return inflate
@@ -95,21 +105,16 @@ class HomeFragment : Fragment(), HomeContract.View {
 
         Glide.with(inflate.context)
             .load(glideUrl)
+            .fitCenter()
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(imageUser)
 
-//        var picasso =
-//            Picasso.Builder(applicationContext).downloader(OkHttp3Downloader(picassoAuth())).build()
-//        picasso.load("${App.ip}3333/uploads/1")
-//            .into(imageUser, object : Callback {
-//                override fun onSuccess() {
-//                    println()
-//                }
-//
-//                override fun onError() {
-//                    println()
-//                }
-//
-//            })
     }
+    override fun onStart() {
+        super.onStart()
+        setGlide()
+    }
+
 
 }

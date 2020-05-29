@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
 import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.UserModel
@@ -84,9 +85,16 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
 
         Glide.with(inflate.context)
             .load(glideUrl)
+            .skipMemoryCache(true)
+            .placeholder(R.drawable.useradd)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .fitCenter()
             .into(imageUser)
 
     }
 
-
+    override fun onStart() {
+        super.onStart()
+        setGlide()
+    }
 }
