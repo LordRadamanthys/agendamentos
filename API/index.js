@@ -2,7 +2,7 @@ const BodyParser = require('body-parser')
 const Express = require('express')
 const router = require('./controllers/router')
 const routerAuth = require('./controllers/routerAuth')
-
+//git rm -r --cached .
 
 const app = Express()
 

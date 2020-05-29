@@ -13,7 +13,7 @@ const routes = express.Router()
 
 routes.use(authMiddleware)
 routes.get('/users/', UserController.getAllUsers)
-routes.get('/user/', UserController.getUser)
+routes.get('/user/:id', UserController.getUser)
 routes.put('/user/', UserController.updateUser)
 
 routes.get('/reservations/', ReservationController.getAllReservations)

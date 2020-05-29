@@ -21,10 +21,10 @@ module.exports = {
     },
 
     async getUser(req, res) {
-        if (!req.body.id) return res.status(400).send({ error: 'nome não pode ser vazio' })
+        if (!req.params.id) return res.status(400).send({ error: 'nome não pode ser vazio' })
         try {
-            var user = await User.scope('withoutPassword').findAll({ where: { id: req.body.id } })
-            return res.send(user)
+            var user = await User.scope('withoutPassword').findOne({ where: { id: req.params.id } })
+            return res.json(user)
         } catch (error) {
             return res.send(error)
         }
@@ -87,7 +87,7 @@ module.exports = {
             // firebase.sendMessage("Novo usuario cadastrado", user.name + " acabou de fazer cadastro", usersAdmin)
             // const token = generateToken({ id: user.id })
             // const newUser = await util.makeNewUserJson(user, token)
-            return res.send(user)
+            return res.status(200).json("Atualizado")
 
         } catch (error) {
             return res.status(400).send({ error: error.message })
