@@ -42,7 +42,7 @@ class ChatActivity : AppCompatActivity() {
         Nickname = App.userName
 
         try {
-            socket = IO.socket("http://192.168.15.12:3000")
+            socket = IO.socket("${App.ip}3000")
             socket.connect()
             socket.emit("join", Nickname)
 

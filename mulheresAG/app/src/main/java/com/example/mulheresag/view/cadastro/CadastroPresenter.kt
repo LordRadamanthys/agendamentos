@@ -80,7 +80,7 @@ class CadastroPresenter(view: CadastroContract.View) : CadastroContract.Presente
         domain.uploadPhoto(file, token, object : BaseCallBack<String> {
             override fun onSuccessful(value: String) {
                 view.showProgressBar(false)
-                view.showAlert(true, "Cadastro efetudo")
+                view.showAlert(true, "Cadastro realizado")
             }
 
             override fun onUnsuccessful(error: String) {
