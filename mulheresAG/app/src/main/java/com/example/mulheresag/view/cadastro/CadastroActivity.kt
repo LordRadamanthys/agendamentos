@@ -34,6 +34,7 @@ import java.io.File
 
 
 class CadastroActivity : AppCompatActivity(), CadastroContract.View {
+
     private lateinit var presenter: CadastroContract.Presenter
     private lateinit var progressBar: View
     private lateinit var imageUser: ImageView
@@ -45,6 +46,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     private lateinit var titleCadastro: TextView
     private lateinit var multipartBody: MultipartBody.Part
     private var id = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
@@ -74,7 +76,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
         }
 
         button_cadastrar.setOnClickListener {
-            var userModel = UserModel()
+            val userModel = UserModel()
             userModel.name = editText_nomeCad.text.toString()
             userModel.email = editText_emailCad.text.toString()
             userModel.password = editText_senhaCad.text.toString()
@@ -96,9 +98,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
         this.imageUser = imageViewCreateUser
         titleCadastro = textView_titulo_cadastro
         switchAdmin = switch_admin
-
         progressBar = ProgressBarCadastro
-
         presenter = CadastroPresenter(this)
     }
 
@@ -111,8 +111,11 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
             managePermissions.checkPermissions()
     }
 
+    private fun verifySwitch(isAdmin: Boolean) {
+        switchAdmin.isChecked = isAdmin
+    }
 
-    fun selectImageInAlbum() {
+    private fun selectImageInAlbum() {
         val intent = Intent()
         intent.type = "image/jpeg"
         intent.action = Intent.ACTION_PICK
@@ -133,9 +136,9 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
                     contentResolver.openInputStream(
                         it
                     )
-                },null,null)
+                }, null, null)
 
-              //  verifySizeImage(image)
+                //  verifySizeImage(image)
                 createRequestImage()
 
                 imageUser.rotation = getCameraPhotoOrientation(
@@ -176,7 +179,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
     private fun createRequestImage() {
         val file = File(picturePath)
-       verifySizeImage(file.length())
+        verifySizeImage(file.length())
 
         val requestFile = RequestBody.create(
             MediaType.parse("image/${getMimeType(picturePath)}"), file
@@ -197,10 +200,11 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     }
 
     override fun setFields(user: UserModel) {
+
         editText_nomeCad.setText(user.name)
         editText_emailCad.setText(user.email)
         editText_senhaCad.setText(user.password)
-        user.admin = switchAdmin.isChecked
+        verifySwitch(user.admin)
     }
 
 

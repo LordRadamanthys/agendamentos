@@ -18,10 +18,12 @@ import com.example.mulheresag.data.remote.model.UserModel
 import com.example.mulheresag.infra.App
 import com.example.mulheresag.view.DialogExamples
 import com.example.mulheresag.view.admin.adminHome.reservations.DetailsReservationActivity
+import com.example.mulheresag.view.cadastro.CadastroActivity
 import com.mikhaellopez.circularimageview.CircularImageView
 import kotlinx.android.synthetic.main.fragment_admin_home.view.*
 
 class AdminHomeFragment : Fragment(), AdminHomeContract.View {
+
     private lateinit var inflate: View
     private lateinit var recyclerViewAdminHome: RecyclerView
     private lateinit var progressBarAdminHome: ProgressBar
@@ -29,6 +31,8 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
     private lateinit var imageUser: CircularImageView
     lateinit var adapter: AdapterAdminHome
     lateinit var presenter: AdminHomeContract.Presenter
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +41,12 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
 
 
         initComponents()
+
+        imageUser.setOnClickListener{
+            var intent = Intent(activity,CadastroActivity::class.java)
+            intent.putExtra("id",App.user.id)
+            startActivity(intent)
+        }
 
         presenter.getAllUsers()
 
@@ -56,7 +66,7 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
 
     override fun listUsers(list: ArrayList<UserModel>) {
         adapter =
-            AdapterAdminHome(list)
+            context?.let { AdapterAdminHome(list, it) }!!
         recyclerViewAdminHome.adapter = adapter
         clickItem()
     }
@@ -85,10 +95,10 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
 
         Glide.with(inflate.context)
             .load(glideUrl)
+            .centerCrop()
             .skipMemoryCache(true)
             .placeholder(R.drawable.useradd)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .fitCenter()
             .into(imageUser)
 
     }

@@ -27,7 +27,11 @@ class UserDomain(email: String, password: String) {
 
     fun login(listener: BaseCallBack<UserModel>) {
 
-        if (email.length < 4 || password.length < 1) throw Exception("email ou senha não podem ser vazios")
+        if (email.isEmpty()) throw Exception("Email ou senha não podem ser vazios")
+        if (password.length < 3) throw Exception("senha deve ter mais de 3 caracteres")
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email)
+                .matches()
+        ) throw Exception("Email invalido")
 
         repository.login(email, password, object : BaseCallBack<UserModel> {
 
@@ -60,8 +64,8 @@ class UserDomain(email: String, password: String) {
         })
     }
 
-    fun getUser(id: Int, listener: BaseCallBack<UserModel>){
-        repository.getUser(id,object : BaseCallBack<UserModel> {
+    fun getUser(id: Int, listener: BaseCallBack<UserModel>) {
+        repository.getUser(id, object : BaseCallBack<UserModel> {
             override fun onSuccessful(value: UserModel) {
                 listener.onSuccessful(value)
             }

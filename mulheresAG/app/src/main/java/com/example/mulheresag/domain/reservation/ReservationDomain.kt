@@ -1,8 +1,10 @@
 package com.example.mulheresag.domain.reservation
 
+import android.R
 import com.example.mulheresag.data.remote.model.ReservationModel
 import com.example.mulheresag.data.remote.model.ServiceModel
 import com.example.mulheresag.infra.BaseCallBack
+import java.util.regex.Pattern
 
 class ReservationDomain {
     lateinit var repository: ReservationContract.IRepository
@@ -25,6 +27,9 @@ class ReservationDomain {
         modelReservation: ReservationModel,
         listener: BaseCallBack<ReservationModel>
     ) {
+
+
+        if (modelReservation.description.isEmpty()) throw Exception("Descrição não pode ser vazio")
         repository.createReservation(modelReservation, object : BaseCallBack<ReservationModel> {
             override fun onSuccessful(value: ReservationModel) {
                 listener.onSuccessful(value)

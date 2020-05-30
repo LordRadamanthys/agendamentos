@@ -1,31 +1,28 @@
 package com.example.mulheresag.view
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import com.example.mulheresag.R
+import com.example.mulheresag.infra.App
 import com.example.mulheresag.view.login.LoginActivity
-import java.util.ArrayList
 
 class DialogExamples {
     companion object {
         fun showDialogConfirm(message: String, status: Boolean, context: Context) {
-            var dialog: Dialog = createDialog(
+            val dialog: Dialog = createDialog(
                 context,
                 if (status) R.layout.activity_dialog_confirm else R.layout.activity_dialog_error
             )
-            var text: TextView =
+            val text: TextView =
                 dialog.findViewById(if (status) R.id.textView_titulo_dialogConfirm else R.id.textView_titulo_dialogError)
-            text.setText(message)
-            var buttonConfirm: Button =
+            text.text = message
+            val buttonConfirm: Button =
                 dialog.findViewById(if (status) R.id.button_dialog_confirm else R.id.button_dialog_error)
             buttonConfirm.setOnClickListener {
                 dialog.dismiss()
@@ -33,42 +30,51 @@ class DialogExamples {
         }
 
 
-        fun showDialogConfirmClose(message: String, status: Boolean, context: Context,activity: Activity, closeActivity: Boolean) {
-            var dialog: Dialog = createDialog(
+        fun showDialogConfirmClose(
+            message: String,
+            status: Boolean,
+            context: Context,
+            activity: Activity,
+            closeActivity: Boolean
+        ) {
+            val dialog: Dialog = createDialog(
                 context,
                 if (status) R.layout.activity_dialog_confirm else R.layout.activity_dialog_error
             )
-            var text: TextView =
+            val text: TextView =
                 dialog.findViewById(if (status) R.id.textView_titulo_dialogConfirm else R.id.textView_titulo_dialogError)
-            text.setText(message)
-            var buttonConfirm: Button =
+            text.text = message
+            val buttonConfirm: Button =
                 dialog.findViewById(if (status) R.id.button_dialog_confirm else R.id.button_dialog_error)
             buttonConfirm.setOnClickListener {
                 dialog.dismiss()
-                if (closeActivity) activity.finish()
+                if (closeActivity) {
+                    App.isAdmin = false
+                    activity.finish()
+                }
 
             }
         }
 
 
         fun showDialogExit(activity: Activity) {
-            var dialog: Dialog = createDialog(
+            val dialog: Dialog = createDialog(
                 activity,
                 R.layout.activity_dialog_choose
             )
-            var btnYes: Button = dialog.findViewById(R.id.button_dialog_sim_choose)
-            var btnNo: Button = dialog.findViewById(R.id.button_dialog_nao_choose)
+            val btnYes: Button = dialog.findViewById(R.id.button_dialog_sim_choose)
+            val btnNo: Button = dialog.findViewById(R.id.button_dialog_nao_choose)
 
-            btnYes.setOnClickListener(View.OnClickListener {
-                var intent = Intent(activity, LoginActivity::class.java)
+            btnYes.setOnClickListener {
+                val intent = Intent(activity, LoginActivity::class.java)
                 dialog.dismiss()
                 activity.startActivity(intent)
                 activity.finish()
-            })
+            }
 
-            btnNo.setOnClickListener({
+            btnNo.setOnClickListener {
                 dialog.dismiss()
-            })
+            }
         }
 
 
@@ -95,7 +101,7 @@ class DialogExamples {
 
 
         fun createDialog(constex: Context, layout: Int): Dialog {
-            var dialog: Dialog = Dialog(constex, R.style.CustomAlertDialog)
+            val dialog = Dialog(constex, R.style.CustomAlertDialog)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setContentView(layout)
             dialog.setCancelable(false)

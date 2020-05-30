@@ -24,10 +24,8 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.textView_tituloHome
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class HomeFragment : Fragment(), HomeContract.View {
+
     lateinit var recyclerViewHome: RecyclerView
     lateinit var inflate: View
     lateinit var textTitleScreen: TextView
@@ -35,6 +33,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     private lateinit var imageUser: CircularImageView
     lateinit var presenter: HomeContract.Presenter
     private var especifyUserId = -1
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +41,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     ): View? {
         inflate = inflater.inflate(R.layout.fragment_home, container, false)
         textTitleScreen = inflate.textView_tituloHome
+        val textSubtitle = inflate.textView_mensagemHome
         try {
             especifyUserId = arguments?.get("id") as Int
         } catch (e: Exception) {
@@ -52,6 +52,7 @@ class HomeFragment : Fragment(), HomeContract.View {
         if (especifyUserId < 0) {
             presenter.getListReservations()
         } else {
+            textSubtitle.text = "Agendamentos do contato"
             Toast.makeText(context, "${especifyUserId}", Toast.LENGTH_LONG).show()
             presenter.getListReservations(especifyUserId)
 

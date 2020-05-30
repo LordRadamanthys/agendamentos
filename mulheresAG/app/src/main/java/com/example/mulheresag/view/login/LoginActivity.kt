@@ -4,10 +4,13 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mulheresag.R
@@ -21,20 +24,29 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
-    lateinit var presenter: LoginContract.Presenter
+    private lateinit var presenter: LoginContract.Presenter
+    private lateinit var textRegister: TextView
+    private lateinit var btnLogin: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         createNotificationChannel()
         presenter = LoginPresenter(this)
 
-
+        initComponents()
 
         loadActionsButton()
 
         genareteTokenFirebaseDevice()
 
         // MyFirebaseMessagingService()
+    }
+
+    private fun initComponents() {
+        btnLogin = button_entrar
+        textRegister = textView_cadastro
+        textRegister.underline()
     }
 
     private fun createNotificationChannel() {
@@ -56,18 +68,18 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     private fun loadActionsButton() {
-        button_entrar.setOnClickListener(View.OnClickListener {
+        btnLogin.setOnClickListener {
             presenter.login(editText_email.text.toString(), editText_senha.text.toString())
-            val home = Intent(this, DefaultActivity::class.java)
-            //startActivity(home)
+        }
 
-
-        })
-
-        textView_cadastro.setOnClickListener {
+        textRegister.setOnClickListener {
             val cadastro = Intent(this, CadastroActivity::class.java)
             startActivity(cadastro)
         }
+    }
+
+    private fun TextView.underline() {
+        paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
     }
 
     private fun genareteTokenFirebaseDevice() {
@@ -76,7 +88,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Log.w("teste", "getInstanceId failed", task.exception)
+                    // Log.w("teste", "getInstanceId failed", task.exception)
                     return@OnCompleteListener
                 }
 
