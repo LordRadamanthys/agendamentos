@@ -13,18 +13,23 @@ class AgendamentosPresenter(view: AgendamentosContract.View) : AgendamentosContr
         view.showProgressBar(true)
         var domain = ReservationDomain()
         domain.repository = ReservationRepository()
-        domain.createReservation(model, object : BaseCallBack<ReservationModel> {
-            override fun onSuccessful(value: ReservationModel) {
-                view.showProgressBar(false)
-                view.showAlert("Reserva efetuada :)", true)
-            }
+        try {
+            domain.createReservation(model, object : BaseCallBack<ReservationModel> {
+                override fun onSuccessful(value: ReservationModel) {
+                    view.showProgressBar(false)
+                    view.showAlert("Reserva efetuada :)", true)
+                }
 
-            override fun onUnsuccessful(error: String) {
-                view.showProgressBar(false)
-                view.showAlert(error, true)
-            }
+                override fun onUnsuccessful(error: String) {
+                    view.showProgressBar(false)
+                    view.showAlert(error, true)
+                }
 
-        })
+            })
+        }catch (e:Exception){
+            view.showProgressBar(false)
+            view.showAlert(e.message.toString(), true)
+        }
     }
 
     override fun getAllServoces() {

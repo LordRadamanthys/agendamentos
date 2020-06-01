@@ -4,69 +4,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_color_home"
+
     tools:context=".view.admin.adminHome.AdminHomeFragment">
-
-
-    <TextView
-        android:id="@+id/textView_tituloAdminHome"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Olá fulano"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/circularImageViewAdminHome"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/textView_mensagemAdminHome"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="Lista de Clientes"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/textView_tituloAdminHome"
-        app:layout_constraintTop_toBottomOf="@+id/textView_tituloAdminHome" />
-
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/circularImageViewAdminHome"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="centerCrop"
-        app:civ_border_color="#1764EC"
-        app:civ_border_width="2dp"
-        app:civ_shadow="true"
-        app:civ_shadow_color="#292A87"
-        app:civ_shadow_radius="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_tituloAdminHome"
+        android:background="@drawable/background_color_home"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_tituloAdminHome" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView_tituloAdminHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="Olá fulano"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textView_mensagemAdminHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="Lista de Clientes"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView_tituloAdminHome"
+            app:layout_constraintTop_toBottomOf="@+id/textView_tituloAdminHome" />
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/circularImageViewAdminHome"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            app:civ_border_color="#fff"
+            app:civ_border_width="2dp"
+            app:civ_shadow="true"
+            app:civ_shadow_color="#292A87"
+            app:civ_shadow_radius="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_tituloAdminHome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView_tituloAdminHome" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleAdminHomeFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
+
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_mensagemAdminHome"
-        app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/fragment_list_users_chat" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+        tools:listitem="@layout/list_adapter_conversations" />
 
     <ProgressBar
         android:id="@+id/progressBarAdminHome"

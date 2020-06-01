@@ -9,93 +9,128 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_color_home"
         tools:context=".view.cadastro.CadastroActivity">
 
-        <TextView
-            android:id="@+id/textView_titulo_cadastro"
-            android:layout_width="0dp"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="32dp"
-            android:text="Preencha o formulario de cadastro"
-            android:textAlignment="center"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:background="@drawable/background_color_home"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView_titulo_cadastro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="16dp"
+                android:text="Preencha o formulario de cadastro"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewCadastroBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/imageViewCreateUser"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="155dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="156dp"
+                android:layout_marginBottom="24dp"
+                android:src="@drawable/useradd"
+                app:civ_border_color="#fff"
+                app:civ_border_width="2dp"
+                app:civ_shadow="true"
+                app:civ_shadow_color="#292A87"
+                app:civ_shadow_radius="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_titulo_cadastro" />
+
+            <ImageView
+                android:id="@+id/imageViewCadastroBack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_titulo_cadastro"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/arrow_left_round" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
             android:id="@+id/editText_nomeCad"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_width="347dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="34dp"
             android:background="@drawable/item_input_text"
             android:ems="10"
             android:hint="Digite seu nome"
             android:inputType="textPersonName"
             android:padding="15dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:textColorHint="#4A4747"
             android:textSize="18sp"
             android:theme="@style/StyleEditText"
+            app:layout_constraintBottom_toTopOf="@+id/editText_emailCad"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewCreateUser" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
         <EditText
             android:id="@+id/editText_emailCad"
-            android:layout_width="0dp"
+            android:layout_width="347dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
+            android:layout_marginBottom="34dp"
             android:background="@drawable/item_input_text"
-            android:padding="15dp"
+            android:ems="10"
             android:hint="Digite seu melhor E-mail"
             android:inputType="textEmailAddress"
-            android:theme="@style/StyleEditText"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:padding="15dp"
+            android:textColorHint="#4A4747"
             android:textSize="18sp"
+            android:theme="@style/StyleEditText"
+            app:layout_constraintBottom_toTopOf="@+id/editText_senhaCad"
             app:layout_constraintEnd_toEndOf="@+id/editText_nomeCad"
             app:layout_constraintStart_toStartOf="@+id/editText_nomeCad"
             app:layout_constraintTop_toBottomOf="@+id/editText_nomeCad" />
 
         <EditText
             android:id="@+id/editText_senhaCad"
-            android:layout_width="0dp"
+            android:layout_width="347dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:ems="10"
+            android:layout_marginBottom="35dp"
             android:background="@drawable/item_input_text"
-            android:padding="15dp"
+            android:ems="10"
             android:hint="Digite uma senha forte"
             android:inputType="textPassword"
-            android:theme="@style/StyleEditText"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:padding="15dp"
+            android:textColorHint="#4A4747"
             android:textSize="18sp"
+            android:theme="@style/StyleEditText"
+            app:layout_constraintBottom_toTopOf="@+id/switch_admin"
             app:layout_constraintEnd_toEndOf="@+id/editText_emailCad"
             app:layout_constraintStart_toStartOf="@+id/editText_emailCad"
             app:layout_constraintTop_toBottomOf="@+id/editText_emailCad" />
 
         <Switch
             android:id="@+id/switch_admin"
-            android:layout_width="0dp"
+            android:layout_width="315dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="33dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
             android:text="Usuario é administrador  "
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:textColor="#4A4747"
             android:textSize="18sp"
-            android:visibility="invisible"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/button_cadastrar"
             app:layout_constraintEnd_toEndOf="@+id/editText_senhaCad"
             app:layout_constraintStart_toStartOf="@+id/editText_senhaCad"
             app:layout_constraintTop_toBottomOf="@+id/editText_senhaCad" />
@@ -106,56 +141,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
             android:layout_marginEnd="64dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="64dp"
             android:background="@drawable/button_white"
             android:text="Cadastrar"
             android:textColor="#fff"
-            app:layout_constraintBottom_toBottomOf="@+id/ProgressBarCadastro"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch_admin" />
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/imageViewCreateUser"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="22dp"
-            app:civ_border_color="#1764EC"
-            app:civ_border_width="2dp"
-            app:civ_shadow="true"
-            app:civ_shadow_color="#292A87"
-            app:civ_shadow_radius="1dp"
-            app:layout_constraintBottom_toTopOf="@+id/editText_nomeCad"
-            app:layout_constraintEnd_toEndOf="@+id/textView_titulo_cadastro"
-            app:layout_constraintStart_toStartOf="@+id/textView_titulo_cadastro"
-            app:layout_constraintTop_toBottomOf="@+id/textView_titulo_cadastro"
-            android:src="@drawable/useradd" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ProgressBarCadastro"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            android:background="#E13C7DDE"
-            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.499" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/ProgressBarCadastro"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/button_cadastrar"
+            app:layout_constraintEnd_toEndOf="@+id/button_cadastrar"
+            app:layout_constraintStart_toStartOf="@+id/button_cadastrar"
+            app:layout_constraintTop_toTopOf="@+id/button_cadastrar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

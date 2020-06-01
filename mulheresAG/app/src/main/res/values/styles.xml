@@ -15,9 +15,10 @@
     </style>
 
     <style name="StyleEditText">
-        <item name="colorControlActivated">#FFF</item>
-        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlActivated">#DE1616</item>
+        <item name="colorControlNormal">#050202</item>
         <item name="colorControlHighlight">#FFF</item>
+        <item name="android:textColor">#C9090808</item>
     </style>
 
     <style name="StyleClockAndDate" parent="Theme.AppCompat.Light.Dialog">

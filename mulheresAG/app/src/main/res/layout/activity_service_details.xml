@@ -4,114 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_color_home"
     tools:context=".view.admin.services.Details.ServiceDetailsActivity">
 
 
-    <TextView
-        android:id="@+id/textViewTitulo_Details_Service"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_color_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewTitulo_Details_Service"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:text="Detalhes"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <EditText
+        android:id="@+id/title_DetailsService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Detalhes"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginEnd="16dp"
+        android:hint="Nome do Serviço"
+        android:background="@drawable/item_input_text"
+        android:padding="10dp"
+        android:textColorHint="#4A4747"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_Nome_Details_Service"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/value_DetailsService"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
+        android:layout_marginEnd="16dp"
+        android:hint="Valor do serviço"
+        android:background="@drawable/item_input_text"
+        android:padding="10dp"
+        android:textColorHint="#4A4747"
         android:textSize="18sp"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo_Details_Service">
+        app:layout_constraintTop_toBottomOf="@+id/title_DetailsService" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/title_DetailsService"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/StyleEditText"
-
-            android:textColor="#fff"
-            android:hint="Nome do Serviço" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_Valor_Details_Service"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/description_DetailsService"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Descrição"
+        android:background="@drawable/item_input_text"
+        android:padding="10dp"
+        android:textColorHint="#4A4747"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_Nome_Details_Service">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/value_DetailsService"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/StyleEditText"
-            android:inputType="numberDecimal"
-            android:textColor="#fff"
-            android:hint="Valor do serviço" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_Descricao_Details_Service"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_Valor_Details_Service">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/description_DetailsService"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#fff"
-            android:theme="@style/StyleEditText"
-            android:hint="Descrição" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/value_DetailsService" />
 
     <RadioGroup
         android:id="@+id/radioGroup_Details_Service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         android:checkedButton="@id/radio_Details_Service_ativado"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_Descricao_Details_Service">
+        app:layout_constraintTop_toBottomOf="@+id/description_DetailsService">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
             android:text="Status"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:textColor="#4A4747"
             android:textSize="18sp" />
 
         <RadioButton
@@ -119,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ativado"
-            android:textColor="#fff"
+            android:textColor="#4A4747"
             android:textColorHint="#fff"
             android:textSize="18sp" />
 
@@ -129,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Desativado"
-            android:textColor="#fff"
+            android:textColor="#4A4747"
             android:textColorHint="#fff"
             android:textSize="18sp" />
     </RadioGroup>
@@ -141,7 +132,6 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="64dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/button_white"
         android:text="Salvar"
         android:textColor="#fff"
@@ -150,31 +140,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup_Details_Service" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ProgressBarDetailsService"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:background="#E13C7DDE"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.499" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/ProgressBarDetailsService"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/button_Details_Service"
+        app:layout_constraintEnd_toEndOf="@+id/button_Details_Service"
+        app:layout_constraintStart_toStartOf="@+id/button_Details_Service"
+        app:layout_constraintTop_toTopOf="@+id/button_Details_Service" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

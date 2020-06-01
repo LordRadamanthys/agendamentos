@@ -9,41 +9,52 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_color_home"
         tools:context=".view.agendamento.AgendamentosFragment">
 
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Faça seu agendamento"
-            android:textAlignment="center"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:background="@drawable/background_color_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:text="Faça seu agendamento"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <EditText
             android:id="@+id/editText_horasReserva"
             android:layout_width="0dp"
             android:layout_height="42dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:ems="10"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/item_input_text"
+            android:ems="10"
             android:focusable="false"
             android:hint="hh:mm"
             android:inputType="text"
             android:textAlignment="center"
-            android:theme="@style/StyleEditText"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:textColorHint="#4A4747"
             android:textSize="18sp"
+            android:theme="@style/StyleEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -52,55 +63,52 @@
             android:id="@+id/editText_dataReserva"
             android:layout_width="0dp"
             android:layout_height="42dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:ems="10"
-            android:textAlignment="center"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/item_input_text"
+            android:ems="10"
             android:focusable="false"
             android:hint="dd/mm/AAAA"
-            android:theme="@style/StyleEditText"
             android:inputType="date"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:textAlignment="center"
+            android:textColorHint="#4A4747"
             android:textSize="18sp"
+            android:theme="@style/StyleEditText"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="0dp"
+            android:layout_width="147dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
             android:text="Horario"
-            android:textColor="#fff"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/editText_horasReserva"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/editTextServicos" />
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="0dp"
+            android:layout_width="147dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:text="Data"
-            android:textColor="#fff"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextServicos" />
 
         <Button
             android:id="@+id/button_reservar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="65dp"
             android:layout_marginEnd="64dp"
-            android:layout_marginBottom="32dp"
             android:background="@drawable/button_white"
             android:text="Reservar"
             android:textColor="#fff"
@@ -111,30 +119,31 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="64dp"
+            android:layout_marginEnd="16dp"
             android:text="Selecione quais serviços deseja"
-            android:textColor="#fff"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/editTextServicos"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
         <EditText
             android:id="@+id/editTextServicos"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:ems="10"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/item_input_text"
-            android:padding="10dp"
+            android:ems="10"
+            android:hint="Serviços..."
             android:inputType="textMultiLine"
-            android:theme="@style/StyleEditText"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:padding="10dp"
+            android:textColorHint="#4A4747"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +153,7 @@
             android:id="@+id/textView6"
             android:layout_width="53dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/progressBarAgendamentosConstraint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextServicos" />
@@ -153,20 +162,18 @@
             android:id="@+id/editTextDescricao"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/item_input_text"
             android:ems="10"
             android:gravity="start|top"
+            android:hint="Descrição"
             android:inputType="textMultiLine"
-            android:theme="@style/StyleEditText"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:textSize="18sp"
-            android:background="@drawable/item_input_text"
             android:padding="10dp"
+            android:textColorHint="#4A4747"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -174,10 +181,9 @@
             android:id="@+id/textView7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:text="Descrição"
-            android:textColor="#fff"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -188,22 +194,21 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#E13C7DDE"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ProgressBar
-                android:id="@+id/progressBarAgendamentos"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="206dp"
+            tools:layout_editor_absoluteY="366dp">
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBarAgendamentos"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_reservar"
+            app:layout_constraintEnd_toEndOf="@+id/button_reservar"
+            app:layout_constraintStart_toStartOf="@+id/button_reservar"
+            app:layout_constraintTop_toTopOf="@+id/button_reservar" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

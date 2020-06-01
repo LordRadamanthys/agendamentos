@@ -3,6 +3,8 @@ package com.example.mulheresag.view.admin.services.Details
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mulheresag.R
@@ -13,11 +15,11 @@ import kotlinx.android.synthetic.main.activity_service_details.*
 
 class ServiceDetailsActivity : AppCompatActivity(), DetailsServiceContract.View {
 
-    private lateinit var title: TextInputEditText
-    private lateinit var value: TextInputEditText
-    private lateinit var description: TextInputEditText
+    private lateinit var title: EditText
+    private lateinit var value: EditText
+    private lateinit var description: EditText
     private lateinit var radio: RadioGroup
-    private lateinit var ProgressBar: View
+    private lateinit var progressBar: ProgressBar
     private var status = true
     private lateinit var btn: Button
     private lateinit var modelService: ServiceModel
@@ -37,7 +39,7 @@ class ServiceDetailsActivity : AppCompatActivity(), DetailsServiceContract.View 
         //verifyStatus()
 
         actionsButton()
-        progressBar.visibility = View.INVISIBLE
+
 
     }
 
@@ -62,14 +64,13 @@ class ServiceDetailsActivity : AppCompatActivity(), DetailsServiceContract.View 
     }
 
     private fun initComponents() {
-        ProgressBar = ProgressBarDetailsService
+        progressBar = ProgressBarDetailsService
         title = title_DetailsService
         value = value_DetailsService
         description = description_DetailsService
         btn = button_Details_Service
         radio = radioGroup_Details_Service
         presenter = DetailsServicePresenter(this)
-        progressBar.visibility = View.VISIBLE
         idExtra = getIntent().getIntExtra("id", -1)
     }
 
@@ -111,7 +112,7 @@ class ServiceDetailsActivity : AppCompatActivity(), DetailsServiceContract.View 
     }
 
     override fun showProgresse(key: Boolean) {
-        ProgressBar.visibility = if (key) View.VISIBLE else View.INVISIBLE
+        progressBar.visibility = if (key) View.VISIBLE else View.INVISIBLE
         btn.visibility = if (!key) View.VISIBLE else View.INVISIBLE
     }
 

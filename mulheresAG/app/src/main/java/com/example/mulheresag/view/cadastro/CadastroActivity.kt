@@ -38,6 +38,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     private lateinit var presenter: CadastroContract.Presenter
     private lateinit var progressBar: View
     private lateinit var imageUser: ImageView
+    private lateinit var btnBackPage: ImageView
     private lateinit var switchAdmin: Switch
     private var picturePath: String = ""
     private lateinit var managePermissions: ManagePermissions
@@ -98,8 +99,10 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
         this.imageUser = imageViewCreateUser
         titleCadastro = textView_titulo_cadastro
         switchAdmin = switch_admin
+        btnBackPage = imageViewCadastroBack
         progressBar = ProgressBarCadastro
         presenter = CadastroPresenter(this)
+        backPage()
     }
 
     private fun permissions() {
@@ -113,6 +116,13 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
     private fun verifySwitch(isAdmin: Boolean) {
         switchAdmin.isChecked = isAdmin
+    }
+
+    fun backPage() {
+        btnBackPage.setOnClickListener {
+            onBackPressed()
+        }
+        return
     }
 
     private fun selectImageInAlbum() {
