@@ -1,11 +1,9 @@
 package com.example.mulheresag.view.admin.services.Details
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.RadioGroup
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.ServiceModel
@@ -29,7 +27,9 @@ class ServiceDetailsActivity : AppCompatActivity(), DetailsServiceContract.View 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_details)
-
+        val preference : SharedPreferences = getPreferences(0)
+        var teste = preference.getString("name", "teste")
+        Toast.makeText(this,teste,Toast.LENGTH_LONG).show()
         initComponents()
 
         if (idExtra != -1) {

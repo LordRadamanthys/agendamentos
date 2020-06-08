@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
@@ -105,6 +106,15 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
 
     override fun navigateToHome(user: UserModel) {
+        var preferences = App.setPreferences(this)
+        preferences.edit().putInt("id", user.id).commit()
+        preferences.edit().putString("name", user.name).commit()
+        preferences.edit().putString("email", user.email).commit()
+        preferences.edit().putString("token", user.token).commit()
+        preferences.edit().putBoolean("admin", user.admin).commit()
+        preferences.edit().putBoolean("saveLogin", false).commit()
+
+
         val home = Intent(this, DefaultActivity::class.java)
         startActivity(home)
         finish()

@@ -1,6 +1,7 @@
 package com.example.mulheresag.view.admin.adminHome
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,7 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
     private lateinit var textTitleScreen: TextView
     private lateinit var imageUser: CircularImageView
     lateinit var adapter: AdapterAdminHome
+    private lateinit var preferences: SharedPreferences
     lateinit var presenter: AdminHomeContract.Presenter
 
 
@@ -42,9 +44,9 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
 
         initComponents()
 
-        imageUser.setOnClickListener{
-            var intent = Intent(activity,CadastroActivity::class.java)
-            intent.putExtra("id",App.user.id)
+        imageUser.setOnClickListener {
+            var intent = Intent(activity, CadastroActivity::class.java)
+            intent.putExtra("id", App.user.id)
             startActivity(intent)
         }
 
@@ -56,7 +58,8 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
     private fun initComponents() {
         textTitleScreen = inflate.textView_tituloAdminHome
         imageUser = inflate.circularImageViewAdminHome
-        textTitleScreen.text = "Olá ${App.userName}"
+        preferences = context?.let { App.setPreferences(it) }!!
+        textTitleScreen.text = "Olá ${preferences?.getString("name", "")}"
         recyclerViewAdminHome = inflate.recycleAdminHomeFragment
         progressBarAdminHome = inflate.progressBarAdminHome
         setGlide()
@@ -90,7 +93,7 @@ class AdminHomeFragment : Fragment(), AdminHomeContract.View {
     }
 
     fun setGlide() {
-        val url = "${App.ip}3333/uploads/${App.user.id}"
+        val url = "${App.ip}3333/uploads/${preferences.getInt("id",-1)}"
         val glideUrl = GlideUrl(url) { mapOf(Pair("Authorization", App.userToken)) }
 
         Glide.with(inflate.context)

@@ -3,6 +3,7 @@ package com.example.mulheresag.view.cadastro
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.media.ExifInterface
 import android.net.Uri
