@@ -15,7 +15,7 @@ class ManagePermissions(val activity: Activity, val list: Array<String>, val cod
         if (isPermissionsGranted() != PackageManager.PERMISSION_GRANTED) {
             showAlert()
         } else {
-            Toast.makeText(activity,"garantido",Toast.LENGTH_LONG).show()
+            //Toast.makeText(activity,"garantido",Toast.LENGTH_LONG).show()
         }
     }
 

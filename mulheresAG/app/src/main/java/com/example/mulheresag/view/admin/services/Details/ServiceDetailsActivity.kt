@@ -27,9 +27,6 @@ class ServiceDetailsActivity : AppCompatActivity(), DetailsServiceContract.View 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_service_details)
-        val preference : SharedPreferences = getPreferences(0)
-        var teste = preference.getString("name", "teste")
-        Toast.makeText(this,teste,Toast.LENGTH_LONG).show()
         initComponents()
 
         if (idExtra != -1) {

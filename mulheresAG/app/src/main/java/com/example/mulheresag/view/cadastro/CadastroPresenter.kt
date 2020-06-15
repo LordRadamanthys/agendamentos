@@ -54,6 +54,7 @@ class CadastroPresenter(view: CadastroContract.View) : CadastroContract.Presente
     }
 
     override fun updateUser(user: UserModel) {
+
         view.showProgressBar(true)
         var domain = UserDomain("", "")
         domain.repository = UserRepository()

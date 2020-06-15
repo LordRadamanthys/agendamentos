@@ -246,8 +246,10 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     }
 
     fun setGlide(id: Int) {
+        val preferences = App.setPreferences(this)
+        var token = preferences.getString("token","")
         val url = "${App.ip}3333/uploads/$id"
-        val glideUrl = GlideUrl(url) { mapOf(Pair("Authorization", App.userToken)) }
+        val glideUrl = GlideUrl(url) { mapOf(Pair("Authorization", token)) }
 
         Glide.with(applicationContext)
             .load(glideUrl)

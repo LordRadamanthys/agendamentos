@@ -91,7 +91,7 @@ class UserDomain(email: String, password: String) {
     fun updateUser(user: UserModel, listener: BaseCallBack<String>) {
         if (user.name.isEmpty()) throw Exception("Nome não pode ser vazio")
         if (user.phone.isEmpty()) throw Exception("Telefone não pode ser vazio")
-        if (password.length < 3) throw Exception("senha deve ter mais de 3 caracteres")
+        if (user.password.length < 3) throw Exception("senha deve ter mais de 3 caracteres")
         repository.updateUser(user, object : BaseCallBack<String> {
             override fun onSuccessful(value: String) {
                 listener.onSuccessful(value)
