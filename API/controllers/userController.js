@@ -34,6 +34,7 @@ module.exports = {
         if (!req.body.name) return res.status(400).send({ error: 'nome não pode ser vazio' })
         if (!req.body.email) return res.status(400).send({ error: "email obrigatorio" })
         if (!req.body.password) return res.status(400).send({ error: "senha obrigatorio" })
+        if (!req.body.phone) return res.status(400).send({ error: "numero de telefone obrigatorio" })
         if (!req.body.device) return res.status(400).send({ error: "id do device não pode ser vazio" })
 
         var aux = await User.findOne({ where: { email: req.body.email } })
@@ -46,6 +47,7 @@ module.exports = {
                 email: req.body.email,
                 password: req.body.password,
                 device: req.body.device,
+                phone: req.body.phone,
                 admin: req.body.admin ? req.body.admin : false,
             })
 
@@ -65,6 +67,7 @@ module.exports = {
         if (!req.body.name) return res.status(400).send({ error: 'nome não pode ser vazio' })
         if (!req.body.email) return res.status(400).send({ error: "email obrigatorio" })
         if (!req.body.password) return res.status(400).send({ error: "senha obrigatorio" })
+        if (!req.body.phone) return res.status(400).send({ error: "numero de telefone obrigatorio" })
         if (!req.body.device) return res.status(400).send({ error: "id do device não pode ser vazio" })
 
         // var aux = await User.findOne({ where: { email: req.body.email } })
@@ -76,6 +79,7 @@ module.exports = {
                 email: req.body.email,
                 password: req.body.password,
                 device: req.body.device,
+                phone: req.body.phone,
                 admin: req.body.admin ? req.body.admin : false,
             }, {
                 where: {

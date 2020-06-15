@@ -40,8 +40,8 @@ routes.post("/uploads", multer(multerConfig).single("file"), (req, res) => {
 routes.get("/uploads/:id", (req, res) => {
     const types = [
         'jpeg',
-        'pjpeg',
         'jpg',
+        
         'png',
         'gif',
     ] 

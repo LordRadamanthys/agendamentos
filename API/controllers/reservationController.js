@@ -39,7 +39,7 @@ module.exports = {
                     fullPrice: reservations[i].fullPrice,
                     status: reservations[i].status,
                     description: reservations[i].description,
-                    services: await db.sequelize.query("SELECT s.id, s.title FROM db_agenda.reservations r inner join db_agenda.shopping sh inner join db_agenda.services s on sh.reservationId = r.id and sh.serviceId=s.id  where r.userId=" + req.userId + " and r.id = " + reservations[i].id, { type: db.sequelize.QueryTypes.SELECT })
+                    services: await db.sequelize.query("SELECT s.id, s.title FROM db_agenda.reservations r inner join db_agenda.shopping sh inner join db_agenda.services s on sh.reservationId = r.id and sh.serviceId=s.id  where r.userId=" + id + " and r.id = " + reservations[i].id, { type: db.sequelize.QueryTypes.SELECT })
 
                 }
                 reservationsAndServices.push(newList)
