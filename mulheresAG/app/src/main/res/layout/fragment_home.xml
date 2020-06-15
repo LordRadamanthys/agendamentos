@@ -19,16 +19,25 @@
             android:id="@+id/textView_tituloHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:text="Olá fulano"
             android:textAlignment="center"
             android:textColor="#fff"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/circularImageViewHome"
+            app:layout_constraintStart_toEndOf="@+id/imageViewHomeBack"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageViewHomeBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_tituloHome"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView_tituloHome"
+            app:srcCompat="@drawable/arrow_left_round" />
 
 
         <com.mikhaellopez.circularimageview.CircularImageView
@@ -38,7 +47,7 @@
             android:layout_marginEnd="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/useradd"
-            app:civ_border_color="#1764EC"
+            app:civ_border_color="#FFF"
             app:civ_border_width="2dp"
             app:civ_shadow="true"
             app:civ_shadow_color="#292A87"
@@ -51,7 +60,7 @@
             android:id="@+id/textView_mensagemHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
@@ -61,7 +70,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView_tituloHome"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_tituloHome" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

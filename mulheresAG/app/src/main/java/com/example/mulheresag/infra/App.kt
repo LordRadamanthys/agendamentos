@@ -10,7 +10,7 @@ import okhttp3.OkHttpClient
 class App : Application() {
     companion object {
         lateinit var instance: App
-        var ip = "http://192.168.1.37:"
+        var ip = "http://192.168.15.9:"
         var isAdmin = false
         var userName = ""
         lateinit var preference: SharedPreferences

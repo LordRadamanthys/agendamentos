@@ -3,7 +3,6 @@ package com.example.mulheresag.view.cadastro
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.media.ExifInterface
 import android.net.Uri
@@ -13,10 +12,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
-import android.widget.ImageView
-import android.widget.Switch
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -42,6 +38,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     private lateinit var btnBackPage: ImageView
     private lateinit var switchAdmin: Switch
     private var picturePath: String = ""
+    private lateinit var btnAction: Button
     private lateinit var managePermissions: ManagePermissions
     private val REQUEST_SELECT_IMAGE_IN_ALBUM = 2121
     private val PERMISSION_REQUEST_CODE = 123
@@ -77,11 +74,12 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
             selectImageInAlbum()
         }
 
-        button_cadastrar.setOnClickListener {
+        btnAction.setOnClickListener {
             val userModel = UserModel()
             userModel.name = editText_nomeCad.text.toString()
             userModel.email = editText_emailCad.text.toString()
             userModel.password = editText_senhaCad.text.toString()
+            userModel.phone = editText_phoneCad.text.toString()
             userModel.tokenDevice = App.tokenFirebase
             userModel.admin = switchAdmin.isChecked
 
@@ -97,6 +95,7 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
     }
 
     private fun initComponents() {
+        btnAction = button_cadastrar
         this.imageUser = imageViewCreateUser
         titleCadastro = textView_titulo_cadastro
         switchAdmin = switch_admin
@@ -104,6 +103,8 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
         progressBar = ProgressBarCadastro
         presenter = CadastroPresenter(this)
         backPage()
+        switchAdmin.visibility = View.INVISIBLE
+        setVisibility()
     }
 
     private fun permissions() {
@@ -115,8 +116,17 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
             managePermissions.checkPermissions()
     }
 
-    private fun verifySwitch(isAdmin: Boolean) {
+    private fun setSwitch(isAdmin: Boolean) {
         switchAdmin.isChecked = isAdmin
+    }
+    private fun setVisibility(){
+        val preferences = App.setPreferences(this)
+        val admin = preferences.getBoolean("admin",false)
+        if(admin){
+            switchAdmin.visibility = View.VISIBLE
+        }else{
+            switchAdmin.visibility = View.INVISIBLE
+        }
     }
 
     fun backPage() {
@@ -200,6 +210,8 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
 
     override fun showProgressBar(key: Boolean) {
         progressBar.visibility = if (key) View.VISIBLE else View.INVISIBLE
+        btnAction.visibility = if (!key) View.VISIBLE else View.INVISIBLE
+        disableFields(!key)
     }
 
     override fun setImage(toke: String) {
@@ -215,7 +227,16 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
         editText_nomeCad.setText(user.name)
         editText_emailCad.setText(user.email)
         editText_senhaCad.setText(user.password)
-        verifySwitch(user.admin)
+        editText_phoneCad.setText(user.phone)
+        setSwitch(user.admin)
+    }
+
+    private fun disableFields(key:Boolean){
+        editText_nomeCad.isEnabled = key
+        editText_emailCad.isEnabled = key
+        editText_senhaCad.isEnabled = key
+        editText_phoneCad.isEnabled = key
+
     }
 
 
@@ -236,19 +257,6 @@ class CadastroActivity : AppCompatActivity(), CadastroContract.View {
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(imageUser)
 
-//        var picasso =
-//            Picasso.Builder(applicationContext).downloader(OkHttp3Downloader(picassoAuth())).build()
-//        picasso.load("${App.ip}3333/uploads/1")
-//            .into(imageUser, object : Callback {
-//                override fun onSuccess() {
-//                    println()
-//                }
-//
-//                override fun onError() {
-//                    println()
-//                }
-//
-//            })
     }
 
     fun getMimeType(url: String): String? {

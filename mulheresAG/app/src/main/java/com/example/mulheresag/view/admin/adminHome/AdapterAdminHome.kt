@@ -41,14 +41,17 @@ class AdapterAdminHome(list: ArrayList<UserModel>, context: Context) :
     }
 
     override fun getItemCount(): Int {
-        return listUsers.size
+        return listUsers.size-1
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var model = listUsers[position]
-        holder.nome.text = model.name
-        holder.description.text = model.email
-        setGlide(model.id, holder.imageProfile)
+        if (App.user.id != model.id) {
+
+            holder.nome.text = model.name
+            holder.description.text = model.email
+            setGlide(model.id, holder.imageProfile)
+        }
     }
 
     fun setGlide(id: Int, img: ImageView) {

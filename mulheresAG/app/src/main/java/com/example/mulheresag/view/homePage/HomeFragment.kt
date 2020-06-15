@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -31,6 +32,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     lateinit var textTitleScreen: TextView
     lateinit var progressBarHome: ProgressBar
     private lateinit var imageUser: CircularImageView
+    private lateinit var btnBack: ImageView
     lateinit var presenter: HomeContract.Presenter
     private var especifyUserId = -1
 
@@ -51,9 +53,10 @@ class HomeFragment : Fragment(), HomeContract.View {
 
         if (especifyUserId < 0) {
             presenter.getListReservations()
+            btnBack.visibility = View.INVISIBLE
         } else {
             textSubtitle.text = "Agendamentos do contato"
-            Toast.makeText(context, "${especifyUserId}", Toast.LENGTH_LONG).show()
+
             presenter.getListReservations(especifyUserId)
 
         }
@@ -75,10 +78,18 @@ class HomeFragment : Fragment(), HomeContract.View {
         textTitleScreen.text = "Olá ${App.userName}"
         progressBarHome = inflate.progressBarHome
         recyclerViewHome = inflate.recycleHomeFragment
+        btnBack = inflate.imageViewHomeBack
         setGlide()
+        backPage()
         presenter = HomePresenter(this)
     }
 
+    fun backPage() {
+        btnBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
+        return
+    }
 
     override fun setList(list: ArrayList<ReservationModel>) {
 

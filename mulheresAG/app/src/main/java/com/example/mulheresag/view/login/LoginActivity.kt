@@ -10,9 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mulheresag.R
 import com.example.mulheresag.data.remote.model.UserModel
@@ -23,11 +21,15 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var presenter: LoginContract.Presenter
     private lateinit var textRegister: TextView
     private lateinit var btnLogin: Button
+    private lateinit var swicthSaveLogin: Switch
+    private lateinit var editTextEmail: EditText
+    private lateinit var editTextPassword: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,13 +48,25 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     private fun initComponents() {
         btnLogin = button_entrar
+        editTextEmail =  editText_email
+        editTextPassword = editText_senha
+        swicthSaveLogin = switchLembrarSenha
         textRegister = textView_cadastro
         textRegister.underline()
+        verifyPreferencesLogin()
+    }
+
+    private fun verifyPreferencesLogin(){
+        val preferences = App.setPreferences(this)
+        val hasPreferences = preferences.getBoolean("saveLogin",false)
+        if(hasPreferences){
+            editTextEmail.setText(preferences.getString("email",""))
+            editTextPassword.setText(preferences.getString("password",""))
+            swicthSaveLogin.isChecked = hasPreferences
+        }
     }
 
     private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.app_name)
             val descriptionText = getString(R.string.app_name)
@@ -70,7 +84,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     private fun loadActionsButton() {
         btnLogin.setOnClickListener {
-            presenter.login(editText_email.text.toString(), editText_senha.text.toString())
+            presenter.login(editTextEmail.text.toString(), editTextPassword.text.toString())
         }
 
         textRegister.setOnClickListener {
@@ -106,13 +120,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
 
     override fun navigateToHome(user: UserModel) {
-        var preferences = App.setPreferences(this)
-        preferences.edit().putInt("id", user.id).commit()
-        preferences.edit().putString("name", user.name).commit()
-        preferences.edit().putString("email", user.email).commit()
-        preferences.edit().putString("token", user.token).commit()
-        preferences.edit().putBoolean("admin", user.admin).commit()
-        preferences.edit().putBoolean("saveLogin", false).commit()
+        val preferences = App.setPreferences(this)
+        preferences.edit().putInt("id", user.id).apply()
+        preferences.edit().putString("name", user.name).apply()
+        preferences.edit().putString("email", user.email).apply()
+        preferences.edit().putString("password", editTextPassword.text.toString()).apply()
+        preferences.edit().putString("token", "Bearer "+user.token).apply()
+        preferences.edit().putBoolean("admin", user.admin).apply()
+        preferences.edit().putBoolean("saveLogin", swicthSaveLogin.isChecked).apply()
 
 
         val home = Intent(this, DefaultActivity::class.java)

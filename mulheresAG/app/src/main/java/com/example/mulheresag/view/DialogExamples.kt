@@ -49,7 +49,8 @@ class DialogExamples {
             buttonConfirm.setOnClickListener {
                 dialog.dismiss()
                 if (closeActivity) {
-                    App.isAdmin = false
+                    val preferences = App.setPreferences(activity)
+                    preferences.edit().putBoolean("admin", false).apply()
                     activity.finish()
                 }
 
@@ -68,6 +69,8 @@ class DialogExamples {
             btnYes.setOnClickListener {
                 val intent = Intent(activity, LoginActivity::class.java)
                 dialog.dismiss()
+                val preferences = App.setPreferences(activity.applicationContext)
+                preferences.edit().putBoolean("admin", false).apply()
                 activity.startActivity(intent)
                 activity.finish()
             }

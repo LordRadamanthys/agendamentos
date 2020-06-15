@@ -25,7 +25,9 @@ class DefaultActivity : AppCompatActivity() {
     }
 
     private fun bottomNavigation() {
-        if (App.isAdmin) {
+        val preferences = App.setPreferences(this)
+        var admin = preferences.getBoolean("admin", false)
+        if (admin) {
             openFragment(AdminHomeFragment())
         } else {
             openFragment(HomeFragment())
@@ -34,7 +36,7 @@ class DefaultActivity : AppCompatActivity() {
 
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    if (App.isAdmin) {
+                    if (admin) {
                         openFragment(AdminHomeFragment())
                     } else {
                         openFragment(HomeFragment())
