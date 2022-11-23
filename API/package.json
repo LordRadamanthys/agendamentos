@@ -16,7 +16,7 @@
     "nodemon": "^2.0.2",
     "package.json": "^2.0.1",
     "sequelize": "^5.21.2",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.5.0"
   },
   "devDependencies": {
     "sequelize-cli": "^5.5.1"
